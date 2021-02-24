@@ -4,52 +4,7 @@
     <!-- ========================= -->
     <!-- 欣欣鲜花交易平台！ bar -->
     <!-- ========================= -->
-    <div class="top-bar">
-      <div class="top-bar-item">
 
-        <div class="top-bar-item-left">
-
-          <div style="cursor: pointer" @click="goHome()">
-            <i class="el-icon-magic-stick" style="color:#ff6a00;margin-right: 2px"/>
-            欣欣鲜花交易平台！
-          </div>
-
-          <div class="person co" @click="person()">
-            个人中心
-          </div>
-
-        </div>
-
-        <div class="top-bar-item-right">
-
-          <div class="cart co" @click="goShopping()">
-            购物车{{'(' + shoppingNum + ')'}}
-          </div>
-
-          <div class="register co" @click="goRegister()">
-            注册
-          </div>
-
-          <div class="login co" @click="goLogin()" v-if="!showLogin">
-            你好，请登录
-          </div>
-
-          <div class="login" style="cursor: pointer" v-else>
-            <el-dropdown  @click="layoutLogin">
-              <span class="el-dropdown-link">
-               你好，{{UserInfo.uname}}<i class="el-icon-arrow-down el-icon--right"></i>
-              </span>
-              <el-dropdown-menu slot="dropdown" @click="layoutLogin">
-                <el-dropdown-item @click="layoutLogin">退出</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-
-          </div>
-
-        </div>
-
-      </div>
-    </div>
 
     <div class="bar">
       <div class="home-content">
