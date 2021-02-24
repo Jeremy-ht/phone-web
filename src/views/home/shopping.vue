@@ -1,110 +1,136 @@
 <template>
   <div class="home-container">
 
-    <div class="top-bar">
-      <div class="top-bar-item">
+    <div class="shopping-1">
 
-        <div class="top-bar-item-left">
 
-          <div style="cursor: pointer" @click="goHome()">
-            <i class="el-icon-magic-stick" style="color:#ff6a00;margin-right: 2px"/>
-            欣欣鲜花交易平台！
-          </div>
+      <div class="title">
+        <h3 style="margin-left: 20px;font-weight: 400;">购物清单</h3>
 
-          <div class="person co" @click="person()">
-            个人中心
+        <div class="cart-table-title">
+          <div class="name">商品信息</div>
+          <div class="price1">单价</div>
+          <div class="num">数量</div>
+          <div class="subtotal">小计</div>
+          <div class="operation">操作</div>
+        </div>
+
+        <div class="shopping-items">
+
+          <div v-if="showList" class="shopping-item" v-for="item in cartList" :index="item.id">
+
+            <div style="width: 800px">
+              <el-checkbox style="margin: auto 0" @change="checkboxBox(item.price, item.amount, item.id)"
+                           :key="item.id"/>
+
+              <img :src="item.image">
+
+              <div class="name">
+                {{item.name}}
+              </div>
+            </div>
+
+
+            <div class="price">
+              {{item.price}}
+            </div>
+
+            <div class="count">
+              <el-input-number v-model="item.amount" size="small"
+                               @change="handleChange(item.amount,item.id)" :min="1"/>
+            </div>
+
+            <div class="price-count">
+              {{item.price * item.amount}}
+            </div>
+
+            <div class="delete">
+              <i class="el-icon-delete" @click="delCart(item.id)"/>
+            </div>
           </div>
 
         </div>
 
-        <div class="top-bar-item-right">
+        <div v-if="!showList" style="color: black;text-align: center;margin-top: 100px">
+          购物车为空
+        </div>
 
-          <div class="cart co" @click="goShopping()">
-            购物车{{'(' + shoppingNum + ')'}}
-          </div>
-
-          <div class="register co" @click="goRegister()">
-            注册
-          </div>
-
-          <div class="login co" @click="goLogin()" v-if="!showLogin">
-            你好，请登录
-          </div>
-
-          <div class="login" style="cursor: pointer" v-else>
-            <el-dropdown>
-              <span class="el-dropdown-link">
-               你好，{{UserInfo.uname}}<i class="el-icon-arrow-down el-icon--right"></i>
+        <div class="pay">
+          <div>
+              <span class="total-price"> 应付总额：
+                <em id="J_cartTotalPrice">{{totalPrice + ' '}}</em>元
               </span>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click="layoutLogin">退出</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-
           </div>
 
-        </div>
-
-      </div>
-    </div>
-
-    <div class="shopping">
-      <div style="margin: 10px auto">
-        <h2>购 物 车</h2>
-      </div>
-
-      <div class="shopping-items">
-
-        <div v-if="showList" class="shopping-item" v-for="item in cartList" :index="item.id">
-
-          <el-checkbox style="margin: auto 0" @change="checkboxBox(item.price, item.amount, item.id)" :key="item.id"/>
-
-          <img :src="item.image">
-
-          <div class="name">
-            {{item.name}}
+          <div style="margin-left: 40px">
+            <el-button class="aaaaa"
+                       @click="showOrder = true">现在结算
+            </el-button>
           </div>
 
-          <div class="price">
-            {{item.price}}
-          </div>
-
-          <div class="count">
-            <el-input-number v-model="item.amount" size="small"
-                             @change="handleChange(item.amount,item.id)" :min="1"/>
-          </div>
-
-          <div class="price-count">
-            {{item.price * item.amount}}
-          </div>
-
-          <div class="delete">
-            <i class="el-icon-delete" @click="delCart(item.id)"/>
-          </div>
-        </div>
-
-      </div>
-
-      <div v-if="!showList" style="color: black;text-align: center;margin-top: 100px">
-        购物车空空，去挑选鲜花吧.
-      </div>
-
-      <div class="pay">
-        <div>
-          <span class="total-price"> 合计：
-            <em id="J_cartTotalPrice">{{totalPrice + ' '}}</em>元
-          </span>
-        </div>
-
-        <div style="margin-left: 40px">
-          <el-button type="warning" round
-                     @click="showOrder = true">提交订单
-          </el-button>
         </div>
 
       </div>
 
     </div>
+
+    <!--        <div class="shopping">-->
+    <!--          <div style="margin: 10px auto">-->
+    <!--            <h2>购 物 车</h2>-->
+    <!--          </div>-->
+
+    <!--          <div class="shopping-items">-->
+
+    <!--            <div v-if="showList" class="shopping-item" v-for="item in cartList" :index="item.id">-->
+
+    <!--              <el-checkbox style="margin: auto 0" @change="checkboxBox(item.price, item.amount, item.id)" :key="item.id"/>-->
+
+    <!--              <img :src="item.image">-->
+
+    <!--              <div class="name">-->
+    <!--                {{item.name}}-->
+    <!--              </div>-->
+
+    <!--              <div class="price">-->
+    <!--                {{item.price}}-->
+    <!--              </div>-->
+
+    <!--              <div class="count">-->
+    <!--                <el-input-number v-model="item.amount" size="small"-->
+    <!--                                 @change="handleChange(item.amount,item.id)" :min="1"/>-->
+    <!--              </div>-->
+
+    <!--              <div class="price-count">-->
+    <!--                {{item.price * item.amount}}-->
+    <!--              </div>-->
+
+    <!--              <div class="delete">-->
+    <!--                <i class="el-icon-delete" @click="delCart(item.id)"/>-->
+    <!--              </div>-->
+    <!--            </div>-->
+
+    <!--          </div>-->
+
+    <!--          <div v-if="!showList" style="color: black;text-align: center;margin-top: 100px">-->
+    <!--            购物车空空，去挑选鲜花吧.-->
+    <!--          </div>-->
+
+    <!--          <div class="pay">-->
+    <!--            <div>-->
+    <!--              <span class="total-price"> 合计：-->
+    <!--                <em id="J_cartTotalPrice">{{totalPrice + ' '}}</em>元-->
+    <!--              </span>-->
+    <!--            </div>-->
+
+    <!--            <div style="margin-left: 40px">-->
+    <!--              <el-button type="warning" round-->
+    <!--                         @click="showOrder = true">提交订单-->
+    <!--              </el-button>-->
+    <!--            </div>-->
+
+    <!--          </div>-->
+
+    <!--        </div>-->
 
     <!-- ========================= -->
     <!-- 订单 start -->
@@ -141,75 +167,12 @@
     </el-dialog>
 
 
-    <!-- ========================= -->
-    <!-- 登录 注册 start -->
-    <!-- ========================= -->
-    <el-dialog title="登 录" center :visible.sync="loginDialog" width="26%" @close="closeAddAdminForm()">
-      <span>
-        <!--表单-->
-        <div style="display: flex">
-          <el-form style="margin: 4px auto;" :rules="loginFormRules">
-
-          <el-form-item prop="username">
-            <el-input class="form-input"
-                      placeholder="用户名" v-model="loginForm.uname"
-                      :autofocus="true" style="width: 280px;"/>
-          </el-form-item>
-
-            <!--密码-->
-          <el-form-item prop="password">
-            <el-input class="form-input"
-                      type="password" placeholder="密码"
-                      v-model="loginForm.pwd" style="width: 280px"/>
-          </el-form-item>
-
-            <el-form-item style="display: flex;justify-content: center">
-              <el-button type="warning" @click="goLoginTo" size="small">登录</el-button>
-              <el-button style="margin-left: 80px" @click="loginDialog = false" size="small">取 消</el-button>
-            </el-form-item>
-        </el-form>
-        </div>
-
-      </span>
-    </el-dialog>
-
-    <el-dialog title="注 册" center :visible.sync="regDialog" width="30%" @close="closeAddAdminForm()">
-      <span>
-        <!--表单-->
-        <div style="display: flex">
-           <el-form :model="registerForm" :rules="loginFormRules2" style="margin: 4px auto;">
-            <!--用户名-->
-            <el-form-item prop="uname">
-              <el-input placeholder="用户名" v-model="registerForm.uname" style="width: 300px"/>
-            </el-form-item>
-
-             <!--密码-->
-            <el-form-item prop="pwd">
-              <el-input type="password" placeholder="密码"
-                        v-model="registerForm.pwd" style="width: 300px"/>
-            </el-form-item>
-
-             <!--手机号-->
-            <el-form-item prop="phone">
-              <el-input placeholder="手机号" v-model="registerForm.phone" style="width: 300px"/>
-            </el-form-item>
-
-            <el-form-item style="display: flex;justify-content: center">
-              <el-button @click="registerGo" type="success" size="small">注 &nbsp;&nbsp;&nbsp;册</el-button>
-              <el-button style="margin-left: 120px" @click="regDialog = false" size="small">取 消</el-button>
-            </el-form-item>
-          </el-form>
-        </div>
-
-      </span>
-    </el-dialog>
-
   </div>
 </template>
 
 <script>
   import {
-    addCart, getCartList, updAmount, getAddressList,getShoppingNum,
+    addCart, getCartList, updAmount, getAddressList, getShoppingNum,
     getCategoryList, getUserList, getSceneryIndex,
     getSceneryList, getrotationList, updUserInfo,
     getSearchContent, adminLogin, userLogin, addUser, addOrder
@@ -329,7 +292,7 @@
         // 地址
         addressList: [],
         addressid: 0,
-        shoppingNum: 0,
+        shoppingNum: 0
 
       }
     },
@@ -341,51 +304,51 @@
       // 初始化
       async init() {
 
-        // 是否登录
-        if (!this.loginIs()) {
-          this.$message({ message: '请先登录', type: 'error', duration: 1700 })
-          adminInfo
-          return false
-        } else {
-          getShoppingNum(this.UserInfo.id).then(res => {
-            if (res.success) {
-              this.shoppingNum = res.data.data
-
-            } else {
-              this.$message({
-                message: '数据获取失败，请刷新重试',
-                type: 'error', duration: 2000
-              })
-            }
-          })
-
-        }
-
-        await getCartList(this.UserInfo.id).then(res => {
-          if (res.success) {
-            this.cartList = res.data.data
-            if (res.data.data.length == 0) {
-              this.showList = false
-            }
-            console.log(this.cateList)
-          }
-        })
-
-        getAddressList(this.UserInfo.id).then(res => {
-          if (res.success) {
-            this.addressList = res.data.data
-          } else {
-            this.$message({ message: res.message, type: 'error', duration: 1700 })
-          }
-
-        })
+        // // 是否登录
+        // if (!this.loginIs()) {
+        //   this.$message({ message: '请先登录', type: 'error', duration: 1700 })
+        //   adminInfo
+        //   return false
+        // } else {
+        //   getShoppingNum(this.UserInfo.id).then(res => {
+        //     if (res.success) {
+        //       this.shoppingNum = res.data.data
+        //
+        //     } else {
+        //       this.$message({
+        //         message: '数据获取失败，请刷新重试',
+        //         type: 'error', duration: 2000
+        //       })
+        //     }
+        //   })
+        //
+        // }
+        //
+        // await getCartList(this.UserInfo.id).then(res => {
+        //   if (res.success) {
+        //     this.cartList = res.data.data
+        //     if (res.data.data.length == 0) {
+        //       this.showList = false
+        //     }
+        //     console.log(this.cateList)
+        //   }
+        // })
+        //
+        // getAddressList(this.UserInfo.id).then(res => {
+        //   if (res.success) {
+        //     this.addressList = res.data.data
+        //   } else {
+        //     this.$message({ message: res.message, type: 'error', duration: 1700 })
+        //   }
+        //
+        // })
 
       },
 
       // 是否登录
       loginIs() {
         // 是否登录
-        let user = JSON.parse(window.localStorage.getItem('UserInfoFlower'))
+        let user = JSON.parse(window.localStorage.getItem('UserInfoPhone'))
         if (user == undefined || user == null || user == '') {
           return false
         } else {
@@ -423,7 +386,7 @@
 
       // 去首页
       goHome() {
-        this.$router.push({ path: `/scenery/home` })
+        this.$router.push({ path: `/phone/home` })
       },
 
       // 登录
@@ -445,7 +408,7 @@
           if (res.success) {
             res.data.data.pwd = ''
             res.data.data.salt = ''
-            window.localStorage.setItem('UserInfoFlower', JSON.stringify(res.data.data))
+            window.localStorage.setItem('UserInfoPhone', JSON.stringify(res.data.data))
             this.loginDialog = false
             this.init()
           } else {
@@ -593,7 +556,7 @@
         // this.$refs.loginFormRules2.resetFields()
         // this.$refs.loginFormRules.resetFields()
 
-      },
+      }
 
     }
   }
@@ -603,61 +566,11 @@
   .home-container {
     margin: 0;
     padding: 0;
-    font-size: 14px;
-    color: white;
-  }
-
-  .top-bar {
     width: 100%;
-    height: 34px;
-    font-size: 12px;
-    color: #71797F;
-    background-color: #F3F5F7;
-    display: flex;
-  }
-
-  .top-bar-item {
-    width: 1200px;
     height: 100%;
-    margin: 0 auto;
+    font-size: 14px;
+    background-color: #f3f3f3;
     display: flex;
-    justify-content: space-between;
-  }
-
-  .top-bar-item-left {
-    width: 500px;
-    height: 100%;
-    margin: auto 0 auto 1px;
-    line-height: 34px;
-    display: flex;
-  }
-
-  .top-bar-item-right {
-    width: 400px;
-    height: 100%;
-    display: flex;
-    flex-direction: row-reverse;
-  }
-
-  .person {
-    margin: auto 0 auto 20px;
-  }
-
-  .login {
-    margin: auto 0 auto 20px;
-  }
-
-  .register {
-    margin: auto 0 auto 20px;
-  }
-
-  .cart {
-    margin: auto 5px auto 30px;
-  }
-
-  .co:hover {
-    cursor: pointer;
-    color: #ffac89;
   }
 
 
@@ -690,13 +603,13 @@
   }
 
   .shopping-item img {
-    width: 70px;
-    height: 70px;
-    margin: auto 80px;
+    width: 60px;
+    height: 60px;
+    margin: auto 20px;
   }
 
   .shopping-item .name {
-    margin: auto 0;
+    margin: auto 20px;
     width: 300px;
     font-size: 14px;
   }
@@ -708,19 +621,19 @@
 
   .shopping-item .price {
     margin: auto 0;
-    width: 120px;
-    color: #ff6700;
+    width: 100px;
+    /*color: #ff6700;*/
     font-size: 16px;
   }
 
   .shopping-item .count {
     margin: auto 0;
-    width: 60px;
+    width: 100px;
   }
 
   .shopping-item .price-count {
     margin: auto 0 auto 140px;
-    /*width: 30px;*/
+    width: 100px;
     color: #ff6700;
     font-size: 16px;
   }
@@ -728,6 +641,7 @@
   .shopping-item .delete {
     margin: auto 0 auto 70px;
     color: #ff6700;
+    width: 100px;
     font-size: 20px;
     cursor: pointer;
   }
@@ -766,12 +680,14 @@
     justify-content: flex-end;
     width: 1000px;
     height: 100%;
-    margin: 40px auto;
+    margin: 10px auto;
   }
 
   .total-price {
     padding-left: 13px;
-    color: #ff6700;
+    color: #d81e06;
+    /*height: 50px;*/
+    line-height: 50px;
   }
 
   .total-price em {
@@ -814,4 +730,70 @@
     color: #757575;
   }
 
+
+  .shopping-1 {
+    width: 1200px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+  }
+
+  .shopping-1 .title {
+    border: 1px solid #dcdcdc;
+    margin: 30px auto;
+    width: 100%;
+    /*height: 60px;*/
+    font-size: 18px;
+    color: #3c3c3c;
+    border-radius: 8px;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #d4d4d4;
+    box-shadow: 0 1px 7px rgba(0, 0, 0, .06);
+  }
+
+  .cart-table-title {
+    line-height: 38px;
+    height: 38px;
+    padding: 0 0 0 20px;
+    font-size: 12px;
+    background: #eee;
+    border-bottom: 1px solid #dbdbdb;
+    border-top: 1px solid #dbdbdb;
+    border-bottom-color: rgba(0, 0, 0, .08);
+    display: flex;
+  }
+
+  .cart-table-title .name {
+    width: 800px;
+  }
+
+  .cart-table-title .operation {
+    width: 100px;
+  }
+
+  .cart-table-title .subtotal {
+    width: 100px;
+  }
+
+  .cart-table-title .num {
+    width: 100px;
+  }
+
+  .cart-table-title .price1 {
+    width: 100px;
+  }
+
+  .aaaaa {
+    width: 130px;
+    height: 50px;
+    color: white;
+    background-color: #6c8cd4;
+  }
+
+  /deep/ .el-button:focus, .el-button:hover {
+    color: white;
+    border-color: #6c8cd4;
+    background-color: #6c8cd4;
+  }
 </style>

@@ -35,16 +35,15 @@ export const constantRoutes = [
    */
   // 用户首页
   {
-    path: '/scenery/home',
+    path: '/phone/home',
     hidden: true,
     name: '景区网',
     component: () => import('@/views/home/index'),
     meta: { title: '景区网' }
   },
 
-  // 登录
   {
-    path:  '/flower/shopping',
+    path:  '/phone/shopping',
     hidden: true,
     name: '购物车',
     component: () => import('@/views/home/shopping'),
@@ -53,14 +52,22 @@ export const constantRoutes = [
 
   // 注册
   {
-    path: '/flower/person',
+    path: '/phone/my',
     hidden: true,
     name: '个人中心',
     component: () => import('@/views/home/person'),
     meta: { title: '个人中心' }
   },
 
-  // 分类详情
+  // login
+  {
+    path: '/phone/login',
+    hidden: true,
+    name: '登录',
+    component: () => import('@/views/home/userLogin'),
+    meta: { title: '登录' }
+  },
+
 
   // 详情
   {

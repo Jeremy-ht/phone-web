@@ -1,125 +1,103 @@
 <template>
   <div class="home-container">
 
-    <!-- ========================= -->
-    <!-- 欣欣鲜花交易平台！ bar -->
-    <!-- ========================= -->
-    <div class="top-bar">
-      <div class="top-bar-item">
-
-        <div class="top-bar-item-left">
-
-          <div style="cursor: pointer" @click="goHome()">
-            <i class="el-icon-magic-stick" style="color:#ff6a00;margin-right: 2px"/>
-            欣欣鲜花交易平台！
-          </div>
-
-          <div class="person co" @click="person()">
-            个人中心
-          </div>
-
-        </div>
-
-        <div class="top-bar-item-right">
-
-          <div class="cart co" @click="goShopping()">
-            购物车{{'(' + shoppingNum + ')'}}
-          </div>
-
-          <div class="register co" @click="goRegister()">
-            注册
-          </div>
-
-          <div class="login co" @click="goLogin()" v-if="!showLogin">
-            你好，请登录
-          </div>
-
-          <div class="login" style="cursor: pointer" v-else>
-            <el-dropdown>
-              <span class="el-dropdown-link">
-               你好，{{UserInfo.uname}}<i class="el-icon-arrow-down el-icon--right"></i>
-              </span>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click="layoutLogin">退出</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-
-          </div>
-
-        </div>
-
-      </div>
-    </div>
 
     <div class="person-show">
 
-      <div class="person-show-bar">
+      <div class="person-show-left">
+        <div class="name">
+          <!--          <img class="avatar" :src="UserInfo.image" alt="">-->
+          <img class="avatar" src="http://service.szhtkj.com.cn/SzhtShop/uploads/default/avatar/userimg.png" alt="">
+          <div class="username">huangtao{{UserInfo.uname}}</div>
+        </div>
 
-        <div class="base" @click="showIsOR(1)">账号设置</div>
-
-        <div class="order base" @click="showIsOR(3)">我的地址</div>
-        <!--        <div class="order base" @click="showIsOR(3)">我的订单</div>-->
-
+        <div class="base" @click="showIsOR(1)">我的账号</div>
+        <div class="base" @click="showIsOR(2)">我的订单</div>
+        <div class="base" style="border-bottom: solid 1px #dbdbdb;"
+             @click="showIsOR(3)">我的地址</div>
       </div>
 
-      <div class="person-show-item">
 
-        <div class="my-person" v-if="showIs == '1'">
-
-          <div class="name">
-            <img class="avatar" :src="UserInfo.image" alt="">
-
-            <div class="name-username">
-              <div class="username">{{UserInfo.uname}}</div>
-              <div class="nhao">
-                你好
-              </div>
-            </div>
-
-          </div>
-
-          <div class="upd-pwd">
-            <h3 style="color: black">修改密码:</h3>
-            <el-input placeholder="请原输入密码" v-model="pwd.password" show-password/>
-            <div class="pwd-info">
-
-              <el-input placeholder="请新输入密码" v-model="pwd.newPassword" show-password/>
-            </div>
-
-            <el-button class="pwd-info3" type="primary" @click="submitPwd(UserInfo.id)">提交</el-button>
-          </div>
-
+      <div class="person-show-right">
+        <div class="person-show-right-div">
+          <span>{{' ' + titleName}}</span>
         </div>
 
-
-        <div class="my-order" v-show="showIs == '2'">
-          <div class="my-order"></div>
-        </div>
-
-
-        <div class="my-address" v-show="showIs == '3'">
-
-          <div class="my-address-item" @click="addAddress()">
-            <div style="margin: auto;font-size: 26px; color: #cecece;">
-              <i class="el-icon-circle-plus-outline">
-                <!--                <em style="font-size: 16px; color: #cecece;line-height: 30px">添加地址</em>-->
-              </i>
-            </div>
-          </div>
-
-          <div class="my-address-item" v-for="item in addressList" :index="item.id">
-            <div class="uname">{{item.name}}</div>
-            <div class="phone">{{item.phone}}</div>
-            <div class="addresss">{{item.address}}</div>
-          </div>
-
-
-        </div>
 
       </div>
-
 
     </div>
+
+
+    <!--    <div class="person-show">-->
+
+    <!--      <div class="person-show-bar">-->
+
+    <!--        <div class="base" @click="showIsOR(1)">账号设置</div>-->
+
+    <!--        <div class="order base" @click="showIsOR(3)">我的地址</div>-->
+    <!--        &lt;!&ndash;        <div class="order base" @click="showIsOR(3)">我的订单</div>&ndash;&gt;-->
+
+    <!--      </div>-->
+
+    <!--      <div class="person-show-item">-->
+
+    <!--        <div class="my-person" v-if="showIs == '1'">-->
+
+    <!--          <div class="name">-->
+    <!--            <img class="avatar" :src="UserInfo.image" alt="">-->
+
+    <!--            <div class="name-username">-->
+    <!--              <div class="username">{{UserInfo.uname}}</div>-->
+    <!--              <div class="nhao">-->
+    <!--                你好-->
+    <!--              </div>-->
+    <!--            </div>-->
+
+    <!--          </div>-->
+
+    <!--          <div class="upd-pwd">-->
+    <!--            <h3 style="color: black">修改密码:</h3>-->
+    <!--            <el-input placeholder="请原输入密码" v-model="pwd.password" show-password/>-->
+    <!--            <div class="pwd-info">-->
+
+    <!--              <el-input placeholder="请新输入密码" v-model="pwd.newPassword" show-password/>-->
+    <!--            </div>-->
+
+    <!--            <el-button class="pwd-info3" type="primary" @click="submitPwd(UserInfo.id)">提交</el-button>-->
+    <!--          </div>-->
+
+    <!--        </div>-->
+
+
+    <!--        <div class="my-order" v-show="showIs == '2'">-->
+    <!--          <div class="my-order"></div>-->
+    <!--        </div>-->
+
+
+    <!--        <div class="my-address" v-show="showIs == '3'">-->
+
+    <!--          <div class="my-address-item" @click="addAddress()">-->
+    <!--            <div style="margin: auto;font-size: 26px; color: #cecece;">-->
+    <!--              <i class="el-icon-circle-plus-outline">-->
+    <!--                &lt;!&ndash;                <em style="font-size: 16px; color: #cecece;line-height: 30px">添加地址</em>&ndash;&gt;-->
+    <!--              </i>-->
+    <!--            </div>-->
+    <!--          </div>-->
+
+    <!--          <div class="my-address-item" v-for="item in addressList" :index="item.id">-->
+    <!--            <div class="uname">{{item.name}}</div>-->
+    <!--            <div class="phone">{{item.phone}}</div>-->
+    <!--            <div class="addresss">{{item.address}}</div>-->
+    <!--          </div>-->
+
+
+    <!--        </div>-->
+
+    <!--      </div>-->
+
+
+    <!--    </div>-->
 
 
     <!-- ========================= -->
@@ -156,68 +134,6 @@
       </span>
     </el-dialog>
 
-    <!-- ========================= -->
-    <!-- 登录 注册 start -->
-    <!-- ========================= -->
-    <el-dialog title="登 录" center :visible.sync="loginDialog" width="26%" @close="closeAddAdminForm()">
-      <span>
-        <!--表单-->
-        <div style="display: flex">
-          <el-form style="margin: 4px auto;" :rules="loginFormRules">
-
-          <el-form-item prop="username">
-            <el-input class="form-input"
-                      placeholder="用户名" v-model="loginForm.uname"
-                      :autofocus="true" style="width: 280px;"/>
-          </el-form-item>
-
-            <!--密码-->
-          <el-form-item prop="password">
-            <el-input class="form-input"
-                      type="password" placeholder="密码"
-                      v-model="loginForm.pwd" style="width: 280px"/>
-          </el-form-item>
-
-            <el-form-item style="display: flex;justify-content: center">
-              <el-button type="warning" @click="goLoginTo" size="small">登录</el-button>
-              <el-button style="margin-left: 80px" @click="loginDialog = false" size="small">取 消</el-button>
-            </el-form-item>
-        </el-form>
-        </div>
-
-      </span>
-    </el-dialog>
-
-    <el-dialog title="注 册" center :visible.sync="regDialog" width="30%" @close="closeAddAdminForm()">
-      <span>
-        <!--表单-->
-        <div style="display: flex">
-           <el-form :model="registerForm" :rules="loginFormRules2" style="margin: 4px auto;">
-            <!--用户名-->
-            <el-form-item prop="uname">
-              <el-input placeholder="用户名" v-model="registerForm.uname" style="width: 300px"/>
-            </el-form-item>
-
-             <!--密码-->
-            <el-form-item prop="pwd">
-              <el-input type="password" placeholder="密码"
-                        v-model="registerForm.pwd" style="width: 300px"/>
-            </el-form-item>
-
-             <!--手机号-->
-            <el-form-item prop="phone">
-              <el-input placeholder="手机号" v-model="registerForm.phone" style="width: 300px"/>
-            </el-form-item>
-
-            <el-form-item style="display: flex;justify-content: center">
-              <el-button @click="registerGo" type="success" size="small">注 &nbsp;&nbsp;&nbsp;册</el-button>
-              <el-button style="margin-left: 120px" @click="regDialog = false" size="small">取 消</el-button>
-            </el-form-item>
-          </el-form>
-        </div>
-
-      </span>
-    </el-dialog>
 
   </div>
 </template>
@@ -367,7 +283,9 @@
           address: ''
         },
         addressDialog: false,
-        shoppingNum: 0
+        shoppingNum: 0,
+
+        titleName:'我的账号',
 
       }
     },
@@ -379,41 +297,41 @@
       // 初始化
       async init() {
 
-        // 是否登录
-        if (!this.loginIs()) {
-          this.$message({ message: '请先登录', type: 'error', duration: 1700 })
-          this.$router.push('/flower/home')
-          return false
-        } else {
-          getShoppingNum(this.UserInfo.id).then(res => {
-            if (res.success) {
-              this.shoppingNum = res.data.data
-
-            } else {
-              this.$message({
-                message: '数据获取失败，请刷新重试',
-                type: 'error', duration: 2000
-              })
-            }
-          })
-
-        }
-
-        getAddressList(this.UserInfo.id).then(res => {
-          if (res.success) {
-            this.addressList = res.data.data
-          } else {
-            this.$message({ message: res.message, type: 'error', duration: 1700 })
-          }
-
-        })
+        // // 是否登录
+        // if (!this.loginIs()) {
+        //   this.$message({ message: '请先登录', type: 'error', duration: 1700 })
+        //   this.$router.push('/phone/home')
+        //   return false
+        // } else {
+        //   getShoppingNum(this.UserInfo.id).then(res => {
+        //     if (res.success) {
+        //       this.shoppingNum = res.data.data
+        //
+        //     } else {
+        //       this.$message({
+        //         message: '数据获取失败，请刷新重试',
+        //         type: 'error', duration: 2000
+        //       })
+        //     }
+        //   })
+        //
+        // }
+        //
+        // getAddressList(this.UserInfo.id).then(res => {
+        //   if (res.success) {
+        //     this.addressList = res.data.data
+        //   } else {
+        //     this.$message({ message: res.message, type: 'error', duration: 1700 })
+        //   }
+        //
+        // })
 
       },
 
       // 是否登录
       loginIs() {
         // 是否登录
-        let user = JSON.parse(window.localStorage.getItem('UserInfoFlower'))
+        let user = JSON.parse(window.localStorage.getItem('UserInfoPhone'))
         if (user == undefined || user == null || user == '') {
           return false
         } else {
@@ -423,87 +341,9 @@
 
       },
 
-      // 登录
-      goLogin() {
-        this.loginDialog = true
-      },
-      goLoginTo() {
-
-        if (this.loginForm2.uname.trim() == '') {
-          this.$message({ message: '用户名不能为空', type: 'error', duration: 1700 })
-          return
-        }
-
-        if (this.loginForm2.pwd.trim() == '') {
-          this.$message({ message: '密码不能为空', type: 'error', duration: 1700 })
-          return
-        }
-        userLogin(this.loginForm).then(res => {
-          if (res.success) {
-            res.data.data.pwd = ''
-            res.data.data.salt = ''
-            window.localStorage.setItem('UserInfoFlower', JSON.stringify(res.data.data))
-            this.loginDialog = false
-            this.init()
-          } else {
-            this.$message({ message: res.message, type: 'error', duration: 1700 })
-
-          }
-
-        })
-
-      },
-
-      // 注册
-      goRegister() {
-        this.regDialog = true
-      },
-      async registerGo() {
-        if (this.registerForm.uname.trim() == '') {
-          this.$message({ message: '用户名不能为空', type: 'error', duration: 1700 })
-          return
-        }
-
-        if (this.registerForm.pwd.trim() == '') {
-          this.$message({ message: '密码不能为空', type: 'error', duration: 1700 })
-          return
-        }
-
-        if (this.registerForm.phone.trim() == '') {
-          this.$message({ message: '手机号不能为空', type: 'error', duration: 1700 })
-          return
-        }
-
-        await addUser(this.registerForm).then(res => {
-          if (res.success) {
-            this.$message({ message: res.message, type: 'success', duration: 2000 })
-            // this.loginForm2.uname = res.data.data
-            this.regDialog = false
-            this.loginDialog = true
-          } else {
-            this.$message({ message: res.message, type: 'error', duration: 2000 })
-
-          }
-        })
-
-      },
-
       // 去首页
       goHome() {
-        this.$router.push({ path: `/scenery/home` })
-      },
-
-      // 个人中心
-      person() {
-
-        // 是否登录
-        if (!this.loginIs()) {
-          this.$message({ message: '请先登录', type: 'error', duration: 1700 })
-          return false
-        }
-
-        const { href } = this.$router.resolve({ path: `/flower/person` })
-        window.open(href, '_blank')
+        this.$router.push({ path: `/phone/home` })
       },
 
       // 购物车
@@ -539,11 +379,11 @@
 
       showIsOR(id) {
         if (id == 1) {
-          this.showIs = '1'
+          this.titleName = '我的账号'
         } else if (id == 2) {
-          this.showIs = '2'
+          this.titleName = '我的订单'
         } else if (id == 3) {
-          this.showIs = '3'
+          this.titleName = '我的地址'
         }
 
       },
@@ -596,8 +436,11 @@
   .home-container {
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
     font-size: 14px;
-    color: white;
+    background-color: #f3f3f3;
+    display: flex;
   }
 
   .top-bar {
@@ -659,10 +502,62 @@
   .person-show {
     width: 1200px;
     height: 100%;
-    margin: 0 auto;
+    margin: 20px auto;
     display: flex;
-    /*border: solid 2px #80430a;*/
-    /*flex-direction: column;*/
+    justify-content: space-between;
+
+  }
+
+  .person-show-left {
+    width: 210px;
+    height: 600px;
+    border: solid 1px #dbdbdb;
+    background-color: white;
+    border-radius: 8px;
+  }
+
+  .person-show-left .name {
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+  }
+
+  .base {
+    border-top: solid 1px #dbdbdb;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 14px;
+    color: #5079d9;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .base:hover {
+    color: white;
+    background-color: #5079d9;
+  }
+
+  .person-show-right {
+    width: 950px;
+    height: 600px;
+    border: solid 1px #dbdbdb;
+    background-color: white;
+    border-radius: 8px;
+  }
+
+  .person-show-right-div {
+    height: 60px;
+    background: linear-gradient(#fbfbfb, #ececec);
+    border-bottom: solid 1px #dbdbdb;
+    font-size: 18px;
+    font-weight: 400;
+    color: #626262;
+    line-height: 60px;
+  }
+  .person-show-right-div span{
+    margin-left: 20px;
   }
 
   .person-show-bar {
@@ -761,27 +656,17 @@
   }
 
   .username {
-    /*margin: 0;*/
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 400;
     color: #616161;
-    margin-left: 10px;
-    margin-top: 10px;
+    margin: 10px auto;
   }
 
-  .nhao {
-    color: #b0b0b0;
-    margin-left: 10px;
-    margin-top: 8px;
-  }
-
-  /*.name-username{*/
-  /*  width: 100px;*/
-  /*}*/
   .avatar {
-    width: 80px;
-    height: 80px;
+    width: 168px;
+    height: 168px;
     border-radius: 50%;
+    margin: 0 auto;
   }
 
   .my-person .name {
@@ -789,4 +674,6 @@
     display: flex;
     margin-top: 120px;
   }
+
+
 </style>

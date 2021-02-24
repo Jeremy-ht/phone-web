@@ -1,133 +1,538 @@
 <template>
   <div class="home-container">
 
-    <!-- ========================= -->
-    <!-- 欣欣鲜花交易平台！ bar -->
-    <!-- ========================= -->
 
+    <div class="header">
+      <div class="header-item">
 
-    <div class="bar">
-      <div class="home-content">
-        <div class="bai-item">
-          <el-menu
-            :default-active="activeIndex"
-            class="el-menu-demo"
-            mode="horizontal"
-            @select="handleSelect"
-            background-color="#FFFFFF"
-            text-color="#000"
-            active-text-color="#ffac89">
-            <el-menu-item index="0">鲜花</el-menu-item>
-            <el-menu-item index="1">玫瑰</el-menu-item>
-            <el-menu-item index="2">康乃馨</el-menu-item>
-            <el-menu-item index="3">百合</el-menu-item>
-            <el-menu-item index="4">向日葵</el-menu-item>
-            <el-menu-item index="5">扶郎</el-menu-item>
-            <el-menu-item index="6">郁金香</el-menu-item>
-            <el-menu-item index="7">马蹄莲</el-menu-item>
-            <!--            <el-submenu index="1000">-->
-            <!--              <template slot="title" class="more">更多</template>-->
-            <!--              <el-menu-item v-for="item in cateList" :index="item.categoryid">-->
-            <!--                {{item.categoryname}}-->
-            <!--              </el-menu-item>-->
-            <!--            </el-submenu>-->
-
-          </el-menu>
+        <div class="header-item-icon">
+          <svg t="1614167354200" class="icon"
+               viewBox="0 0 1024 1024" version="1.1"
+               xmlns="http://www.w3.org/2000/svg" p-id="2441"
+               width="200" height="200">
+            <path
+              d="M645.924571 0C693.101714 0 731.428571 35.328 731.428571 78.774857v866.450286C731.428571 988.672 693.101714 1024 645.924571 1024H85.504C38.326857 1024 0 988.672 0 945.225143V78.774857C0 35.328 38.326857 0 85.504 0h560.420571zM841.142857 438.857143a36.571429 36.571429 0 0 1 36.571429 36.571428v512a36.571429 36.571429 0 0 1-73.142857 0v-512a36.571429 36.571429 0 0 1 36.571428-36.571428z m146.285714 292.571428a36.571429 36.571429 0 0 1 36.571429 36.571429v219.428571a36.571429 36.571429 0 0 1-73.142857 0v-219.428571a36.571429 36.571429 0 0 1 36.571428-36.571429zM657.773714 73.069714h-585.142857v877.641143h585.142857v-877.714286zM585.142857 331.995429c0 13.897143-7.460571 26.112-18.651428 33.133714C550.253714 458.605714 466.432 530.066286 365.714286 530.066286S181.174857 458.605714 164.937143 365.129143A39.204571 39.204571 0 0 1 146.285714 332.068571C146.285714 310.272 164.498286 292.571429 186.88 292.571429c22.381714 0 40.521143 17.700571 40.521143 39.497142a38.765714 38.765714 0 0 1-12.8 28.672C228.425143 429.641143 290.889143 481.718857 365.714286 481.718857s137.289143-52.077714 151.113143-120.978286a38.765714 38.765714 0 0 1-12.8-28.745142c0-21.723429 18.139429-39.424 40.521142-39.424 22.381714 0 40.594286 17.700571 40.594286 39.497142zM329.142857 804.571429h73.142857a36.571429 36.571429 0 0 1 0 73.142857h-73.142857a36.571429 36.571429 0 0 1 0-73.142857z"
+              p-id="2442" fill="#e6e6e6"></path>
+          </svg>
         </div>
 
-<!--        <div class="home-search" v-on:keyup.enter="searchGo">-->
-<!--          <el-input class="home-search-input"-->
-<!--                    placeholder="请输入搜索内容"-->
-<!--                    prefix-icon="el-icon-search"-->
-<!--                    v-model="search"-->
-<!--                    size="small" v-on:keyup.enter="searchGo">-->
-<!--          </el-input>-->
-<!--        </div>-->
+        <!-- ========================= -->
+        <!-- 搜索 -->
+        <!-- ========================= -->
+        <div class="header-item-search">
+          <el-autocomplete class="header-item-search-ic"
+                           popper-class="my-autocomplete"
+                           v-model="searchText"
+                           :fetch-suggestions="querySearch"
+                           placeholder="请输入内容"
+                           @select="handleSelect">
+            <i class="el-icon-search el-input__icon"
+               slot="suffix"
+               @click="handleIconClick">
+            </i>
+          </el-autocomplete>
+        </div>
+
+        <div class="header-item-person">
+
+          <div class="header-item-person-all" @click="allShop()">
+            全部商品
+          </div>
+
+          <div class="header-item-person-icon">
+            <i  @click="goLoginTo"  class="el-icon-user-solid"/>
+<!--            <i v-if="showLogin"  @click="goLoginTo"  class="el-icon-user-solid"/>-->
+<!--            <i v-else @click="goLogin" class="el-icon-user-solid"/>-->
+          </div>
+
+          <div class="header-item-person-shop">
+            <svg @click="goShopping" t="1614169177551" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                 p-id="1814" width="200" height="200">
+              <path
+                d="M1005.94270776 797.03077888H265.53154332c-21.94242333 0-42.52558222-8.54395221-57.86585999-24.0784111-15.3402789-15.53445888-23.88423111-35.92343666-23.69005112-57.86586112l2.71853112-545.25952c0-21.74824334-7.57304889-36.3117989-45.24411334-42.3314011h-0.19417999l-108.74121557-18.64135111c-10.48576-1.74762667-17.67044779-11.84502557-15.92281998-22.33078557 1.74762667-10.48576 11.84502557-17.67044779 22.33078442-15.92282112l108.54703446 18.64135112c51.65207666 8.15559111 77.86647666 35.34089443 77.86647666 80.7791889L222.61759999 715.47486776c0 11.45666333 4.27197667 22.13660445 12.42756779 30.09801558 8.15559111 8.15559111 18.83553223 12.62174777 30.29219555 12.62174777h740.41116445c10.67994112 0 19.41807445 8.73813333 19.41807331 19.41807445s-8.54395221 19.41807445-19.22389333 19.41807332z"
+                fill="#dbdbdb" p-id="1815"></path>
+              <path
+                d="M950.60119665 685.57103445l-685.65219556-2.13598891c-21.55406222-0.19418112-41.74885888-8.54395221-56.89495665-23.88423111-15.14609778-15.3402789-23.30168889-35.53507555-23.30168889-57.08913777l2.13598777-402.73085554L962.64040333 257.5966811c35.14671445 1.35926557 62.72037888 29.90383445 62.72037888 65.0505489V611.00563c0 41.16631666-33.59326777 74.56540445-74.75958556 74.56540445zM265.33736333 644.59889778l685.45801444 2.13598776c19.80643555 0 35.92343666-16.1170011 35.92343666-35.72925554V322.64723c0-14.17519445-11.26248334-25.8260389-25.43767666-26.2144h-0.77672334l-734.58574222-54.75896888-1.74762667 361.17617778c0 11.06830222 4.27197667 21.55406222 12.03920669 29.51547221 7.37886777 7.76723001 17.86462777 12.23338667 29.1271111 12.23338667z"
+                fill="#dbdbdb" p-id="1816"></path>
+              <path
+                d="M340.87367111 861.11042332m-72.42941668 0a72.42941667 72.42941667 0 1 0 144.85883335 0 72.42941667 72.42941667 0 1 0-144.85883335 0Z"
+                fill="#dbdbdb" p-id="1817"></path>
+              <path
+                d="M340.87367111 952.95791445c-50.68117333 0-91.84748999-41.16631666-91.84749-91.84749113s41.16631666-91.84748999 91.84749-91.84748999c50.68117333 0 91.84748999 41.16631666 91.84748998 91.84748999s-41.16631666 91.84748999-91.84748998 91.84749113z m0-144.85883335c-29.32129223 0-53.01134222 23.69004999-53.01134223 53.01134222s23.69004999 53.01134222 53.01134223 53.01134222 53.01134222-23.69004999 53.01134222-53.01134222-23.69004999-53.01134222-53.01134222-53.01134222z"
+                fill="#dbdbdb" p-id="1818"></path>
+              <path
+                d="M896.81313223 861.11042332m-72.42941668 0a72.42941667 72.42941667 0 1 0 144.85883221 0 72.42941667 72.42941667 0 1 0-144.85883221 0Z"
+                fill="#dbdbdb" p-id="1819"></path>
+              <path
+                d="M896.81313223 952.95791445c-50.68117333 0-91.84748999-41.16631666-91.84749114-91.84749113s41.16631666-91.84748999 91.84749114-91.84748999 91.84748999 41.16631666 91.84748998 91.84748999-41.16631666 91.84748999-91.84748998 91.84749113z m0-144.85883335c-29.32129223 0-53.01134222 23.69004999-53.01134223 53.01134222s23.69004999 53.01134222 53.01134223 53.01134222 53.01134222-23.69004999 53.01134222-53.01134222-23.69004999-53.01134222-53.01134222-53.01134222z"
+                fill="#dbdbdb" p-id="1820"></path>
+              <path
+                d="M780.30468778 426.33974556H384.56433777c-10.67994112 0-19.41807445-8.73813333-19.41807445-19.41807445s8.73813333-19.41807445 19.41807445-19.41807445h395.74035001c10.67994112 0 19.41807445 8.73813333 19.41807331 19.41807445s-8.73813333 19.41807445-19.41807331 19.41807445zM780.30468778 537.99367111H384.56433777c-10.67994112 0-19.41807445-8.73813333-19.41807445-19.41807445s8.73813333-19.41807445 19.41807445-19.41807332h395.74035001c10.67994112 0 19.41807445 8.73813333 19.41807331 19.41807332s-8.73813333 19.41807445-19.41807331 19.41807445z"
+                fill="#dbdbdb" p-id="1821"></path>
+            </svg>
+          </div>
+
+          <div class="header-item-person-shop-number">
+            10
+          </div>
+
+        </div>
+
+
       </div>
     </div>
 
     <!-- ========================= -->
+    <!-- 四大品牌 -->
+    <!-- ========================= -->
+    <div class="pull-4">
+      <div class="pull-4-item">
+
+        <div class="four-item">
+          <img class="img"
+               src="https://res.vmallres.com/pimages//pages/picImages/77388699931619688377.png">
+
+        </div>
+
+        <div class="four-item">
+          <img class="img"
+               src="https://res.vmallres.com/pimages//pages/picImages/77388699931619688377.png">
+
+        </div>
+
+        <div class="four-item">
+          <img class="img"
+               src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/8a43378b96501d7e227a9018fe2668c5.jpg?w=632&h=340">
+
+        </div>
+        <div class="four-item">
+          <img class="img" @click="goDetailInfo(1)"
+               src="https://res.vmallres.com/pimages//pages/picImages/77388699931619688377.png">
+
+        </div>
+
+      </div>
+    </div>
+
+
+    <!--    <div class="bar">-->
+    <!--      <div class="home-content">-->
+    <!--        <div class="bai-item">-->
+    <!--          <el-menu-->
+    <!--            :default-active="activeIndex"-->
+    <!--            class="el-menu-demo"-->
+    <!--            mode="horizontal"-->
+    <!--            @select="handleSelect"-->
+    <!--            background-color="#FFFFFF"-->
+    <!--            text-color="#000"-->
+    <!--            active-text-color="#ffac89">-->
+    <!--            <el-menu-item index="0">鲜花</el-menu-item>-->
+    <!--            <el-menu-item index="1">玫瑰</el-menu-item>-->
+    <!--            <el-menu-item index="2">康乃馨</el-menu-item>-->
+    <!--            <el-menu-item index="3">百合</el-menu-item>-->
+    <!--            <el-menu-item index="4">向日葵</el-menu-item>-->
+    <!--            <el-menu-item index="5">扶郎</el-menu-item>-->
+    <!--            <el-menu-item index="6">郁金香</el-menu-item>-->
+    <!--            <el-menu-item index="7">马蹄莲</el-menu-item>-->
+    <!--            &lt;!&ndash;            <el-submenu index="1000">&ndash;&gt;-->
+    <!--            &lt;!&ndash;              <template slot="title" class="more">更多</template>&ndash;&gt;-->
+    <!--            &lt;!&ndash;              <el-menu-item v-for="item in cateList" :index="item.categoryid">&ndash;&gt;-->
+    <!--            &lt;!&ndash;                {{item.categoryname}}&ndash;&gt;-->
+    <!--            &lt;!&ndash;              </el-menu-item>&ndash;&gt;-->
+    <!--            &lt;!&ndash;            </el-submenu>&ndash;&gt;-->
+
+    <!--          </el-menu>-->
+    <!--        </div>-->
+
+    <!--        &lt;!&ndash;        <div class="home-search" v-on:keyup.enter="searchGo">&ndash;&gt;-->
+    <!--        &lt;!&ndash;          <el-input class="home-search-input"&ndash;&gt;-->
+    <!--        &lt;!&ndash;                    placeholder="请输入搜索内容"&ndash;&gt;-->
+    <!--        &lt;!&ndash;                    prefix-icon="el-icon-search"&ndash;&gt;-->
+    <!--        &lt;!&ndash;                    v-model="search"&ndash;&gt;-->
+    <!--        &lt;!&ndash;                    size="small" v-on:keyup.enter="searchGo">&ndash;&gt;-->
+    <!--        &lt;!&ndash;          </el-input>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        </div>&ndash;&gt;-->
+    <!--      </div>-->
+    <!--    </div>-->
+
+    <!-- ========================= -->
     <!-- 新品来袭 -->
     <!-- ========================= -->
+
+    <div class="gray-box">
+      <div class="title">
+      </div>
+    </div>
+
+
     <div class="content-show" v-show="showIndex == 1">
 
       <div class="new bor">
-        <h1>新品来袭</h1>
+        <h1 class="title-1">华为</h1>
 
-        <div class="new-item">
+        <div class="title-1-i">
 
-          <div class="new-item-list1" v-for="item in newList" :index="item.id">
+          <div class="title-item">
 
-            <div class="new-item-img">
-              <img @click="goDetailInfo(item.id)" :src="item.image" alt="">
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
             </div>
 
-            <div class="new-item-price">
-              ¥ {{item.price}}
+          </div>
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
             </div>
 
-            <div class="new-item-name" @click="goDetailInfo(item.id)">
-              {{item.description}}
+          </div>
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
+            </div>
+
+          </div>
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
+            </div>
+
+          </div>
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
+            </div>
+
+          </div>
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
+            </div>
+
+          </div>
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
             </div>
 
           </div>
 
         </div>
+
+
       </div>
 
-      <div class="feature">
-        <div class="bor">
-          <h1>热销榜单</h1>
 
-          <div class="new-item">
+      <div class="new bor">
+        <h1 class="title-1">华为</h1>
 
-            <div class="new-item-list" v-for="item in featureList" :index="item.id">
+        <div class="title-1-i">
 
-              <div class="new-item-img">
-                <img @click="goDetailInfo(item.id)" :src="item.image" alt="">
-              </div>
+          <div class="title-item">
 
-              <div class="new-item-price">
-                ¥ {{item.price}}
-              </div>
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
 
-              <div class="new-item-name" @click="goDetailInfo(item.id)">
-                {{item.description}}
-              </div>
+            <div class="phone-title">Nava 9 4G</div>
 
-            </div>
+            <div class="phone-feature">6000mAh长续航</div>
 
-
-          </div>
-        </div>
-      </div>
-
-      <div class="feature">
-        <div class="bor">
-          <h1>鲜花礼盒</h1>
-
-          <div class="new-item">
-
-            <div class="new-item-list" v-for="item in boxList" :index="item.id">
-
-              <div class="new-item-img">
-                <img @click="goDetailInfo(item.id)" :src="item.image" alt="">
-              </div>
-
-              <div class="new-item-price">
-                ¥ {{item.price}}
-              </div>
-
-              <div class="new-item-name" @click="goDetailInfo(item.id)">
-                {{item.description}}
-              </div>
-
+            <div class="phone-price">
+              ¥7988
             </div>
 
           </div>
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
+            </div>
+
+          </div>
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
+            </div>
+
+          </div>
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
+            </div>
+
+          </div>
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
+            </div>
+
+          </div>
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
+            </div>
+
+          </div>
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
+            </div>
+
+          </div>
+
         </div>
+
+
       </div>
 
+      <div class="new bor">
+        <h1 class="title-1">华为</h1>
+
+        <div class="title-1-i">
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
+            </div>
+
+          </div>
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
+            </div>
+
+          </div>
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
+            </div>
+
+          </div>
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
+            </div>
+
+          </div>
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
+            </div>
+
+          </div>
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
+            </div>
+
+          </div>
+
+          <div class="title-item">
+
+            <img class="phone-img"
+                 src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                 alt="">
+
+            <div class="phone-title">Nava 9 4G</div>
+
+            <div class="phone-feature">6000mAh长续航</div>
+
+            <div class="phone-price">
+              ¥7988
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </div>
     </div>
 
     <div class="content-show" v-show="showIndex == 2">
@@ -334,12 +739,14 @@
           email: ''
         },
 
-
         showLogin: false,
 
         // 购物车
         showShopping: false,
         shoppingNum: 0,
+
+        // phone
+        searchText: ''
       }
     },
     created() {
@@ -350,23 +757,24 @@
       // 初始化
       async init() {
 
-        // 是否登录
-        if (!this.loginIs()) {
-          this.showLogin = false
-        } else {
-          await getShoppingNum(this.UserInfo.id).then(res => {
-            if (res.success) {
-              this.shoppingNum = res.data.data
-
-            } else {
-              this.$message({
-                message: '数据获取失败，请刷新重试',
-                type: 'error', duration: 2000
-              })
-            }
-          })
-          this.showLogin = true
-        }
+        // // 是否登录
+        // if (!this.loginIs()) {
+        //   this.showLogin = false
+        // } else {
+        // 购物车商品数量
+        //   await getShoppingNum(this.UserInfo.id).then(res => {
+        //     if (res.success) {
+        //       this.shoppingNum = res.data.data
+        //
+        //     } else {
+        //       this.$message({
+        //         message: '数据获取失败，请刷新重试',
+        //         type: 'error', duration: 2000
+        //       })
+        //     }
+        //   })
+        //   this.showLogin = true
+        // }
 
         // // 获取导航菜单  放入更多里面
         // let params = {
@@ -388,27 +796,32 @@
         //   }
         // })
 
-        // 获取分类
-        await getSceneryIndex().then(res => {
-          if (res.success) {
-            this.newList = res.data.data.new
-            this.featureList = res.data.data.feature
-            this.boxList = res.data.data.box
+        // // 获取分类
+        // await getSceneryIndex().then(res => {
+        //   if (res.success) {
+        //     this.newList = res.data.data.new
+        //     this.featureList = res.data.data.feature
+        //     this.boxList = res.data.data.box
+        //
+        //   } else {
+        //     this.$message({
+        //       message: '数据获取失败，请刷新重试',
+        //       type: 'error', duration: 2000
+        //     })
+        //   }
+        // })
 
-          } else {
-            this.$message({
-              message: '数据获取失败，请刷新重试',
-              type: 'error', duration: 2000
-            })
-          }
-        })
+      },
 
+      // 全部商品
+      allShop() {
+        this.$router.push({ path: `/phone/home` })
       },
 
       // 是否登录
       loginIs() {
         // 是否登录
-        let user = JSON.parse(window.localStorage.getItem('UserInfoFlower'))
+        let user = JSON.parse(window.localStorage.getItem('UserInfoPhone'))
         if (user == undefined || user == null || user == '') {
           return false
         } else {
@@ -462,10 +875,15 @@
       },
 
       // 搜索
-      async searchGo() {
+      querySearch(queryString, cb) {
+        var restaurants = this.restaurants
+        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants
+        // 调用 callback 返回建议列表的数据
+        cb(results)
+      },
+      async handleIconClick() {
         await getSearchContent(this.search.trim()).then(res => {
           if (res.success) {
-
             this.otherList = []
             this.activeIndex = '-10'
             this.showIndex = 2
@@ -483,94 +901,34 @@
 
       // 去首页
       goHome() {
-        this.$router.push({ path: `/scenery/home` })
+        this.$router.push({ path: `/phone/home` })
       },
 
       // 登录
       goLogin() {
-        this.loginDialog = true
-      },
-      goLoginTo() {
-
-        if (this.loginForm.uname.trim() == '') {
-          this.$message({ message: '用户名不能为空', type: 'error', duration: 1700 })
-          return
-        }
-
-        if (this.loginForm.pwd.trim() == '') {
-          this.$message({ message: '密码不能为空', type: 'error', duration: 1700 })
-          return
-        }
-        userLogin(this.loginForm).then(res => {
-          if (res.success) {
-            res.data.data.pwd = ''
-            res.data.data.salt = ''
-            window.localStorage.setItem('UserInfoFlower', JSON.stringify(res.data.data))
-            this.loginDialog = false
-            this.init()
-          } else {
-            this.$message({ message: res.message, type: 'error', duration: 1700 })
-
-          }
-
-        })
-
-      },
-
-      // 注册
-      goRegister() {
-        this.regDialog = true
-      },
-      async registerGo() {
-        if (this.registerForm.uname.trim() == '') {
-          this.$message({ message: '用户名不能为空', type: 'error', duration: 1700 })
-          return
-        }
-
-        if (this.registerForm.pwd.trim() == '') {
-          this.$message({ message: '密码不能为空', type: 'error', duration: 1700 })
-          return
-        }
-
-        if (this.registerForm.phone.trim() == '') {
-          this.$message({ message: '手机号不能为空', type: 'error', duration: 1700 })
-          return
-        }
-
-        await addUser(this.registerForm).then(res => {
-          if (res.success) {
-            this.$message({ message: res.message, type: 'success', duration: 2000 })
-            // this.loginForm2.uname = res.data.data
-            this.regDialog = false
-            // this.loginDialog = true
-          } else {
-            this.$message({ message: res.message, type: 'error', duration: 2000 })
-
-          }
-        })
-
+        this.$router.push({ path: `/phone/login` })
       },
 
       // 个人中心
-      person() {
+      goLoginTo() {
         // 是否登录
-        if (!this.loginIs()) {
-          this.$message({ message: '请先登录', type: 'error', duration: 1700 })
-          return false
-        }
-        const { href } = this.$router.resolve({ path: `/flower/person` })
+        // if (!this.loginIs()) {
+        //   this.$message({ message: '请先登录', type: 'error', duration: 1700 })
+        //   return false
+        // }
+        const { href } = this.$router.resolve({ path: `/phone/my` })
         window.open(href, '_blank')
       },
 
       // 购物车
       goShopping() {
-        // 是否登录
-        if (!this.loginIs()) {
-          this.$message({ message: '请先登录', type: 'error', duration: 1700 })
-          return false
-        }
+        // // 是否登录
+        // if (!this.loginIs()) {
+        //   this.$message({ message: '请先登录', type: 'error', duration: 1700 })
+        //   return false
+        // }
 
-        const { href } = this.$router.resolve({ path: '/flower/shopping' })
+        const { href } = this.$router.resolve({ path: '/phone/shopping' })
         window.open(href, '_blank')
       },
 
@@ -608,7 +966,7 @@
       },
       layoutLogin() {
         console.log(1)
-        window.localStorage.removeItem('UserInfoFlower')
+        window.localStorage.removeItem('UserInfoPhone')
         console.log(1)
         this.init()
       },
@@ -631,7 +989,7 @@
         this.$refs.loginFormRules2.resetFields()
         this.$refs.loginFormRules.resetFields()
 
-      },
+      }
 
     }
   }
@@ -760,11 +1118,11 @@
   }
 
   /deep/ .el-input__inner:hover {
-    border-color: #ffac89;
+    border-color: black;
   }
 
   /deep/ .el-input__inner:focus {
-    border-color: #ffac89;
+    border-color: black;
   }
 
   /* ======= */
@@ -773,13 +1131,16 @@
   .content-show {
     width: 100%;
     height: 100%;
+    background-color: #f3f3f3;
     color: black;
     display: flex;
     flex-direction: column;
+    padding-bottom: 60px;
   }
 
   .new {
     width: 100%;
+    margin-top: 20px;
     /*height: 450px;*/
   }
 
@@ -866,7 +1227,223 @@
   .bor {
     width: 1200px;
     height: 100%;
-    margin: 10px auto 0 auto;
+    margin: 18px auto 0 auto;
   }
 
+  /* ======= */
+  /*  phone  */
+  /* ======= */
+  .header {
+    width: 100%;
+    height: 100px;
+    background-color: black;
+    display: flex;
+  }
+
+  .header-item {
+    width: 1200px;
+    height: 100%;
+    margin: auto;
+    display: flex;
+
+  }
+
+  .header-item-icon {
+    width: 500px;
+    display: flex;
+  }
+
+  .header-item-icon .icon {
+    width: 50px;
+    height: 40px;
+    margin: auto 0;
+    cursor: pointer;
+  }
+
+  .header-item-search {
+    width: 400px;
+    display: flex;
+  }
+
+  .header-item-search-ic {
+    width: 340px;
+    margin: auto;
+  }
+
+  .header-item-person {
+    width: calc(100% - 840px);
+    height: 100%;
+    display: flex;
+  }
+
+  .header-item-person-all:hover {
+    color: #ff6b25;
+  }
+
+  .header-item-person-all {
+    width: 100px;
+    height: 100%;
+    line-height: 100px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .header-item-person-icon:hover {
+    color: #ff6b25;
+  }
+
+  .header-item-person-icon {
+    width: 50px;
+    height: 100%;
+    /*display: flex;*/
+  }
+
+  .header-item-person-icon i {
+    float: right;
+    line-height: 100px;
+    font-size: 22px;
+    cursor: pointer;
+  }
+
+  .header-item-person-shop {
+    width: 80px;
+    height: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .header-item-person-shop .icon:hover {
+    color: #ff6b25;
+  }
+
+  .header-item-person-shop .icon {
+    margin: auto 0;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+  }
+
+  .header-item-person-shop-number {
+    background-color: #ff6b25;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: white;
+    font-size: 10px;
+    line-height: 20px;
+    text-align: center;
+    margin: auto 8px;
+  }
+
+  .pull-4 {
+    width: 100%;
+    height: 280px;
+    display: flex;
+  }
+
+  .pull-4-item {
+    width: 1200px;
+    height: 100%;
+    margin: auto;
+    display: flex;
+  }
+
+  .four-item {
+    margin-top: 30px;
+    width: 24%;
+    height: 200px;
+    border: solid 1px #dadada;
+    float: right;
+    cursor: pointer;
+  }
+
+  .four-item .img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .four-item:hover {
+    border: solid 2px #dadada;
+  }
+
+  .gray-box .title {
+    position: relative;
+    z-index: 10;
+    height: 30px;
+    padding: 0 10px 0 24px;
+    border-bottom: 1px solid #e4e4e4;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 1px 7px rgba(50, 50, 50, 0.06);
+    background: #f3f3f3;
+    background: linear-gradient(#ffffff, #f1f1f1);
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+
+  .title-1-i {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    /*justify-content: space-between;*/
+  }
+
+  .title-1 {
+    margin-top: 16px;
+    font-size: 22px;
+    font-weight: 200;
+    color: #333;
+  }
+
+
+  .title-item {
+    height: 280px;
+    padding: 20px;
+    width: 234px;
+    margin-top: 10px;
+    margin-right: 5px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+  }
+
+  .title-item:hover {
+    box-shadow: 8px 8px 5px #e1e1e1;
+  }
+
+  .phone-img {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+  }
+
+  .phone-title {
+    color: #333;
+    font-size: 14px;
+    margin-top: 2px;
+    text-align: center;
+  }
+
+  .phone-feature {
+    font-size: 12px;
+    color: #b0b0b0;
+    margin-top: 12px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .phone-price {
+    margin-top: 10px;
+    font-weight: normal;
+    color: #ca141d;
+    text-align: center;
+    font-size: 20px;
+  }
 </style>
