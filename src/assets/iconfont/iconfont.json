@@ -1,0 +1,177 @@
+{
+  "id": "2250978",
+  "name": "school_bs",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "3900140",
+      "name": "旅游主题_风景",
+      "font_class": "tubiaozhizuomoban_fengjing",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "11995273",
+      "name": "风景",
+      "font_class": "fengjing1",
+      "unicode": "e7a1",
+      "unicode_decimal": 59297
+    },
+    {
+      "icon_id": "485760",
+      "name": "评 论",
+      "font_class": "pinglun",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "4427373",
+      "name": "用户",
+      "font_class": "tubiaozhizuomobanyihuifu-",
+      "unicode": "e68f",
+      "unicode_decimal": 59023
+    },
+    {
+      "icon_id": "5207060",
+      "name": "风景",
+      "font_class": "fengjing",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
+    },
+    {
+      "icon_id": "7407562",
+      "name": "评论",
+      "font_class": "pinglun1",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "8165727",
+      "name": "用户",
+      "font_class": "yonghu",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "17719771",
+      "name": "用户",
+      "font_class": "yonghu1",
+      "unicode": "e6ac",
+      "unicode_decimal": 59052
+    },
+    {
+      "icon_id": "826097",
+      "name": "登录",
+      "font_class": "denglu",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "4297349",
+      "name": "登录密码",
+      "font_class": "denglumima",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "4320336",
+      "name": "登录用户名",
+      "font_class": "dengluyonghuming",
+      "unicode": "e653",
+      "unicode_decimal": 58963
+    },
+    {
+      "icon_id": "16780728",
+      "name": "登录-密码",
+      "font_class": "denglu-mima",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "16780734",
+      "name": "登录-用户名",
+      "font_class": "denglu-yonghuming",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "1111274",
+      "name": "mac",
+      "font_class": "mac",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "3846904",
+      "name": "Windows",
+      "font_class": "Windows",
+      "unicode": "e6a0",
+      "unicode_decimal": 59040
+    },
+    {
+      "icon_id": "12463174",
+      "name": "linux",
+      "font_class": "linux",
+      "unicode": "e80b",
+      "unicode_decimal": 59403
+    },
+    {
+      "icon_id": "493430",
+      "name": "浏览器",
+      "font_class": "liulanqi",
+      "unicode": "e79c",
+      "unicode_decimal": 59292
+    },
+    {
+      "icon_id": "1005779",
+      "name": "UC浏览器",
+      "font_class": "changyonglogo31",
+      "unicode": "e718",
+      "unicode_decimal": 59160
+    },
+    {
+      "icon_id": "4893441",
+      "name": "浏览器",
+      "font_class": "liulanqi1",
+      "unicode": "e661",
+      "unicode_decimal": 58977
+    },
+    {
+      "icon_id": "7194758",
+      "name": "浏览器",
+      "font_class": "liulanqi2",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "14055546",
+      "name": "浏览器",
+      "font_class": "liulanqi3",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "15726849",
+      "name": "浏览器-IE",
+      "font_class": "liulanqi-IE",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "17130693",
+      "name": "浏览器",
+      "font_class": "liulanqi4",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "18170155",
+      "name": "指南针,浏览器,指针",
+      "font_class": "compass-full",
+      "unicode": "e974",
+      "unicode_decimal": 59764
+    }
+  ]
+}
