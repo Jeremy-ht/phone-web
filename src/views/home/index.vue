@@ -934,7 +934,7 @@
 
       // 去详情页
       goDetailInfo(id) {
-        const { href } = this.$router.resolve({ path: `/flower/info/${id}` })
+        const { href } = this.$router.resolve({ path: `/phone/show/${id}` })
         window.open(href, '_blank')
 
       },

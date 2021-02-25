@@ -63,7 +63,7 @@
 
 <script>
   import PageBar from '@/components/PageBar'
-  import { getSceneryList, pullScenery, delScenery, disableComment } from '../../api/common'
+  import { getSceneryList, pullScenery2, delScenery, disableComment } from '../../api/common'
 
   export default {
 
@@ -171,7 +171,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          pullScenery(id).then(res => {
+          pullScenery2(id).then(res => {
             if (res.success) {
               this.$message({ message: '发布成功', type: 'success', duration: 1700 })
               this.getInit()
@@ -206,12 +206,13 @@
       },
 
       changeState(id, state) {
+        console.log(state)
         if (state == 1){
           state = 3
         }else {
           state = 1
         }
-        pullScenery(id, state).then(res => {
+        pullScenery2(id, state).then(res => {
           if (res.success) {
             this.getInit()
           } else {

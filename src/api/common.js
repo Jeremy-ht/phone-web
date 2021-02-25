@@ -195,6 +195,13 @@ export function pullScenery(id, state) {
   })
 }
 
+export function pullScenery2(id, state) {
+  return request({
+    url: baseURL + `/flowers/pullScenery/${id}/${state}`,
+    method: 'get'
+  })
+}
+
 export function delScenery(id) {
   return request({
     url: baseURL + `/flowers/delScenery/${id}`,

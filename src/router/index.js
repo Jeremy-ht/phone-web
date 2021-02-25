@@ -74,7 +74,7 @@ export const constantRoutes = [
 
   // 详情
   {
-    path: '/flower/info/:id',
+    path: '/phone/show/:id',
     hidden: true,
     name: '手机详情',
     component: () => import('@/views/home/sceneryInfo'),
@@ -82,7 +82,7 @@ export const constantRoutes = [
   },
 
   /**
-   * 鲜花管理
+   * 手机管理
    */
   {
     path: '/phone',
@@ -133,7 +133,7 @@ export const constantRoutes = [
   },
 
   {
-    path: '/admins',
+    path: '/system',
     component: Layout,
     redirect: '/admin',
     name: '系统管理',
@@ -207,7 +207,7 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        path: 'orders',
+        path: 'orderList',
         name: '订单列表',
         component: () => import('@/views/comment/orders'),
         meta: { title: '订单列表', icon: 'el-icon-s-comment' }

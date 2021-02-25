@@ -23,12 +23,12 @@
         <el-table-column label="是否在首页显示" align="center">
           <template slot-scope="scope">
             <el-switch
-              @change="changeState(scope.row.id, scope.row.state)"
+              @change="changeState(scope.row.id, scope.row.creator)"
               v-model="scope.row.creator == 1"
-              inactive-text="已下架"
+              inactive-text="不显示"
               inactive-color="#f3f3f3"
               active-color="#5a98de"
-              active-text="已上架">
+              active-text="显示">
             </el-switch>
           </template>
         </el-table-column>
@@ -105,9 +105,8 @@
       return {
         // 分页查询
         pagenum: 1,
-        pagesize: 8,
+        pagesize: 10,
         pageTotal: 0,
-        alertMsg: '热门景区 、特色美食 、人文历史 、城市攻略 、首页轮播 、购物天堂 、旅游规划属于固定分类，不可删除！',
         cateList: [],
         addDialogVisible: false,
         updDialogVisible: false,
@@ -121,8 +120,8 @@
         // 添加分类表单验证
         addCateRules: {
           categoryname: [
-            { required: true, message: '请输入分类名', trigger: 'blur' },
-            { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur' }
+            {required: true, message: '请输入分类名', trigger: 'blur'},
+            {min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur'}
           ]
 
         }
@@ -146,9 +145,8 @@
         getCategoryList(params).then(res => {
           if (res.success) {
             this.pageTotal = res.data.total
-
             this.cateList = res.data.data
-            console.log(this.cateList)
+            // console.log(this.cateList)
           }
         })
       },
@@ -169,7 +167,7 @@
       },
       addCate() {
         if (this.addCateInfo.categoryname == '') {
-          this.$message({ message: '分类名称不能为空!', type: 'error', duration: 1700 })
+          this.$message({message: '分类名称不能为空!', type: 'error', duration: 1700})
           return
         }
 
@@ -177,9 +175,9 @@
           if (res.success) {
             this.getCateList()
             this.addDialogVisible = false
-            this.$message({ message: res.message, type: 'success', duration: 1700 })
+            this.$message({message: res.message, type: 'success', duration: 1700})
           } else {
-            this.$message({ message: res.message, type: 'error', duration: 1700 })
+            this.$message({message: res.message, type: 'error', duration: 1700})
           }
         })
 
@@ -192,14 +190,14 @@
             this.updCateInfo = res.data.data
             this.updDialogVisible = true
           } else {
-            this.$message({ message: res.message, type: 'error', duration: 1700 })
+            this.$message({message: res.message, type: 'error', duration: 1700})
           }
         })
 
       },
       updCate() {
         if (this.updCateInfo.categoryname == '') {
-          this.$message({ message: '分类名称不能为空!', type: 'error', duration: 1700 })
+          this.$message({message: '分类名称不能为空!', type: 'error', duration: 1700})
           return
         }
 
@@ -207,9 +205,9 @@
           if (res.success) {
             this.getCateList()
             this.updDialogVisible = false
-            this.$message({ message: res.message, type: 'success', duration: 1700 })
+            this.$message({message: res.message, type: 'success', duration: 1700})
           } else {
-            this.$message({ message: res.message, type: 'error', duration: 1700 })
+            this.$message({message: res.message, type: 'error', duration: 1700})
           }
         })
       },
@@ -224,9 +222,9 @@
           delCategory(id).then(res => {
             if (res.success) {
               this.getCateList()
-              this.$message({ message: res.message, type: 'success', duration: 1700 })
+              this.$message({message: res.message, type: 'success', duration: 1700})
             } else {
-              this.$message({ message: res.message, type: 'error', duration: 1700 })
+              this.$message({message: res.message, type: 'error', duration: 1700})
             }
           })
         })
@@ -242,19 +240,18 @@
         this.$refs.updCateRef.resetFields()
       },
 
-
-
       changeState(id, state) {
-        if (state == 1){
+        console.log(state)
+        if (state == 1) {
           state = 0
-        }else {
+        } else {
           state = 1
         }
         pullScenery(id, state).then(res => {
           if (res.success) {
             this.getCateList()
           } else {
-            this.$message({ message: '失败', type: 'error', duration: 1700 })
+            this.$message({message: '失败', type: 'error', duration: 1700})
 
           }
         })
@@ -286,11 +283,11 @@
     border-color: #5a98de;
   }
 
-  /deep/.el-switch__label.is-active {
+  /deep/ .el-switch__label.is-active {
     color: #5a98de;
   }
 
-  .del{
+  .del {
     background-color: #c62b26;
   }
 

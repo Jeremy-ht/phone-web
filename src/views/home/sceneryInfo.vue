@@ -12,35 +12,39 @@
 
         <div class="info-show-info">
 
-          <p class="info-title ellipsis">{{detailInfo.name}}</p>
-
-
-          <div style="margin-top: 10px;font-size: 14px;color: #666;">
-            产地: {{detailInfo.origin}}
-          </div>
-          <div class="flower-lag">
-            {{detailInfo.description}}
-          </div>
-
-          <div class="info-price">
-            <div class="info-price-top">
-              店铺价:<span class="info-price-number">￥<span id="festival-price">{{detailInfo.price}}</span></span>
-            </div>
-
-            <div>
-              销量 <span style="font-size: 16px;color:#5a98de;"> 50 </span>笔
+          <p class="info-title">{{detailInfo.name}}</p>
+          <div class="info-title-title">
+            <div style="width: 550px">{{detailInfo.name}}</div>
+            <div><span class="info-price-number1">￥<span
+              class="info-price-number">{{detailInfo.price+'.00'}}</span></span>
             </div>
           </div>
 
+          <div class="shuliang">
+            <span class="fl align-center">数量：</span>
+
+            <el-input-number class="number" v-model="num" size="small"
+                             @change="handleChange" :min="1"/>
+          </div>
+
+
+          <div class="ms">
+
+            <div style=" padding-right: 20px;margin-top:30px;font-size: 14px;
+            color: #8d8d8d;">描述：
+            </div>
+
+            <div class="ys">
+              <div>颜色：</div>
+              <div>重量：</div>
+              <div>上市年份：</div>
+              <div>屏幕尺寸：</div>
+            </div>
+
+          </div>
 
           <div class="info-btns">
-            <div class="fl info-num align-center">
-              <span class="fl align-center">数量：</span>
-
-              <el-input-number class="number" v-model="num" size="small"
-                               @change="handleChange" :min="1"/>
-
-
+            <div style="float: right">
               <div class="buySub hvr-shutter-out-horizontal" @click="addCart(detailInfo.id)">加购物车</div>
               <div class="buySub hvr-shutter-out-horizontal1">立即购买</div>
             </div>
@@ -51,7 +55,7 @@
         </div>
 
       </div>
-      <div class="container-item-hr"/>
+      <div class="container-item-hr2"/>
 
     </div>
 
@@ -70,74 +74,11 @@
     </div>
 
 
-    <!-- ========================= -->
-    <!-- 登录 注册 start -->
-    <!-- ========================= -->
-    <el-dialog title="登 录" center :visible.sync="loginDialog" width="26%" @close="closeAddAdminForm()">
-      <span>
-        <!--表单-->
-        <div style="display: flex">
-          <el-form style="margin: 4px auto;" :rules="loginFormRules">
-
-          <el-form-item prop="username">
-            <el-input class="form-input"
-                      placeholder="用户名" v-model="loginForm.uname"
-                      :autofocus="true" style="width: 280px;"/>
-          </el-form-item>
-
-            <!--密码-->
-          <el-form-item prop="password">
-            <el-input class="form-input"
-                      type="password" placeholder="密码"
-                      v-model="loginForm.pwd" style="width: 280px"/>
-          </el-form-item>
-
-            <el-form-item style="display: flex;justify-content: center">
-              <el-button type="warning" @click="goLoginTo" size="small">登录</el-button>
-              <el-button style="margin-left: 80px" @click="loginDialog = false" size="small">取 消</el-button>
-            </el-form-item>
-        </el-form>
-        </div>
-
-      </span>
-    </el-dialog>
-
-    <el-dialog title="注 册" center :visible.sync="regDialog" width="30%" @close="closeAddAdminForm()">
-      <span>
-        <!--表单-->
-        <div style="display: flex">
-           <el-form :model="registerForm" :rules="loginFormRules2" style="margin: 4px auto;">
-            <!--用户名-->
-            <el-form-item prop="uname">
-              <el-input placeholder="用户名" v-model="registerForm.uname" style="width: 300px"/>
-            </el-form-item>
-
-             <!--密码-->
-            <el-form-item prop="pwd">
-              <el-input type="password" placeholder="密码"
-                        v-model="registerForm.pwd" style="width: 300px"/>
-            </el-form-item>
-
-             <!--手机号-->
-            <el-form-item prop="phone">
-              <el-input placeholder="手机号" v-model="registerForm.phone" style="width: 300px"/>
-            </el-form-item>
-
-            <el-form-item style="display: flex;justify-content: center">
-              <el-button @click="registerGo" type="success" size="small">注 &nbsp;&nbsp;&nbsp;册</el-button>
-              <el-button style="margin-left: 120px" @click="regDialog = false" size="small">取 消</el-button>
-            </el-form-item>
-          </el-form>
-        </div>
-
-      </span>
-    </el-dialog>
-
   </div>
 </template>
 
 <script>
-  import { getShoppingNum,getSceneryInfo, addCart, addComment, getCommentList, userLogin, addUser }
+  import {getShoppingNum, getSceneryInfo, addCart, addComment, getCommentList, userLogin, addUser}
     from '../../api/common'
   import '../../assets/iconfont/iconfont'
 
@@ -210,13 +151,13 @@
         loginFormRules: {
           username:
             [
-              { required: true, message: '请输入用户名', trigger: 'blur' },
-              { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
+              {required: true, message: '请输入用户名', trigger: 'blur'},
+              {min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
             ],
           password:
             [
-              { required: true, message: '请输入密码', trigger: 'blur' },
-              { min: 3, max: 16, message: '长度在 3 到 16 个字符', trigger: 'blur' }
+              {required: true, message: '请输入密码', trigger: 'blur'},
+              {min: 3, max: 16, message: '长度在 3 到 16 个字符', trigger: 'blur'}
             ]
         },
 
@@ -233,17 +174,17 @@
         loginFormRules2: {
           uname:
             [
-              { required: true, message: '请输入用户名', trigger: 'blur' },
-              { min: 3, max: 50, message: '长度在 3 到 50 个字符', trigger: 'blur' }
+              {required: true, message: '请输入用户名', trigger: 'blur'},
+              {min: 3, max: 50, message: '长度在 3 到 50 个字符', trigger: 'blur'}
             ],
           pwd:
             [
-              { required: true, message: '请输入密码', trigger: 'blur' },
-              { min: 3, max: 16, message: '长度在 3 到 16 个字符', trigger: 'blur' }
+              {required: true, message: '请输入密码', trigger: 'blur'},
+              {min: 3, max: 16, message: '长度在 3 到 16 个字符', trigger: 'blur'}
             ],
           phone: [
-            { required: true, message: '请输入手机号', trigger: 'blur' },
-            { validator: checkMobile, trigger: 'blur' }
+            {required: true, message: '请输入手机号', trigger: 'blur'},
+            {validator: checkMobile, trigger: 'blur'}
           ]
         },
         showLogin: false,
@@ -325,7 +266,7 @@
 
       // 去首页
       goHome() {
-        this.$router.push({ path: `/phone/home` })
+        this.$router.push({path: `/phone/home`})
       },
 
       // 登录
@@ -335,12 +276,12 @@
       goLoginTo() {
 
         if (this.loginForm.uname.trim() == '') {
-          this.$message({ message: '用户名不能为空', type: 'error', duration: 1700 })
+          this.$message({message: '用户名不能为空', type: 'error', duration: 1700})
           return
         }
 
         if (this.loginForm.pwd.trim() == '') {
-          this.$message({ message: '密码不能为空', type: 'error', duration: 1700 })
+          this.$message({message: '密码不能为空', type: 'error', duration: 1700})
           return
         }
         userLogin(this.loginForm).then(res => {
@@ -351,7 +292,7 @@
             this.loginDialog = false
             this.init()
           } else {
-            this.$message({ message: res.message, type: 'error', duration: 1700 })
+            this.$message({message: res.message, type: 'error', duration: 1700})
 
           }
 
@@ -365,28 +306,28 @@
       },
       async registerGo() {
         if (this.registerForm.uname.trim() == '') {
-          this.$message({ message: '用户名不能为空', type: 'error', duration: 1700 })
+          this.$message({message: '用户名不能为空', type: 'error', duration: 1700})
           return
         }
 
         if (this.registerForm.pwd.trim() == '') {
-          this.$message({ message: '密码不能为空', type: 'error', duration: 1700 })
+          this.$message({message: '密码不能为空', type: 'error', duration: 1700})
           return
         }
 
         if (this.registerForm.phone.trim() == '') {
-          this.$message({ message: '手机号不能为空', type: 'error', duration: 1700 })
+          this.$message({message: '手机号不能为空', type: 'error', duration: 1700})
           return
         }
 
         await addUser(this.registerForm).then(res => {
           if (res.success) {
-            this.$message({ message: res.message, type: 'success', duration: 2000 })
+            this.$message({message: res.message, type: 'success', duration: 2000})
             // this.loginForm2.uname = res.data.data
             this.regDialog = false
             // this.loginDialog = true
           } else {
-            this.$message({ message: res.message, type: 'error', duration: 2000 })
+            this.$message({message: res.message, type: 'error', duration: 2000})
 
           }
         })
@@ -397,10 +338,10 @@
       person() {
         // 是否登录
         if (!this.loginIs()) {
-          this.$message({ message: '请先登录', type: 'error', duration: 1700 })
+          this.$message({message: '请先登录', type: 'error', duration: 1700})
           return false
         }
-        const { href } = this.$router.resolve({ path: `/flower/person` })
+        const {href} = this.$router.resolve({path: `/flower/person`})
         window.open(href, '_blank')
       },
 
@@ -408,11 +349,11 @@
       goShopping() {
         // 是否登录
         if (!this.loginIs()) {
-          this.$message({ message: '请先登录', type: 'error', duration: 1700 })
+          this.$message({message: '请先登录', type: 'error', duration: 1700})
           return false
         }
 
-        const { href } = this.$router.resolve({ path: '/flower/shopping' })
+        const {href} = this.$router.resolve({path: '/flower/shopping'})
         window.open(href, '_blank')
       },
 
@@ -427,7 +368,7 @@
       addCart(id) {
         // 是否登录
         if (!this.loginIs()) {
-          this.$message({ message: '请先登录', type: 'error', duration: 1700 })
+          this.$message({message: '请先登录', type: 'error', duration: 1700})
           this.$router.push('/flower/home')
           return false
         }
@@ -439,7 +380,7 @@
         }
         addCart(cart).then(res => {
           if (res.success) {
-            this.$message({ message: '加入购物车成功', type: 'success', duration: 2000 })
+            this.$message({message: '加入购物车成功', type: 'success', duration: 2000})
             this.num = 1
           } else {
             this.$message({
@@ -455,7 +396,7 @@
 
       addCommentBtn() {
         if (this.addComment == '') {
-          this.$message({ message: '请输入评论内容', type: 'error', duration: 1700 })
+          this.$message({message: '请输入评论内容', type: 'error', duration: 1700})
           return
         }
 
@@ -471,9 +412,9 @@
             this.init()
             this.dilog = false
             this.addComment = ''
-            this.$message({ message: '评论成功', type: 'success', duration: 1700 })
+            this.$message({message: '评论成功', type: 'success', duration: 1700})
           } else {
-            this.$message({ message: '评论失败', type: 'error', duration: 1700 })
+            this.$message({message: '评论失败', type: 'error', duration: 1700})
           }
         })
 
@@ -499,9 +440,10 @@
     width: 100%;
     height: 100%;
     /*color: #71797F;*/
-    background-color: #f5f5f5;
+    background-color: #ededed;
     display: flex;
     flex-direction: column;
+    border: 1px solid #dcdcdc;
   }
 
   .info .info-show {
@@ -534,10 +476,20 @@
   }
 
   .info-title {
-    font-weight: 600;
-    font-size: 20px;
-    padding-bottom: 25px;
-    border-bottom: 1px solid #ccc;
+    font-size: 24px;
+    line-height: 1.25;
+    color: #000;
+    margin-bottom: 13px;
+  }
+
+  .info-title-title {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #bdbdbd;
+    display: flex;
+    padding-bottom: 10px;
+    border-bottom: solid 1px #cbcbcb;
+
   }
 
   .info-price {
@@ -554,25 +506,52 @@
     margin-left: 3px;
   }
 
-  .info-price-top .info-price-number {
-    color: #f43;
-    font-weight: 600;
-    font-size: 20px;
+  .info-price-number1 {
+    color: #d44d44;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+
+  .info-price-number {
+    color: #d44d44;
+    font-weight: 700;
+    font-size: 22px;
   }
 
   .info-btns {
-    margin-top: 55px;
+    margin-top: 25px;
     font-size: 14px;
     height: 42px;
   }
 
-  .info-btns .info-num {
-    height: 32px;
+
+  .shuliang {
+    margin-top: 30px;
+    padding-bottom: 20px;
+    border-bottom: solid 1px #cbcbcb;
   }
 
   .align-center {
-    font-size: 18px;
-    /*padding-left: 10px;*/
+    padding-right: 20px;
+    font-size: 14px;
+    color: #8d8d8d;
+    line-height: 36px;
+  }
+
+  .ms {
+    display: flex;
+
+  }
+
+  .ys {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #8d8d8d;
+  }
+
+  .ys div {
+    margin-bottom: 9px;
   }
 
   .xiangqing {
@@ -670,7 +649,7 @@
     transition-property: color;
     -webkit-transition-duration: .3s;
     transition-duration: .3s;
-    background: #ffffff;
+    background: #5c81e3;
     color: #fff;
   }
 
@@ -688,33 +667,41 @@
     transition-property: color;
     -webkit-transition-duration: .3s;
     transition-duration: .3s;
-    background: #5a98de;
-    color: #ffffff;
+    background: white;
+    color: #5c81e3;
   }
 
 
   .hvr-shutter-out-horizontal {
-    width: 140px;
-    height: 40px;
-    border: 1px solid #5a98de;
+    width: 145px;
+    height: 50px;
+    border: 1px solid #5c81e3;
     display: inline-block;
-    line-height: 40px;
+    line-height: 50px;
     text-align: center;
-    color: #5a98de;
-    margin-left: 40px;
+    color: white;
+    /*margin-left: 10px;*/
+    border-radius: 4px;
     cursor: pointer;
   }
 
   .hvr-shutter-out-horizontal1 {
-    width: 140px;
-    height: 40px;
-    border: 1px solid #5a98de;
+    width: 145px;
+    height: 50px;
+    border: 1px solid #5c81e3;
+    border-radius: 4px;
     display: inline-block;
-    line-height: 40px;
+    line-height: 50px;
     text-align: center;
-    color: #ffffff;
+    color: #5c81e3;
     margin-left: 40px;
     cursor: pointer;
+  }
+
+  /deep/ .el-input-number__decrease {
+    left: 1px;
+    border-radius: 4px 0 0 4px;
+    border-right: 1px solid white;
   }
 
   /deep/ .el-input-number__decrease, .el-input-number__increase {
@@ -729,9 +716,44 @@
     cursor: pointer;
   }
 
+  /deep/ input__inner:not(.is-disabled) {
+    border-color: #5c81e3;
+  }
+
+  /deep/  .el-input-number__decrease:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled), .el-input-number__increase:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled) {
+    border-color: #5c81e3;
+  }
+
+  /deep/  .el-input-number__increase {
+    right: 1px;
+    border-radius: 0 4px 4px 0;
+    border-left: 1px solid white;
+  }
+
   .container-item-hr {
+    box-shadow: 0 3px 8px -6px rgba(0, 0, 0, .1);
     width: 100%;
-    height: 20px;
-    background-color: #f5f5f5;
+    height: 40px;
+    background-color: #ededed;
+  }
+
+  .container-item-hr2 {
+    box-shadow: 0 3px 8px -6px rgba(0, 0, 0, .1);
+    width: 100%;
+    height: 40px;
+    background-color: #ededed;
+  }
+
+  /deep/ .el-input-number__increase {
+    position: absolute;
+    z-index: 1;
+    top: 1px;
+    width: 40px;
+    height: auto;
+    text-align: center;
+    background: white;
+    color: #606266;
+    cursor: pointer;
+    font-size: 13px;
   }
 </style>

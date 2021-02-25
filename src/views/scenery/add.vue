@@ -31,13 +31,13 @@
     </el-form>
 
     <div
-      style="color:white;border-radius:6px;width: 100%;height: 36px;background-color: #5a98de;
-      line-height: 36px;margin-bottom: 20px;text-align: center">
+      style="color:white;border-radius:6px;width: 100%;height: 26px;background-color: #5a98de;
+      line-height: 26px;margin-bottom: 20px;text-align: center;font-size: 14px">
       基本参数填写
     </div>
 
 
-    <el-form :model="addDetail" :rules="rules" ref="ruleForm" label-width="140px" class="detail-form">
+    <el-form :model="addDetail" ref="ruleForm" label-width="140px" class="detail-form">
 
 
       <el-form-item label="手机名称" prop="description">
@@ -100,14 +100,15 @@
       </el-form-item>
     </el-form>
 
+
     <div
-      style="color:white;border-radius:6px;width: 100%;height: 36px;background-color: #5a98de;
-      line-height: 36px;margin-bottom: 20px;text-align: center">
+      style="color:white;border-radius:6px;width: 100%;height: 26px;background-color: #5a98de;
+      line-height: 26px;margin-bottom: 20px;text-align: center;font-size: 14px">
       添加图片详情
     </div>
 
 
-    <el-form :model="addDetail" :rules="rules" ref="ruleForm" label-width="140px" class="detail-form">
+    <el-form :model="addDetail" ref="ruleForm" label-width="140px" class="detail-form">
 
       <el-form-item label="缩略图">
         <el-upload class="avatar-uploader"
@@ -201,7 +202,7 @@
         // tinymce初始化配置
         tinymceConfig: {
           height: 600,
-          width: 900,
+          width: 800,
           menubar: true,
           branding: false,
           language: 'zh_CN',

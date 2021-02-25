@@ -195,10 +195,9 @@
         }
         await userLogin(this.loginForm2).then(res => {
           if (res.success) {
-            this.$message({ message: `欢迎 ${res.data.data.uname} 登录景区网站`, type: 'success', duration: 2000 })
             res.data.data.pwd = ''
             res.data.data.salt = ''
-            window.localStorage.setItem('UserInfo', JSON.stringify(res.data.data))
+            window.localStorage.setItem('UserInfoPhone', JSON.stringify(res.data.data))
             this.$router.push({ path: '/phone/home' })
           } else {
             this.$message({ message: res.message, type: 'error', duration: 1700 })
@@ -269,7 +268,7 @@
 
   .login-div {
     width: 400px;
-    height: 370px;
+    height: 400px;
     background-color: white;
     margin: 40px auto;
     border-radius: 12px;
@@ -279,7 +278,7 @@
 
   .login-div22 {
     width: 400px;
-    height: 420px;
+    height: 440px;
     background-color: white;
     margin: 40px auto;
     border-radius: 12px;
@@ -328,7 +327,7 @@
   .form-btn22 {
     /*margin-top: 10px;*/
     width: 330px;
-    background-color: #d81e06;
+    background-color: #5a98de;
     cursor: pointer;
     display: flex;
     border-radius: 5px;
