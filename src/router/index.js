@@ -40,35 +40,35 @@ export const constantRoutes = [
   {
     path: '/phone/home',
     hidden: true,
-    name: '景区网',
+    name: '云购手机',
     component: () => import('@/views/home/index'),
-    meta: { title: '景区网' }
+    meta: { title: '云购手机' }
   },
 
   {
     path:  '/phone/shopping',
     hidden: true,
-    name: '购物车',
+    name: '云购手机购物车',
     component: () => import('@/views/home/shopping'),
-    meta: { title: '购物车' }
+    meta: { title: '云购手机购物车' }
   },
 
   // 注册
   {
     path: '/phone/my',
     hidden: true,
-    name: '个人中心',
+    name: '云购手机个人中心',
     component: () => import('@/views/home/person'),
-    meta: { title: '个人中心' }
+    meta: { title: '云购手机个人中心' }
   },
 
   // login
   {
     path: '/phone/login',
     hidden: true,
-    name: '登录',
+    name: '云购手机登录',
     component: () => import('@/views/home/userLogin'),
-    meta: { title: '登录' }
+    meta: { title: '云购手机登录' }
   },
 
 
@@ -76,9 +76,9 @@ export const constantRoutes = [
   {
     path: '/flower/info/:id',
     hidden: true,
-    name: '鲜花详情',
+    name: '手机详情',
     component: () => import('@/views/home/sceneryInfo'),
-    meta: { title: '鲜花详情' }
+    meta: { title: '手机详情' }
   },
 
   /**
@@ -88,7 +88,7 @@ export const constantRoutes = [
     path: '/phone',
     component: Layout,
     redirect: '/phone/list',
-    name: '商品管理',
+    name: '手机管理',
     meta: { title: '商品管理', icon: 'el-icon-s-cooperation' },
     children: [
       {
