@@ -89,17 +89,17 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/phone/list',
     name: '手机管理',
-    meta: { title: '商品管理', icon: 'el-icon-s-cooperation' },
+    meta: { title: '手机管理', icon: 'el-icon-s-cooperation' },
     children: [
       {
         path: 'show',
-        name: '商品列表',
+        name: '手机列表',
         component: () => import('@/views/scenery/list'),
         meta: { title: '商品列表', icon: 'table' }
       },
       {
         path: 'add',
-        name: '商品添加',
+        name: '手机添加',
         component: () => import('@/views/scenery/add'),
         meta: { title: '商品添加', icon: 'table' }
       },
@@ -208,9 +208,9 @@ export const constantRoutes = [
     children: [
       {
         path: 'orders',
-        name: '交易列表',
+        name: '订单列表',
         component: () => import('@/views/comment/orders'),
-        meta: { title: '交易列表', icon: 'el-icon-s-comment' }
+        meta: { title: '订单列表', icon: 'el-icon-s-comment' }
       }
     ]
   },
