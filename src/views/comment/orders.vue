@@ -2,12 +2,6 @@
   <div class="app-container">
     <el-card class="box-card" shadow="hover">
 
-      <div style="margin:0 0 10px 0;width: 20%;height: 26px;
-    background-color: #ffac89;border-radius: 10px;display: flex">
-
-        <div style="color: white;margin: auto">交易信息！</div>
-      </div>
-
         <!--表格-->
         <el-table :data="orderList" stripe style="width: 100%; margin-top: 10px" border size="small">
           <el-table-column label="#" type="index" align="center"/>
