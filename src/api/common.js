@@ -151,7 +151,7 @@ export function getUserLogList(params) {
  */
 export function addScenery(params) {
   return request({
-    url: baseURL + `/flowers/addScenery`,
+    url: baseURL + `/phones/addScenery`,
     method: 'post',
     data: params
   })
@@ -190,7 +190,7 @@ export function getSceneryInfo(id) {
 
 export function pullScenery(id, state) {
   return request({
-    url: baseURL + `/flowers/pullScenery/${id}/${state}`,
+    url: baseURL + `/category/pullCategory/${id}/${state}`,
     method: 'get'
   })
 }

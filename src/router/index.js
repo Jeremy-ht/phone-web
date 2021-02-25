@@ -3,6 +3,9 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+//  #5a98de;
+//  #c62b26;
+
 /* Layout */
 import Layout from '@/layout'
 
@@ -82,29 +85,29 @@ export const constantRoutes = [
    * 鲜花管理
    */
   {
-    path: '/flower',
+    path: '/phone',
     component: Layout,
-    redirect: '/flower/list',
-    name: '鲜花管理',
-    meta: { title: '鲜花管理', icon: 'el-icon-s-cooperation' },
+    redirect: '/phone/list',
+    name: '商品管理',
+    meta: { title: '商品管理', icon: 'el-icon-s-cooperation' },
     children: [
       {
         path: 'show',
-        name: '鲜花列表',
+        name: '商品列表',
         component: () => import('@/views/scenery/list'),
-        meta: { title: '鲜花列表', icon: 'table' }
+        meta: { title: '商品列表', icon: 'table' }
       },
       {
         path: 'add',
-        name: '鲜花添加',
+        name: '商品添加',
         component: () => import('@/views/scenery/add'),
-        meta: { title: '鲜花添加', icon: 'table' }
+        meta: { title: '商品添加', icon: 'table' }
       },
       {
         path: 'category',
-        name: '鲜花类别',
+        name: '品牌分类',
         component: () => import('@/views/scenery/category'),
-        meta: { title: '鲜花类别', icon: 'table' }
+        meta: { title: '品牌分类', icon: 'table' }
       }
     ]
   },

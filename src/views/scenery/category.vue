@@ -5,7 +5,7 @@
       <el-row>
         <el-col>
           <!-- 新增按钮 -->
-          <el-button class="admin-add-btn" type="primary" size="mini" @click="addCateBtn">新增分类</el-button>
+          <el-button class="admin-add-btn" type="primary" size="mini" @click="addCateBtn">新增品牌</el-button>
         </el-col>
       </el-row>
 
@@ -13,10 +13,23 @@
       <!-- 表格 -->
       <el-table :data="cateList" stripe style="width: 100%; margin-top: 10px" border size="small">
         <el-table-column label="#" type="index" align="center"/>
-        <el-table-column label="鲜花分类名称" prop="categoryname" align="center"/>
-        <el-table-column label="分类创建时间" align="center">
+        <el-table-column label="品牌名称" prop="categoryname" align="center"/>
+        <el-table-column label="品牌名称创建时间" align="center">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.creatime }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="是否在首页显示" align="center">
+          <template slot-scope="scope">
+            <el-switch
+              @change="changeState(scope.row.id, scope.row.state)"
+              v-model="scope.row.creator == 1"
+              inactive-text="已下架"
+              inactive-color="#f3f3f3"
+              active-color="#5a98de"
+              active-text="已上架">
+            </el-switch>
           </template>
         </el-table-column>
 
@@ -27,7 +40,7 @@
               修改
             </el-button>
             <!-- 删除 -->
-            <el-button type="danger" size="mini" @click="delCateBtn(scope.row.id)">
+            <el-button class="del" type="danger" size="mini" @click="delCateBtn(scope.row.id)">
               删除
             </el-button>
           </template>
@@ -85,7 +98,7 @@
 
 <script>
   import PageBar from '@/components/PageBar'
-  import { getCategoryList, delCategory, addCategory, updCategory, getCategoryById } from '../../api/common'
+  import {getCategoryList, delCategory, addCategory, updCategory, getCategoryById, pullScenery} from '../../api/common'
 
   export default {
     data() {
@@ -133,8 +146,9 @@
         getCategoryList(params).then(res => {
           if (res.success) {
             this.pageTotal = res.data.total
-            this.cateList = res.data.data
 
+            this.cateList = res.data.data
+            console.log(this.cateList)
           }
         })
       },
@@ -226,7 +240,25 @@
 
       closeupdAdminForm() {
         this.$refs.updCateRef.resetFields()
-      }
+      },
+
+
+
+      changeState(id, state) {
+        if (state == 1){
+          state = 0
+        }else {
+          state = 1
+        }
+        pullScenery(id, state).then(res => {
+          if (res.success) {
+            this.getCateList()
+          } else {
+            this.$message({ message: '失败', type: 'error', duration: 1700 })
+
+          }
+        })
+      },
 
     }
   }
@@ -236,22 +268,30 @@
   .admin-add-btn {
     margin-bottom: 10px;
     float: left;
-    background-color: #ffac89;
+    background-color: #5a98de;
   }
 
   /* ======= */
   /* 按钮颜色改变 */
   /* ======= */
   /deep/ .el-button--primary:focus, .el-button--primary:hover {
-    background: #ffac89;
-    border-color: #ffac89;
+    background: #5a98de;
+    border-color: #5a98de;
     color: #FFF;
   }
 
   /deep/ .el-button--primary {
     color: #FFF;
-    background-color: #ffac89;
-    border-color: #ffac89;
+    background-color: #5a98de;
+    border-color: #5a98de;
+  }
+
+  /deep/.el-switch__label.is-active {
+    color: #5a98de;
+  }
+
+  .del{
+    background-color: #c62b26;
   }
 
 </style>
