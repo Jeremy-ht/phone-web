@@ -150,7 +150,7 @@
         <!--        <span style="margin-left: 20px;font-size: 18px;font-weight: 600"></span>-->
       <div style="margin-left: 20px;margin-top: 20px">
         应付总金额:
-          <span style="font-size: 26px;color: #ffac89;">{{ totalPrice }} </span> 元
+          <span style="font-size: 26px;color: #5a98de;">{{ totalPrice }} </span> 元
       </div>
 
         <!--表单-->
@@ -616,7 +616,7 @@
 
   .shopping-item .name:hover {
     cursor: pointer;
-    color: #ffac89;
+    color: #5a98de;
   }
 
   .shopping-item .price {

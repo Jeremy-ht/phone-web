@@ -125,7 +125,7 @@
     <!--            @select="handleSelect"-->
     <!--            background-color="#FFFFFF"-->
     <!--            text-color="#000"-->
-    <!--            active-text-color="#ffac89">-->
+    <!--            active-text-color="#5a98de">-->
     <!--            <el-menu-item index="0">鲜花</el-menu-item>-->
     <!--            <el-menu-item index="1">玫瑰</el-menu-item>-->
     <!--            <el-menu-item index="2">康乃馨</el-menu-item>-->
@@ -1053,7 +1053,7 @@
 
   .co:hover {
     cursor: pointer;
-    color: #ffac89;
+    color: #5a98de;
   }
 
   /* ======= */
@@ -1113,8 +1113,8 @@
 
   /deep/ .el-button.is-plain:focus, .el-button.is-plain:hover {
     background: #FFF;
-    border-color: #ffac89;
-    color: #ffac89;
+    border-color: #5a98de;
+    color: #5a98de;
   }
 
   /deep/ .el-input__inner:hover {
@@ -1175,7 +1175,7 @@
   }
 
   .new-item-list1:hover {
-    border: 1px solid #ffac89;
+    border: 1px solid #5a98de;
 
   }
 

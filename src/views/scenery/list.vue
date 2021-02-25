@@ -29,7 +29,7 @@
               v-model="scope.row.state == 1"
               inactive-text="已下架"
               inactive-color="#f3f3f3"
-              active-color="#ffac89"
+              active-color="#5a98de"
               active-text="上架">
             </el-switch>
           </template>

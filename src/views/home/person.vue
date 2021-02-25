@@ -493,7 +493,7 @@
 
   .co:hover {
     cursor: pointer;
-    color: #ffac89;
+    color: #5a98de;
   }
 
   /* ======= */
@@ -576,7 +576,7 @@
 
   .person-show-bar .base:hover {
     cursor: pointer;
-    color: #ffac89;
+    color: #5a98de;
   }
 
 

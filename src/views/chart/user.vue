@@ -40,7 +40,7 @@
               left: 'left',
               top: 20,
               textStyle: {
-                color: '#ffac89'
+                color: '#5a98de'
               }
             },
             tooltip: {

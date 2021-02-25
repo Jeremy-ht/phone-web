@@ -28,7 +28,7 @@
             </div>
 
             <div>
-              销量 <span style="font-size: 16px;color:#ffac89;"> 50 </span>笔
+              销量 <span style="font-size: 16px;color:#5a98de;"> 50 </span>笔
             </div>
           </div>
 
@@ -56,7 +56,7 @@
     </div>
 
     <div class="xiangqing">
-      <div style="width: 200px;font-size: 18px;color: #ffac89;">
+      <div style="width: 200px;font-size: 18px;color: #5a98de;">
         产品详情
       </div>
 
@@ -66,7 +66,7 @@
 
 
     </div>
-    <div style="width: 100%;height: 50px;background-color: #ffac89;">
+    <div style="width: 100%;height: 50px;background-color: #5a98de;">
     </div>
 
 
@@ -641,7 +641,7 @@
 
   .co:hover {
     cursor: pointer;
-    color: #ffac89;
+    color: #5a98de;
   }
 
 
@@ -688,7 +688,7 @@
     transition-property: color;
     -webkit-transition-duration: .3s;
     transition-duration: .3s;
-    background: #ffac89;
+    background: #5a98de;
     color: #ffffff;
   }
 
@@ -696,11 +696,11 @@
   .hvr-shutter-out-horizontal {
     width: 140px;
     height: 40px;
-    border: 1px solid #ffac89;
+    border: 1px solid #5a98de;
     display: inline-block;
     line-height: 40px;
     text-align: center;
-    color: #ffac89;
+    color: #5a98de;
     margin-left: 40px;
     cursor: pointer;
   }
@@ -708,7 +708,7 @@
   .hvr-shutter-out-horizontal1 {
     width: 140px;
     height: 40px;
-    border: 1px solid #ffac89;
+    border: 1px solid #5a98de;
     display: inline-block;
     line-height: 40px;
     text-align: center;

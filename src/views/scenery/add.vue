@@ -2,7 +2,7 @@
   <div class="app-container">
 
     <!--    <div style="margin:0 auto 20px auto;width: 85%;height: 30px;-->
-    <!--    background-color: #ffac89;border-radius: 10px;display: flex">-->
+    <!--    background-color: #5a98de;border-radius: 10px;display: flex">-->
 
     <!--      <div  style="color: white;margin: auto">请仔细填写鲜花信息，必填项不能为空！</div>-->
 

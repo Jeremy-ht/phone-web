@@ -263,26 +263,26 @@
   /* 按钮颜色改变 */
   /* ======= */
   /*/deep/ .el-button--primary:focus, .el-button--primary:hover {*/
-  /*  background: #ffac89;*/
-  /*  border-color: #ffac89;*/
+  /*  background: #5a98de;*/
+  /*  border-color: #5a98de;*/
   /*  color: #FFF;*/
   /*}*/
 
   /*/deep/ .el-button--primary {*/
   /*  color: #FFF;*/
-  /*  background-color: #ffac89;*/
-  /*  border-color: #ffac89;*/
+  /*  background-color: #5a98de;*/
+  /*  border-color: #5a98de;*/
   /*}*/
 
   /*/deep/ .el-button--primary:focus, .el-button--primary:hover {*/
-  /*  background: #ffac89;*/
-  /*  border-color: #ffac89;*/
+  /*  background: #5a98de;*/
+  /*  border-color: #5a98de;*/
   /*  color: #FFF;*/
   /*}*/
 
   /*/deep/ .el-button--primary {*/
   /*  color: #FFF;*/
-  /*   background-color: #ffac89;*/
-  /*   border-color: #ffac89;*/
+  /*   background-color: #5a98de;*/
+  /*   border-color: #5a98de;*/
   /*}*/
 </style>
