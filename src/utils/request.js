@@ -29,6 +29,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
 
   response => {
+    console.log(response)
     return response.data;
 
     // // if the custom code is not 20000, it is judged as an error.
@@ -60,7 +61,7 @@ service.interceptors.response.use(
   error => {
     console.log('err' + error) // for debug
     Message({
-      message: error.message,
+      message: '发生错误失败，请刷新页面',
       type: 'error',
       duration: 5 * 1000
     })

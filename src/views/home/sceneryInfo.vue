@@ -1,7 +1,17 @@
 <template>
   <div class="container">
 
-    <div class="container-item-hr"/>
+    <div class="container-item-hr">
+      <svg @click="goHome()" t="1614167354200" class="icon"
+           viewBox="0 0 1024 1024" version="1.1"
+           xmlns="http://www.w3.org/2000/svg" p-id="2441"
+           width="200" height="200">
+        <path
+          d="M645.924571 0C693.101714 0 731.428571 35.328 731.428571 78.774857v866.450286C731.428571 988.672 693.101714 1024 645.924571 1024H85.504C38.326857 1024 0 988.672 0 945.225143V78.774857C0 35.328 38.326857 0 85.504 0h560.420571zM841.142857 438.857143a36.571429 36.571429 0 0 1 36.571429 36.571428v512a36.571429 36.571429 0 0 1-73.142857 0v-512a36.571429 36.571429 0 0 1 36.571428-36.571428z m146.285714 292.571428a36.571429 36.571429 0 0 1 36.571429 36.571429v219.428571a36.571429 36.571429 0 0 1-73.142857 0v-219.428571a36.571429 36.571429 0 0 1 36.571428-36.571429zM657.773714 73.069714h-585.142857v877.641143h585.142857v-877.714286zM585.142857 331.995429c0 13.897143-7.460571 26.112-18.651428 33.133714C550.253714 458.605714 466.432 530.066286 365.714286 530.066286S181.174857 458.605714 164.937143 365.129143A39.204571 39.204571 0 0 1 146.285714 332.068571C146.285714 310.272 164.498286 292.571429 186.88 292.571429c22.381714 0 40.521143 17.700571 40.521143 39.497142a38.765714 38.765714 0 0 1-12.8 28.672C228.425143 429.641143 290.889143 481.718857 365.714286 481.718857s137.289143-52.077714 151.113143-120.978286a38.765714 38.765714 0 0 1-12.8-28.745142c0-21.723429 18.139429-39.424 40.521142-39.424 22.381714 0 40.594286 17.700571 40.594286 39.497142zM329.142857 804.571429h73.142857a36.571429 36.571429 0 0 1 0 73.142857h-73.142857a36.571429 36.571429 0 0 1 0-73.142857z"
+          p-id="2442" fill="#e6e6e6"></path>
+      </svg>
+    </div>
+
     <div class="info">
 
       <div class="info-show">
@@ -55,22 +65,35 @@
         </div>
 
       </div>
-      <div class="container-item-hr2"/>
 
     </div>
 
-    <div class="xiangqing">
-      <div style="width: 200px;font-size: 18px;color: #5a98de;">
-        产品详情
+    <div style="width: 100%;height: 100%;background-color: #ededed;padding-top: 30px">
+      <div class="person-show">
+
+        <div class="person-show-left">
+          <h3>排行榜</h3>
+
+          <div class="paihangbang">
+
+          </div>
+        </div>
+
+
+        <div class="person-show-right">
+          <div class="person-show-right-div">
+            <span>产品详情</span>
+          </div>
+
+          <div v-html="detailInfo.content" style="background: white">
+
+          </div>
+        </div>
+
       </div>
-
-      <div v-html="detailInfo.content">
-
-      </div>
-
-
     </div>
-    <div style="width: 100%;height: 50px;background-color: #5a98de;">
+
+    <div style="width: 100%;height: 70px;background-color: #ededed;">
     </div>
 
 
@@ -264,11 +287,6 @@
 
       },
 
-      // 去首页
-      goHome() {
-        this.$router.push({path: `/phone/home`})
-      },
-
       // 登录
       goLogin() {
         this.loginDialog = true
@@ -365,6 +383,10 @@
 
       },
 
+      goHome() {
+        this.$router.push({ path: `/phone/home` })
+      },
+
       addCart(id) {
         // 是否登录
         if (!this.loginIs()) {
@@ -440,10 +462,11 @@
     width: 100%;
     height: 100%;
     /*color: #71797F;*/
+    padding-top: 20px;
     background-color: #ededed;
     display: flex;
     flex-direction: column;
-    border: 1px solid #dcdcdc;
+    border-top: 1px solid #dcdcdc;
   }
 
   .info .info-show {
@@ -453,6 +476,8 @@
     background-color: #fff;
     padding: 20px 60px 20px 20px;
     display: flex;
+    border-top: 1px solid #ededed;
+    border-radius: 10px;
 
   }
 
@@ -720,22 +745,17 @@
     border-color: #5c81e3;
   }
 
-  /deep/  .el-input-number__decrease:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled), .el-input-number__increase:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled) {
+  /deep/ .el-input-number__decrease:hover:not(.is-disabled) ~ .el-input .el-input__inner:not(.is-disabled), .el-input-number__increase:hover:not(.is-disabled) ~ .el-input .el-input__inner:not(.is-disabled) {
     border-color: #5c81e3;
   }
 
-  /deep/  .el-input-number__increase {
+  /deep/ .el-input-number__increase {
     right: 1px;
     border-radius: 0 4px 4px 0;
     border-left: 1px solid white;
   }
 
-  .container-item-hr {
-    box-shadow: 0 3px 8px -6px rgba(0, 0, 0, .1);
-    width: 100%;
-    height: 40px;
-    background-color: #ededed;
-  }
+
 
   .container-item-hr2 {
     box-shadow: 0 3px 8px -6px rgba(0, 0, 0, .1);
@@ -756,4 +776,78 @@
     cursor: pointer;
     font-size: 13px;
   }
+
+  .person-show-right {
+    width: 950px;
+    border: solid 1px #dbdbdb;
+    background-color: white;
+    border-radius: 10px;
+  }
+
+  .person-show-right-div {
+    height: 60px;
+    background: linear-gradient(#fbfbfb, #ececec);
+    border-bottom: solid 1px #dbdbdb;
+    font-size: 18px;
+    font-weight: 400;
+    color: #626262;
+    line-height: 60px;
+    padding: 0 20px;
+    border-radius: 10px;
+  }
+
+  .person-show {
+    width: 1200px;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+
+  }
+
+  .person-show-left {
+    width: 210px;
+    height: 100%;
+    border: solid 1px #dbdbdb;
+    background-color: white;
+    border-radius: 10px;
+    /*padding: 10px;*/
+  }
+
+  .person-show-left h3 {
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    background: linear-gradient(#fbfbfb, #ececec);
+    font-weight: 400;
+    color: #626262;
+    text-align: center;
+    border-bottom: solid 1px #dbdbdb;
+  }
+
+  .paihangbang{
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+
+  }
+
+
+  .container-item-hr {
+    box-shadow: 0 3px 8px -6px rgba(0, 0, 0, .1);
+    width: 100%;
+    height: 60px;
+    background-color: black;
+    display: flex;
+  }
+
+  .container-item-hr .icon {
+    width: 40px;
+    height: 30px;
+    cursor: pointer;
+    margin: auto 30px;
+    color: black;
+    line-height: 60px;
+  }
+
 </style>

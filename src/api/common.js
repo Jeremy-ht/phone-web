@@ -159,11 +159,17 @@ export function addScenery(params) {
 
 export function getSceneryList(params, categoryId) {
   return request({
-    url: baseURL + `/flowers/getSceneryList/${categoryId}`,
+    url: baseURL + `/phones/getSceneryList/${categoryId}`,
     method: 'get',
     params
   })
+}
 
+export function getSceneryIndex() {
+  return request({
+    url: baseURL + `/phones/getSceneryIndex`,
+    method: 'get'
+  })
 }
 
 export function getSceneryListByCate(id) {
@@ -174,12 +180,12 @@ export function getSceneryListByCate(id) {
 
 }
 
-export function getSceneryIndex() {
-  return request({
-    url: baseURL + `/flowers/getSceneryIndex`,
-    method: 'get'
-  })
-}
+// export function getSceneryIndex() {
+//   return request({
+//     url: baseURL + `/flowers/getSceneryIndex`,
+//     method: 'get'
+//   })
+// }
 
 export function getSceneryInfo(id) {
   return request({

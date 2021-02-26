@@ -112,6 +112,22 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: '/one',
+    redirect: '/four',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: 'four',
+        name: '首页管理',
+        component: () => import('@/views/scenery/four'),
+        meta: { title: '首页管理' }
+
+      }
+    ]
+  },
+
   /**
    *   系统管理
    */

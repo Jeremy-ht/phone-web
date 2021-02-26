@@ -1,79 +1,90 @@
 <template>
   <div class="home-container">
 
-    <div class="shopping-1">
+    <div class="container-item-hr">
+      <svg @click="goHome()" t="1614167354200" class="icon"
+           viewBox="0 0 1024 1024" version="1.1"
+           xmlns="http://www.w3.org/2000/svg" p-id="2441"
+           width="200" height="200">
+        <path
+          d="M645.924571 0C693.101714 0 731.428571 35.328 731.428571 78.774857v866.450286C731.428571 988.672 693.101714 1024 645.924571 1024H85.504C38.326857 1024 0 988.672 0 945.225143V78.774857C0 35.328 38.326857 0 85.504 0h560.420571zM841.142857 438.857143a36.571429 36.571429 0 0 1 36.571429 36.571428v512a36.571429 36.571429 0 0 1-73.142857 0v-512a36.571429 36.571429 0 0 1 36.571428-36.571428z m146.285714 292.571428a36.571429 36.571429 0 0 1 36.571429 36.571429v219.428571a36.571429 36.571429 0 0 1-73.142857 0v-219.428571a36.571429 36.571429 0 0 1 36.571428-36.571429zM657.773714 73.069714h-585.142857v877.641143h585.142857v-877.714286zM585.142857 331.995429c0 13.897143-7.460571 26.112-18.651428 33.133714C550.253714 458.605714 466.432 530.066286 365.714286 530.066286S181.174857 458.605714 164.937143 365.129143A39.204571 39.204571 0 0 1 146.285714 332.068571C146.285714 310.272 164.498286 292.571429 186.88 292.571429c22.381714 0 40.521143 17.700571 40.521143 39.497142a38.765714 38.765714 0 0 1-12.8 28.672C228.425143 429.641143 290.889143 481.718857 365.714286 481.718857s137.289143-52.077714 151.113143-120.978286a38.765714 38.765714 0 0 1-12.8-28.745142c0-21.723429 18.139429-39.424 40.521142-39.424 22.381714 0 40.594286 17.700571 40.594286 39.497142zM329.142857 804.571429h73.142857a36.571429 36.571429 0 0 1 0 73.142857h-73.142857a36.571429 36.571429 0 0 1 0-73.142857z"
+          p-id="2442" fill="#e6e6e6"></path>
+      </svg>
+    </div>
+
+    <div style="display: flex;background-color: #ededed;">
+      <div class="shopping-1">
+
+        <div class="title">
+          <h3 style="margin-left: 20px;font-weight: 400;">购物清单</h3>
+
+          <div class="cart-table-title">
+            <div class="name">商品信息</div>
+            <div class="price1">单价</div>
+            <div class="num">数量</div>
+            <div class="subtotal">小计</div>
+            <div class="operation">操作</div>
+          </div>
+
+          <div class="shopping-items">
+
+            <div v-if="showList" class="shopping-item" v-for="item in cartList" :index="item.id">
+
+              <div style="width: 800px">
+                <el-checkbox style="margin: auto 0" @change="checkboxBox(item.price, item.amount, item.id)"
+                             :key="item.id"/>
+
+                <img :src="item.image">
+
+                <div class="name">
+                  {{item.name}}
+                </div>
+              </div>
 
 
-      <div class="title">
-        <h3 style="margin-left: 20px;font-weight: 400;">购物清单</h3>
+              <div class="price">
+                {{item.price}}
+              </div>
 
-        <div class="cart-table-title">
-          <div class="name">商品信息</div>
-          <div class="price1">单价</div>
-          <div class="num">数量</div>
-          <div class="subtotal">小计</div>
-          <div class="operation">操作</div>
-        </div>
+              <div class="count">
+                <el-input-number v-model="item.amount" size="small"
+                                 @change="handleChange(item.amount,item.id)" :min="1"/>
+              </div>
 
-        <div class="shopping-items">
+              <div class="price-count">
+                {{item.price * item.amount}}
+              </div>
 
-          <div v-if="showList" class="shopping-item" v-for="item in cartList" :index="item.id">
-
-            <div style="width: 800px">
-              <el-checkbox style="margin: auto 0" @change="checkboxBox(item.price, item.amount, item.id)"
-                           :key="item.id"/>
-
-              <img :src="item.image">
-
-              <div class="name">
-                {{item.name}}
+              <div class="delete">
+                <i class="el-icon-delete" @click="delCart(item.id)"/>
               </div>
             </div>
 
-
-            <div class="price">
-              {{item.price}}
-            </div>
-
-            <div class="count">
-              <el-input-number v-model="item.amount" size="small"
-                               @change="handleChange(item.amount,item.id)" :min="1"/>
-            </div>
-
-            <div class="price-count">
-              {{item.price * item.amount}}
-            </div>
-
-            <div class="delete">
-              <i class="el-icon-delete" @click="delCart(item.id)"/>
-            </div>
           </div>
 
-        </div>
+          <div v-if="!showList" style="color: #555555;text-align: center;margin-top: 50px">
+            购物车为空
+          </div>
 
-        <div v-if="!showList" style="color: black;text-align: center;margin-top: 100px">
-          购物车为空
-        </div>
-
-        <div class="pay">
-          <div>
+          <div class="pay">
+            <div>
               <span class="total-price"> 应付总额：
                 <em id="J_cartTotalPrice">{{totalPrice + ' '}}</em>元
               </span>
-          </div>
+            </div>
 
-          <div style="margin-left: 40px">
-            <el-button class="aaaaa"
-                       @click="showOrder = true">现在结算
-            </el-button>
+            <div style="margin-left: 40px">
+              <el-button class="aaaaa"
+                         @click="showOrder = true">现在结算
+              </el-button>
+            </div>
+
           </div>
 
         </div>
 
       </div>
-
     </div>
-
     <!--        <div class="shopping">-->
     <!--          <div style="margin: 10px auto">-->
     <!--            <h2>购 物 车</h2>-->
@@ -241,13 +252,13 @@
         loginFormRules: {
           username:
             [
-              { required: true, message: '请输入用户名', trigger: 'blur' },
-              { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
+              {required: true, message: '请输入用户名', trigger: 'blur'},
+              {min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
             ],
           password:
             [
-              { required: true, message: '请输入密码', trigger: 'blur' },
-              { min: 3, max: 16, message: '长度在 3 到 16 个字符', trigger: 'blur' }
+              {required: true, message: '请输入密码', trigger: 'blur'},
+              {min: 3, max: 16, message: '长度在 3 到 16 个字符', trigger: 'blur'}
             ]
         },
 
@@ -264,17 +275,17 @@
         loginFormRules2: {
           uname:
             [
-              { required: true, message: '请输入用户名', trigger: 'blur' },
-              { min: 3, max: 50, message: '长度在 3 到 50 个字符', trigger: 'blur' }
+              {required: true, message: '请输入用户名', trigger: 'blur'},
+              {min: 3, max: 50, message: '长度在 3 到 50 个字符', trigger: 'blur'}
             ],
           pwd:
             [
-              { required: true, message: '请输入密码', trigger: 'blur' },
-              { min: 3, max: 16, message: '长度在 3 到 16 个字符', trigger: 'blur' }
+              {required: true, message: '请输入密码', trigger: 'blur'},
+              {min: 3, max: 16, message: '长度在 3 到 16 个字符', trigger: 'blur'}
             ],
           phone: [
-            { required: true, message: '请输入手机号', trigger: 'blur' },
-            { validator: checkMobile, trigger: 'blur' }
+            {required: true, message: '请输入手机号', trigger: 'blur'},
+            {validator: checkMobile, trigger: 'blur'}
           ]
         },
 
@@ -386,7 +397,7 @@
 
       // 去首页
       goHome() {
-        this.$router.push({ path: `/phone/home` })
+        this.$router.push({path: `/phone/home`})
       },
 
       // 登录
@@ -396,12 +407,12 @@
       goLoginTo() {
 
         if (this.loginForm.uname.trim() == '') {
-          this.$message({ message: '用户名不能为空', type: 'error', duration: 1700 })
+          this.$message({message: '用户名不能为空', type: 'error', duration: 1700})
           return
         }
 
         if (this.loginForm.pwd.trim() == '') {
-          this.$message({ message: '密码不能为空', type: 'error', duration: 1700 })
+          this.$message({message: '密码不能为空', type: 'error', duration: 1700})
           return
         }
         userLogin(this.loginForm).then(res => {
@@ -412,7 +423,7 @@
             this.loginDialog = false
             this.init()
           } else {
-            this.$message({ message: res.message, type: 'error', duration: 1700 })
+            this.$message({message: res.message, type: 'error', duration: 1700})
 
           }
 
@@ -426,28 +437,28 @@
       },
       async registerGo() {
         if (this.registerForm.uname.trim() == '') {
-          this.$message({ message: '用户名不能为空', type: 'error', duration: 1700 })
+          this.$message({message: '用户名不能为空', type: 'error', duration: 1700})
           return
         }
 
         if (this.registerForm.pwd.trim() == '') {
-          this.$message({ message: '密码不能为空', type: 'error', duration: 1700 })
+          this.$message({message: '密码不能为空', type: 'error', duration: 1700})
           return
         }
 
         if (this.registerForm.phone.trim() == '') {
-          this.$message({ message: '手机号不能为空', type: 'error', duration: 1700 })
+          this.$message({message: '手机号不能为空', type: 'error', duration: 1700})
           return
         }
 
         await addUser(this.registerForm).then(res => {
           if (res.success) {
-            this.$message({ message: res.message, type: 'success', duration: 2000 })
+            this.$message({message: res.message, type: 'success', duration: 2000})
             // this.loginForm2.uname = res.data.data
             this.regDialog = false
             // this.loginDialog = true
           } else {
-            this.$message({ message: res.message, type: 'error', duration: 2000 })
+            this.$message({message: res.message, type: 'error', duration: 2000})
 
           }
         })
@@ -458,10 +469,10 @@
       person() {
         // 是否登录
         if (!this.loginIs()) {
-          this.$message({ message: '请先登录', type: 'error', duration: 1700 })
+          this.$message({message: '请先登录', type: 'error', duration: 1700})
           return false
         }
-        const { href } = this.$router.resolve({ path: `/flower/person` })
+        const {href} = this.$router.resolve({path: `/flower/person`})
         window.open(href, '_blank')
       },
 
@@ -469,11 +480,11 @@
       goShopping() {
         // 是否登录
         if (!this.loginIs()) {
-          this.$message({ message: '请先登录', type: 'error', duration: 1700 })
+          this.$message({message: '请先登录', type: 'error', duration: 1700})
           return false
         }
 
-        const { href } = this.$router.resolve({ path: '/flower/shopping' })
+        const {href} = this.$router.resolve({path: '/flower/shopping'})
         window.open(href, '_blank')
       },
 
@@ -490,7 +501,7 @@
 
       // 去详情页
       goDetailInfo(categoryid, id) {
-        const { href } = this.$router.resolve({ path: `/scenery/sceneryInfo/${categoryid}/${id}` })
+        const {href} = this.$router.resolve({path: `/scenery/sceneryInfo/${categoryid}/${id}`})
         window.open(href, '_blank')
 
       },
@@ -498,7 +509,7 @@
       // 提交订单
       submitOrder() {
         if (this.addressid == 0) {
-          this.$message({ message: '请选择地址', type: 'error', duration: 1700 })
+          this.$message({message: '请选择地址', type: 'error', duration: 1700})
           return false
         }
 
@@ -516,11 +527,11 @@
 
         addOrder(order).then(res => {
           if (res.success) {
-            this.$message({ message: '提交成功', type: 'success', duration: 2000 })
+            this.$message({message: '提交成功', type: 'success', duration: 2000})
             this.init()
             this.showOrder = false
           } else {
-            this.$message({ message: '提交失败，刷新再试', type: 'error', duration: 2000 })
+            this.$message({message: '提交失败，刷新再试', type: 'error', duration: 2000})
 
           }
         })
@@ -569,8 +580,7 @@
     width: 100%;
     height: 100%;
     font-size: 14px;
-    background-color: #f3f3f3;
-    display: flex;
+    background-color: rgb(237, 237, 237);
   }
 
 
@@ -795,5 +805,23 @@
     color: white;
     border-color: #6c8cd4;
     background-color: #6c8cd4;
+  }
+
+
+  .container-item-hr {
+    box-shadow: 0 3px 8px -6px rgba(0, 0, 0, .1);
+    width: 100%;
+    height: 60px;
+    background-color: black;
+    display: flex;
+  }
+
+  .container-item-hr .icon {
+    width: 40px;
+    height: 30px;
+    cursor: pointer;
+    margin: auto 30px;
+    color: black;
+    line-height: 60px;
   }
 </style>
