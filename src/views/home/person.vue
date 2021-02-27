@@ -20,14 +20,12 @@
           <div class="name">
             <!--          <img class="avatar" :src="UserInfo.image" alt="">-->
             <img class="avatar" src="http://service.szhtkj.com.cn/SzhtShop/uploads/default/avatar/userimg.png" alt="">
-            <div class="username">huangtao{{UserInfo.uname}}</div>
+            <div class="username">{{UserInfo.uname}}</div>
           </div>
 
           <div class="base" @click="showIsOR(1)">我的账号</div>
-          <div class="base" @click="showIsOR(2)">我的订单</div>
-          <div class="base" style="border-bottom: solid 1px #dbdbdb;"
-               @click="showIsOR(3)">我的地址
-          </div>
+<!--          <div class="base" @click="showIsOR(2)">我的订单</div>-->
+          <div class="base" style="border-bottom: solid 1px #dbdbdb;" @click="showIsOR(3)">收货地址</div>
         </div>
 
 
@@ -35,87 +33,51 @@
           <div class="person-show-right-div">
             <span>{{' ' + titleName}}</span>
           </div>
+
+
+          <div class="person-show-right-div-item" v-if="showIs == '1'">
+
+            <div>
+              <el-button @click="goUpd" class="btn22" type="primary">修改密码</el-button>
+              <el-button @click="goShopping" class="btn22" type="primary">我的购物车</el-button>
+              <el-button @click="showIsOR(2)" class="btn22" type="primary">我的订单</el-button>
+              <el-button @click="showIsOR(3)" class="btn22" type="primary">收货地址</el-button>
+              <el-button @click="layoutGo" class="btn22" type="primary">退出登录</el-button>
+            </div>
+
+          </div>
+
+
+          <div class="person-show-right-div-item" v-if="showIs == '3'">
+
+            <el-button @click="addressDialog = true" class="btn2ww2" type="primary">添加地址</el-button>
+
+            <div class="aaaaaaaa">
+              <div class="addr" v-for="item in addressList" :index="item.id">
+                <div class="uname">收件人：{{item.name}}</div>
+                <div class="phone">手机号：{{item.phone}}</div>
+                <div class="addresss">地 址：{{item.address}}</div>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="person-show-right-div-item" v-if="showIs == '2'">
+
+          </div>
+
+
         </div>
 
       </div>
     </div>
 
 
-    <!--    <div class="person-show">-->
-
-    <!--      <div class="person-show-bar">-->
-
-    <!--        <div class="base" @click="showIsOR(1)">账号设置</div>-->
-
-    <!--        <div class="order base" @click="showIsOR(3)">我的地址</div>-->
-    <!--        &lt;!&ndash;        <div class="order base" @click="showIsOR(3)">我的订单</div>&ndash;&gt;-->
-
-    <!--      </div>-->
-
-    <!--      <div class="person-show-item">-->
-
-    <!--        <div class="my-person" v-if="showIs == '1'">-->
-
-    <!--          <div class="name">-->
-    <!--            <img class="avatar" :src="UserInfo.image" alt="">-->
-
-    <!--            <div class="name-username">-->
-    <!--              <div class="username">{{UserInfo.uname}}</div>-->
-    <!--              <div class="nhao">-->
-    <!--                你好-->
-    <!--              </div>-->
-    <!--            </div>-->
-
-    <!--          </div>-->
-
-    <!--          <div class="upd-pwd">-->
-    <!--            <h3 style="color: black">修改密码:</h3>-->
-    <!--            <el-input placeholder="请原输入密码" v-model="pwd.password" show-password/>-->
-    <!--            <div class="pwd-info">-->
-
-    <!--              <el-input placeholder="请新输入密码" v-model="pwd.newPassword" show-password/>-->
-    <!--            </div>-->
-
-    <!--            <el-button class="pwd-info3" type="primary" @click="submitPwd(UserInfo.id)">提交</el-button>-->
-    <!--          </div>-->
-
-    <!--        </div>-->
-
-
-    <!--        <div class="my-order" v-show="showIs == '2'">-->
-    <!--          <div class="my-order"></div>-->
-    <!--        </div>-->
-
-
-    <!--        <div class="my-address" v-show="showIs == '3'">-->
-
-    <!--          <div class="my-address-item" @click="addAddress()">-->
-    <!--            <div style="margin: auto;font-size: 26px; color: #cecece;">-->
-    <!--              <i class="el-icon-circle-plus-outline">-->
-    <!--                &lt;!&ndash;                <em style="font-size: 16px; color: #cecece;line-height: 30px">添加地址</em>&ndash;&gt;-->
-    <!--              </i>-->
-    <!--            </div>-->
-    <!--          </div>-->
-
-    <!--          <div class="my-address-item" v-for="item in addressList" :index="item.id">-->
-    <!--            <div class="uname">{{item.name}}</div>-->
-    <!--            <div class="phone">{{item.phone}}</div>-->
-    <!--            <div class="addresss">{{item.address}}</div>-->
-    <!--          </div>-->
-
-
-    <!--        </div>-->
-
-    <!--      </div>-->
-
-
-    <!--    </div>-->
-
-
     <!-- ========================= -->
     <!-- 地址 start -->
     <!-- ========================= -->
-    <el-dialog title="添加地址" center :visible.sync="addressDialog" width="40%">
+    <el-dialog title="添加收货地址" center :visible.sync="addressDialog" width="26%">
       <span>
         <!--表单-->
         <div style="display: flex">
@@ -138,11 +100,35 @@
 
 
             <el-form-item style="display: flex;justify-content: center">
-              <el-button @click="goAddAddress" type="success" size="small">提 交</el-button>
-              <el-button style="margin-left: 150px" @click="addressDialog = false" size="small">取 消</el-button>
+              <el-button @click="goAddAddress" class="btn2ww2333" type="success" size="small">确定</el-button>
+              <!--              <el-button style="margin-left: 60px" @click="addressDialog = false" size="small">取 消</el-button>-->
             </el-form-item>
           </el-form>
         </div>
+      </span>
+    </el-dialog>
+
+
+    <!--修改密码 -->
+    <el-dialog title="修改密码" :visible.sync="updDialogVisible" width="20%">
+      <span>
+        <!--表单-->
+        <el-form label-width="90px">
+          <el-form-item label="原密码:">
+           <el-input placeholder="原密码" v-model="pwd.password" show-password/>
+          </el-form-item>
+
+
+          <el-form-item label="新密码:">
+           <el-input placeholder="新密码" v-model="pwd.newPassword" show-password/>
+          </el-form-item>
+        </el-form>
+      </span>
+
+      <!--底部区域-->
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitPwd(UserInfo.id)" size="mini">修改</el-button>
+        <el-button @click="updDialogVisible = false" size="mini">取 消</el-button>
       </span>
     </el-dialog>
 
@@ -152,9 +138,8 @@
 
 <script>
   import {
-    getShoppingNum,
-    getCategoryList, getAddressList, addAddress, getUserList, getSceneryIndex,
-    getSceneryList, getrotationList, updUserInfo, getSearchContent, adminLogin, userLogin, addUser, updPasswordById
+    getAddressList, addAddress, getUserList, getSceneryIndex,
+    getSceneryList, getrotationList, updUserInfo, getSearchContent, updPasswordById
   } from '../../api/common'
   import '../../assets/iconfont/iconfont'
 
@@ -172,17 +157,6 @@
         cb(new Error('请输入合法的手机号'))
       }
 
-      // 验证邮箱的规则
-      let checkEmail = (rule, value, cb) => {
-        // 验证邮箱的正则表达式
-        const regEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/
-        if (regEmail.test(value)) {
-          // 合法的邮箱
-          return cb()
-        }
-        cb(new Error('请输入合法的邮箱'))
-      }
-
       return {
         activeIndex: '0',
         search: '',
@@ -195,8 +169,6 @@
           creatime: '',
           email: '',
           id: 0,
-          loginway: 0,
-          sex: '1'
         },
 
         // 分类
@@ -210,51 +182,6 @@
         loginDialog: false,
         regDialog: false,
         comment: '',
-
-        //表单数据绑定
-        loginForm: {
-          uname: '',
-          pwd: ''
-        },
-        //表单验证
-        loginFormRules: {
-          username:
-            [
-              {required: true, message: '请输入用户名', trigger: 'blur'},
-              {min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
-            ],
-          password:
-            [
-              {required: true, message: '请输入密码', trigger: 'blur'},
-              {min: 3, max: 16, message: '长度在 3 到 16 个字符', trigger: 'blur'}
-            ]
-        },
-
-        // 注册表单
-        registerForm: {
-          uname: '',
-          pwd: '',
-          sex: '1',
-          phone: ''
-        },
-
-        //表单验证
-        loginFormRules2: {
-          uname:
-            [
-              {required: true, message: '请输入用户名', trigger: 'blur'},
-              {min: 3, max: 50, message: '长度在 3 到 50 个字符', trigger: 'blur'}
-            ],
-          pwd:
-            [
-              {required: true, message: '请输入密码', trigger: 'blur'},
-              {min: 3, max: 16, message: '长度在 3 到 16 个字符', trigger: 'blur'}
-            ],
-          phone: [
-            {required: true, message: '请输入手机号', trigger: 'blur'},
-            {validator: checkMobile, trigger: 'blur'}
-          ]
-        },
 
         // 地址表单验证
         loginFormRules3: {
@@ -279,7 +206,7 @@
         num: 1,
         countPay: 0,
 
-        showIs: '3',
+        showIs: '1',
 
         // 修改密码
         pwd: {
@@ -295,6 +222,7 @@
           address: ''
         },
         addressDialog: false,
+        updDialogVisible: false,
         shoppingNum: 0,
 
         titleName: '我的账号',
@@ -309,34 +237,23 @@
       // 初始化
       async init() {
 
-        // // 是否登录
-        // if (!this.loginIs()) {
-        //   this.$message({ message: '请先登录', type: 'error', duration: 1700 })
-        //   this.$router.push('/phone/home')
-        //   return false
-        // } else {
-        //   getShoppingNum(this.UserInfo.id).then(res => {
-        //     if (res.success) {
-        //       this.shoppingNum = res.data.data
-        //
-        //     } else {
-        //       this.$message({
-        //         message: '数据获取失败，请刷新重试',
-        //         type: 'error', duration: 2000
-        //       })
-        //     }
-        //   })
-        //
-        // }
-        //
-        // getAddressList(this.UserInfo.id).then(res => {
-        //   if (res.success) {
-        //     this.addressList = res.data.data
-        //   } else {
-        //     this.$message({ message: res.message, type: 'error', duration: 1700 })
-        //   }
-        //
-        // })
+        // 是否登录
+        if (!this.loginIs()) {
+          this.$message({message: '请先登录', type: 'error', duration: 1700})
+          this.$router.push('/phone/login')
+          return false
+        }
+
+
+        getAddressList(this.UserInfo.id).then(res => {
+          if (res.success) {
+            this.addressList = res.data.data
+            console.log(this.addressList)
+          } else {
+            this.$message({message: res.message, type: 'error', duration: 1700})
+          }
+
+        })
 
       },
 
@@ -360,20 +277,34 @@
 
       // 购物车
       goShopping() {
-        // // 是否登录
-        // if (!this.loginIs()) {
-        //   this.$message({ message: '请先登录', type: 'error', duration: 1700 })
-        //   return false
-        // }
-
         // 后台请求购物车数据
-        const {href} = this.$router.resolve({path: '/flower/shopping'})
+        const {href} = this.$router.resolve({path: '/phone/shopping'})
         window.open(href, '_blank')
       },
 
       // 修改密码
+      goUpd() {
+        this.pwd = {
+          password: '',
+          newPassword: ''
+        }
+
+        this.updDialogVisible = true
+      },
+
+      // 退出登录
+      layoutGo() {
+        window.localStorage.removeItem('UserInfoPhone')
+        this.$router.push({path: '/phone/home'})
+
+      },
+
       submitPwd(id) {
-        console.log(id)
+        if (this.pwd.newPassword == '') {
+          this.$message({message: '不能为空', type: 'error', duration: 1700})
+          return false
+        }
+
         updPasswordById(id, this.pwd).then(res => {
           if (res.success) {
             this.$message({message: '成功修改密码', type: 'success', duration: 1700})
@@ -392,13 +323,17 @@
       showIsOR(id) {
         if (id == 1) {
           this.titleName = '我的账号'
+          this.showIs = '1'
         } else if (id == 2) {
           this.titleName = '我的订单'
+          this.showIs = '2'
         } else if (id == 3) {
           this.titleName = '我的地址'
+          this.showIs = '3'
         }
 
       },
+
 
       // 地址
       addAddress() {
@@ -409,19 +344,21 @@
         }
         this.addressDialog = true
       },
-      // 重置添加用户表单
-      closeAddAdminForm() {
-        // this.$refs.loginFormRules2.resetFields()
-        // this.$refs.loginFormRules.resetFields()
-
-      },
-
-      // 去首页
-      goHome() {
-        this.$router.push({path: `/phone/home`})
-      },
 
       goAddAddress() {
+
+        if (this.UserInfo.id == 0) {
+          this.$message({message: '请重新登录', type: 'error', duration: 1700})
+          return
+        }
+
+        if (this.addressInfo.name == ''
+          || this.addressInfo.phone == ''
+          || this.addressInfo.address == ''  ) {
+          this.$message({message: '地址填写不完整', type: 'error', duration: 1700})
+          return
+        }
+
         let address = {
           'userid': this.UserInfo.id,
           'name': this.addressInfo.name,
@@ -557,7 +494,6 @@
 
   .person-show-right {
     width: 950px;
-    height: 600px;
     border: solid 1px #dbdbdb;
     background-color: white;
     border-radius: 8px;
@@ -710,5 +646,80 @@
     line-height: 60px;
   }
 
+  .person-show-right-div-item {
+    padding: 20px;
+  }
+
+  .btn22 {
+    margin-left: 40px;
+    margin-top: 40px;
+    background-color: #5a98de;
+    width: 180px;
+    height: 70px;
+  }
+
+  .btn2ww2 {
+    margin-left: 20px;
+    margin-top: 2px;
+    background-color: #5a98de;
+    width: 140px;
+    height: 50px;
+    margin-bottom: 10px;
+  }
+
+  .btn2ww2333 {
+    background-color: #5a98de;
+    text-align: right;
+  }
+
+  /deep/ .el-button--success:focus, .el-button--success:hover {
+    background: #5a98de;
+    border-color: #5a98de;
+    color: #FFF;
+  }
+
+  /deep/ .el-button--success {
+    color: #FFF;
+    background-color: #5a98de;
+    border-color: #5a98de;
+  }
+
+  .addr .uname {
+    font-size: 18px;
+    font-weight: 500;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+
+  .addr .phone {
+    font-size: 18px;
+    font-weight: 500;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+
+  .addr .addresss {
+    font-size: 18px;
+    font-weight: 500;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+
+
+  .addr {
+    margin-left: 20px;
+    margin-top: 20px;
+    width: 385px;
+    height: 140px;
+    border: solid 1px #5a98de;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .aaaaaaaa {
+    display: flex;
+    flex-wrap: wrap;
+  }
 
 </style>

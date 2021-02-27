@@ -157,6 +157,27 @@ export function addScenery(params) {
   })
 }
 
+export function getInfoList6(id) {
+  return request({
+    url: baseURL + `/phones/getInfoList6/${id}`,
+    method: 'get'
+  })
+}
+
+export function addIndexShow(id, image) {
+  return request({
+    url: baseURL + `/phones/addIndexShow/${id}/${image}`,
+    method: 'get'
+  })
+}
+
+export function fourList() {
+  return request({
+    url: baseURL + `/phones/getFourIcon`,
+    method: 'get'
+  })
+}
+
 export function getSceneryList(params, categoryId) {
   return request({
     url: baseURL + `/phones/getSceneryList/${categoryId}`,
@@ -189,7 +210,7 @@ export function getSceneryListByCate(id) {
 
 export function getSceneryInfo(id) {
   return request({
-    url: baseURL + `/flowers/getSceneryInfo/${id}`,
+    url: baseURL + `/phones/getSceneryInfo/${id}`,
     method: 'get'
   })
 }
@@ -222,10 +243,11 @@ export function getrotationList(id) {
   })
 }
 
-export function getSearchContent(content = ' ') {
+export function getSearchContent(params) {
   return request({
-    url: baseURL + `/detail/getSearchContent/${content}`,
-    method: 'get'
+    url: baseURL + `/user/getSearchList`,
+    method: 'post',
+    data: params
   })
 }
 
@@ -370,6 +392,13 @@ export function getCartList(id) {
   })
 }
 
+export function delCart(id) {
+  return request({
+    url: baseURL + `/cart/delCart/${id}`,
+    method: 'get'
+  })
+}
+
 export function updAmount(uid, id, value) {
   return request({
     url: baseURL + `/cart/updAmount/${uid}/${id}/${value}`,
@@ -390,6 +419,14 @@ export function getShoppingNum(id) {
 export function addOrder(order) {
   return request({
     url: baseURL + `/orders/addOrder`,
+    method: 'post',
+    data: order
+  })
+}
+
+export function addOrder2(order) {
+  return request({
+    url: baseURL + `/orders/addOrder2`,
     method: 'post',
     data: order
   })

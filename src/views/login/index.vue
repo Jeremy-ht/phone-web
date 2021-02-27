@@ -27,7 +27,7 @@
 
           <!--密码-->
           <el-form-item prop="password">
-            <el-input class="form-input" type="pwd"
+            <el-input class="form-input" type="password"
                       placeholder="密码" v-model="loginForm.password"/>
           </el-form-item>
 
@@ -45,48 +45,6 @@
 
   </div>
 
-<!--  <div class="login-container">-->
-
-<!--    <div class="container-nav"> <a style="cursor: pointer" @click="goHome()" class="navbar-brand">欣欣鲜花交易平台</a>-->
-<!--    </div>-->
-
-
-<!--    <div class="login-item">-->
-
-<!--      <div class="title-sapn">-->
-<!--        <h2>欣欣鲜花交易后台管理</h2>-->
-<!--      </div>-->
-
-<!--      <div class="login-form">-->
-<!--        &lt;!&ndash; 登录表单 &ndash;&gt;-->
-<!--        <el-form ref="loginFormRef" label-width="0" class="login_form" :model="loginForm" :rules="loginFormRules">-->
-<!--          &lt;!&ndash;用户名&ndash;&gt;-->
-<!--          <el-form-item prop="username">-->
-
-<!--            <el-input class="form-input" prefix-icon="el-icon-s-check-->
-<!--" placeholder="用户名" v-model="loginForm.username"-->
-<!--                      :autofocus="true"/>-->
-<!--          </el-form-item>-->
-
-<!--          &lt;!&ndash;密码&ndash;&gt;-->
-<!--          <el-form-item prop="password">-->
-<!--            <el-input class="form-input" prefix-icon="el-icon-s-goods" type="password" placeholder="密码"-->
-<!--                      v-model="loginForm.password"/>-->
-<!--          </el-form-item>-->
-
-<!--          &lt;!&ndash; 登录按钮 &ndash;&gt;-->
-<!--          <el-form-item class="form-btn" style="margin-top: 20px">-->
-<!--            <el-button style="height: 36px" class="form-input" type="primary" @click="login">-->
-<!--              <span class="login-span">登 &nbsp;录</span>-->
-<!--            </el-button>-->
-<!--          </el-form-item>-->
-
-
-<!--        </el-form>-->
-<!--      </div>-->
-
-<!--    </div>-->
-<!--  </div>-->
 </template>
 
 <script>

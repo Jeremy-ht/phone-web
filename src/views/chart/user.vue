@@ -34,11 +34,11 @@
         let myChart = echart.init(document.getElementById('main'))
         // 绘制图表
         myChart.setOption(
+
           {
             title: {
-              text: '鲜花种类数量',
-              left: 'left',
-              top: 20,
+              text: '手机上架数量图',
+              left: 'center',top: 20,
               textStyle: {
                 color: '#5a98de'
               }
@@ -47,34 +47,28 @@
               trigger: 'item'
             },
             legend: {
-              top: '5%',
-              left: 'center'
+              orient: 'vertical',
+              left: 'left',
             },
             series: [
               {
-                name: '鲜花类别数量',
+                name: '数量',
                 type: 'pie',
-                radius: ['40%', '70%'],
-                avoidLabelOverlap: false,
-                label: {
-                  show: false,
-                  position: 'center'
-                },
+                radius: '50%',
+                data:  this.opinionData,
                 emphasis: {
-                  label: {
-                    show: true,
-                    fontSize: '40',
-                    fontWeight: 'bold'
+                  itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
                   }
-                },
-                labelLine: {
-                  show: false
-                },
-                data: this.opinionData
+                }
               }
             ]
-          })
+          }
 
+
+        )
       }
     }
   }

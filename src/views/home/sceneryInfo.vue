@@ -24,9 +24,9 @@
 
           <p class="info-title">{{detailInfo.name}}</p>
           <div class="info-title-title">
-            <div style="width: 550px">{{detailInfo.name}}</div>
+            <div style="width: 550px">{{detailInfo.title}}</div>
             <div><span class="info-price-number1">￥<span
-              class="info-price-number">{{detailInfo.price+'.00'}}</span></span>
+              class="info-price-number">{{detailInfo.price + '.00'}}</span></span>
             </div>
           </div>
 
@@ -45,10 +45,10 @@
             </div>
 
             <div class="ys">
-              <div>颜色：</div>
-              <div>重量：</div>
-              <div>上市年份：</div>
-              <div>屏幕尺寸：</div>
+              <div>颜色：<span style="margin-left: 31px">{{detailInfo.color}}</span></div>
+              <div>重量：<span style="margin-left: 31px">{{detailInfo.weight}} kg</span></div>
+              <div>上市年份：<span style="margin-left: 3px">{{detailInfo.year}} 年</span></div>
+              <div>屏幕尺寸：<span style="margin-left: 3px">{{detailInfo.chicun}} 英寸</span></div>
             </div>
 
           </div>
@@ -56,7 +56,7 @@
           <div class="info-btns">
             <div style="float: right">
               <div class="buySub hvr-shutter-out-horizontal" @click="addCart(detailInfo.id)">加购物车</div>
-              <div class="buySub hvr-shutter-out-horizontal1">立即购买</div>
+              <div class="buySub hvr-shutter-out-horizontal1" @click="go(detailInfo.id)">立即购买</div>
             </div>
 
           </div>
@@ -72,9 +72,30 @@
       <div class="person-show">
 
         <div class="person-show-left">
-          <h3>排行榜</h3>
+          <h3>销售排行榜</h3>
 
           <div class="paihangbang">
+            <div class="title-1-i">
+
+              <div class="title-item" v-for="(item, index) in oList" :index="item.id">
+                <div class="header-item-person-shop-number">
+                  {{index + 1}}
+                </div>
+                <img class="phone-img"
+                     @click="goDetailInfo(item.id)" :src="item.image"
+                     alt="">
+
+                <div class="phone-title">{{item.title}}</div>
+
+                <!--                <div class="phone-feature">{{item.name}}</div>-->
+
+                <div class="phone-price">
+                  ¥ {{item.price}}
+                </div>
+
+              </div>
+
+            </div>
 
           </div>
         </div>
@@ -85,7 +106,7 @@
             <span>产品详情</span>
           </div>
 
-          <div v-html="detailInfo.content" style="background: white">
+          <div v-html="detailInfo.content" style="background: white" class="content">
 
           </div>
         </div>
@@ -96,12 +117,57 @@
     <div style="width: 100%;height: 70px;background-color: #ededed;">
     </div>
 
+    <!-- ========================= -->
+    <!-- 订单 start -->
+    <!-- ========================= -->
+    <el-dialog title="提交订单" center :visible.sync="showOrder" width="40%">
+      <span>
+
+
+      <div class="addressss">
+         <el-select v-model="addressid" placeholder="选择地址" clearable style="width: 500px;text-align: center">
+          <el-option v-for="item in addressList"
+                     :label="item.name + ' - ' + item.phone + ' - ' + item.address"
+                     :value="item.id"
+                     :key="item.id"/>
+        </el-select>
+
+
+      </div>
+
+        <!--        <span style="margin-left: 20px;font-size: 18px;font-weight: 600"></span>-->
+      <div style="text-align:right;margin-top: 40px">
+        应付总额: <span style="font-size: 26px;color: #5a98de;">{{ totalPrice }} </span> 元
+      </div>
+
+        <!--表单-->
+        <div style="display: flex">
+          <el-form style="margin: 40px auto 20px auto;">
+            <el-form-item style="display: flex;justify-content: center">
+              <el-button class="btn2ww2333" type="success" @click="submitOrder" size="small">提交订单</el-button>
+              <el-button style="margin-left: 80px" @click="showOrder = false" size="small">取 消</el-button>
+            </el-form-item>
+        </el-form>
+        </div>
+
+      </span>
+    </el-dialog>
 
   </div>
 </template>
 
 <script>
-  import {getShoppingNum, getSceneryInfo, addCart, addComment, getCommentList, userLogin, addUser}
+  import {
+    getInfoList6,
+    addOrder2,
+    getSceneryInfo,
+    addCart,
+    addComment,
+    getCommentList,
+    userLogin,
+    addUser,
+    getAddressList, addOrder
+  }
     from '../../api/common'
   import '../../assets/iconfont/iconfont'
 
@@ -109,51 +175,18 @@
     name: 'sceneryInfo',
     data() {
 
-
-      // 验证手机号的规则
-      let checkMobile = (rule, value, cb) => {
-        // 验证手机号的正则表达式
-        const regMobile = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/
-        if (regMobile.test(value)) {
-          return cb()
-        }
-        cb(new Error('请输入合法的手机号'))
-      }
-
-      // 验证邮箱的规则
-      let checkEmail = (rule, value, cb) => {
-        // 验证邮箱的正则表达式
-        const regEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/
-        if (regEmail.test(value)) {
-          // 合法的邮箱
-          return cb()
-        }
-        cb(new Error('请输入合法的邮箱'))
-      }
-
-
       return {
         dilog: false,
         user: {},
         detailId: 0,
         categoryid: 0,
-        detailInfo: {
-          name: '',
-          content: '',
-          origin: '',
-          image: '',
-          kucun: 10,
-          price: 0,
-          categoryid: '',
-          description: '', // 鲜花花语
-          isshow: ''
-        },
+        detailInfo: {},
 
         addComment: '',
 
         commentList: [],
         countList: 0,
-
+        totalPrice: 0,
         //
         UserInfo: {
           uname: '',
@@ -165,51 +198,6 @@
           loginway: 0,
           sex: '1'
         },
-        //表单数据绑定
-        loginForm: {
-          uname: '',
-          pwd: ''
-        },
-        //表单验证
-        loginFormRules: {
-          username:
-            [
-              {required: true, message: '请输入用户名', trigger: 'blur'},
-              {min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
-            ],
-          password:
-            [
-              {required: true, message: '请输入密码', trigger: 'blur'},
-              {min: 3, max: 16, message: '长度在 3 到 16 个字符', trigger: 'blur'}
-            ]
-        },
-
-        // 注册表单
-        registerForm: {
-          uname: '',
-          pwd: '',
-          sex: '1',
-          phone: '',
-          email: ''
-        },
-
-        //表单验证
-        loginFormRules2: {
-          uname:
-            [
-              {required: true, message: '请输入用户名', trigger: 'blur'},
-              {min: 3, max: 50, message: '长度在 3 到 50 个字符', trigger: 'blur'}
-            ],
-          pwd:
-            [
-              {required: true, message: '请输入密码', trigger: 'blur'},
-              {min: 3, max: 16, message: '长度在 3 到 16 个字符', trigger: 'blur'}
-            ],
-          phone: [
-            {required: true, message: '请输入手机号', trigger: 'blur'},
-            {validator: checkMobile, trigger: 'blur'}
-          ]
-        },
         showLogin: false,
         // flower
         loginDialog: false,
@@ -218,7 +206,13 @@
         //
         num: 1,
         shoppingNum: 0,
-
+        oList: [],  // 排行榜
+        // 订单
+        showOrder: false,
+        // 地址
+        addressList: [],
+        addressid: '',
+        ids: [],
       }
     },
     created() {
@@ -228,6 +222,7 @@
     methods: {
       // 初始化
       async init() {
+
         this.detailId = this.$route.params.id
 
         // 获取详情
@@ -235,33 +230,24 @@
           if (res.success) {
             this.detailInfo = res.data.data
           } else {
-            this.$message({
-              message: '详情获取失败，请刷新再试！',
-              type: 'error',
-              duration: 2000
-            })
+            this.$message({message: '详情获取失败，请刷新再试！', type: 'error', duration: 2000})
           }
-
-          console.log(this.detailInfo)
 
         })
 
-        // 是否登录
-        if (!this.loginIs()) {
 
-        } else {
-          await getShoppingNum(this.UserInfo.id).then(res => {
-            if (res.success) {
-              this.shoppingNum = res.data.data
-            } else {
-              this.$message({
-                message: '数据获取失败，请刷新重试',
-                type: 'error', duration: 2000
-              })
-            }
-          })
-
-        }
+        // 排行榜
+        await getInfoList6(this.detailId).then(res => {
+          if (res.success) {
+            this.oList = res.data.data
+            console.log(this.oList)
+          } else {
+            this.$message({
+              message: '数据获取失败，请刷新重试',
+              type: 'error', duration: 2000
+            })
+          }
+        })
 
         // // 评论
         // await getCommentList(1, 100, this.detailId).then(res => {
@@ -287,81 +273,55 @@
 
       },
 
-      // 登录
-      goLogin() {
-        this.loginDialog = true
-      },
-      goLoginTo() {
-
-        if (this.loginForm.uname.trim() == '') {
-          this.$message({message: '用户名不能为空', type: 'error', duration: 1700})
-          return
-        }
-
-        if (this.loginForm.pwd.trim() == '') {
-          this.$message({message: '密码不能为空', type: 'error', duration: 1700})
-          return
-        }
-        userLogin(this.loginForm).then(res => {
-          if (res.success) {
-            res.data.data.pwd = ''
-            res.data.data.salt = ''
-            window.localStorage.setItem('UserInfoPhone', JSON.stringify(res.data.data))
-            this.loginDialog = false
-            this.init()
-          } else {
-            this.$message({message: res.message, type: 'error', duration: 1700})
-
-          }
-
-        })
-
-      },
-
-      // 注册
-      goRegister() {
-        this.regDialog = true
-      },
-      async registerGo() {
-        if (this.registerForm.uname.trim() == '') {
-          this.$message({message: '用户名不能为空', type: 'error', duration: 1700})
-          return
-        }
-
-        if (this.registerForm.pwd.trim() == '') {
-          this.$message({message: '密码不能为空', type: 'error', duration: 1700})
-          return
-        }
-
-        if (this.registerForm.phone.trim() == '') {
-          this.$message({message: '手机号不能为空', type: 'error', duration: 1700})
-          return
-        }
-
-        await addUser(this.registerForm).then(res => {
-          if (res.success) {
-            this.$message({message: res.message, type: 'success', duration: 2000})
-            // this.loginForm2.uname = res.data.data
-            this.regDialog = false
-            // this.loginDialog = true
-          } else {
-            this.$message({message: res.message, type: 'error', duration: 2000})
-
-          }
-        })
-
-      },
-
-      // 个人中心
-      person() {
+      go() {
         // 是否登录
         if (!this.loginIs()) {
-          this.$message({message: '请先登录', type: 'error', duration: 1700})
+          const {href} = this.$router.resolve({path: '/phone/login'})
+          window.open(href, '_blank')
+        } else {
+          this.totalPrice = this.num * this.detailInfo.price
+          getAddressList(this.UserInfo.id).then(res => {
+            if (res.success) {
+              this.addressList = res.data.data
+            } else {
+              this.$message({message: res.message, type: 'error', duration: 1700})
+            }
+
+          })
+          this.showOrder = true
+        }
+
+
+      },
+
+      submitOrder() {
+        if (this.addressid == 0 || this.addressid == '') {
+          this.$message({message: '请选择地址', type: 'error', duration: 1700})
           return false
         }
-        const {href} = this.$router.resolve({path: `/flower/person`})
-        window.open(href, '_blank')
+
+        const num = this.num * this.detailInfo.price
+        let order = {
+          'userid': this.UserInfo.id,
+          'flowerid': this.addressid,
+          'price': num,
+          'name': this.detailId,
+          'phone': this.num,
+        }
+
+        addOrder2(order).then(res => {
+          if (res.success) {
+            this.$message({message: '购买成功', type: 'success', duration: 2000})
+            this.init()
+            this.showOrder = false
+          } else {
+            this.$message({message: '购买失败，刷新再试', type: 'error', duration: 2000})
+
+          }
+        })
+
       },
+
 
       // 购物车
       goShopping() {
@@ -371,7 +331,7 @@
           return false
         }
 
-        const {href} = this.$router.resolve({path: '/flower/shopping'})
+        const {href} = this.$router.resolve({path: '/phone/shopping'})
         window.open(href, '_blank')
       },
 
@@ -384,7 +344,7 @@
       },
 
       goHome() {
-        this.$router.push({ path: `/phone/home` })
+        this.$router.push({path: `/phone/home`})
       },
 
       addCart(id) {
@@ -445,7 +405,13 @@
       // 计数器
       handleChange(value) {
         console.log(value)
-      }
+      },
+      // 去详情页
+      goDetailInfo(id) {
+        const {href} = this.$router.resolve({path: `/phone/show/${id}`})
+        window.open(href, '_blank')
+
+      },
 
     }
   }
@@ -472,7 +438,7 @@
   .info .info-show {
     margin: 0 auto;
     width: 1200px;
-    height: 460px;
+    height: 480px;
     background-color: #fff;
     padding: 20px 60px 20px 20px;
     display: flex;
@@ -501,7 +467,7 @@
   }
 
   .info-title {
-    font-size: 24px;
+    font-size: 20px;
     line-height: 1.25;
     color: #000;
     margin-bottom: 13px;
@@ -756,7 +722,6 @@
   }
 
 
-
   .container-item-hr2 {
     box-shadow: 0 3px 8px -6px rgba(0, 0, 0, .1);
     width: 100%;
@@ -778,10 +743,11 @@
   }
 
   .person-show-right {
-    width: 950px;
+    width: 980px;
     border: solid 1px #dbdbdb;
     background-color: white;
     border-radius: 10px;
+    margin-bottom: 60px;
   }
 
   .person-show-right-div {
@@ -825,7 +791,7 @@
     border-bottom: solid 1px #dbdbdb;
   }
 
-  .paihangbang{
+  .paihangbang {
     width: 100%;
     height: 100%;
     padding: 10px;
@@ -848,6 +814,91 @@
     margin: auto 30px;
     color: black;
     line-height: 60px;
+  }
+
+  .content {
+    width: 978px;
+    height: 100%;
+  }
+
+  /deep/ .content img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  title-1-i {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    /*justify-content: space-between;*/
+  }
+
+  .title-1 {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 200;
+    color: #333;
+    /*padding-left: 10px;*/
+  }
+
+
+  .title-item {
+    height: 210px;
+    padding: 4px;
+    width: 100%;
+    margin-top: 10px;
+    /*margin-right: 6px;*/
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    border-bottom: solid 1px #d0c9c9;
+  }
+
+  .title-item:hover {
+    /*box-shadow: 8px 8px 5px #e1e1e1;*/
+  }
+
+
+  .phone-img {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+  }
+
+  .phone-title {
+    color: #333;
+    font-size: 14px;
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  .phone-price {
+    margin-top: 10px;
+    font-weight: normal;
+    color: #ca141d;
+    text-align: center;
+    font-size: 20px;
+  }
+
+  .header-item-person-shop-number {
+    background-color: #5c81e3;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: white;
+    font-size: 10px;
+    line-height: 20px;
+    text-align: center;
+    margin: auto 8px;
+  }
+
+  .addressss {
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
+    text-align: center;
   }
 
 </style>

@@ -112,21 +112,7 @@ export const constantRoutes = [
     ]
   },
 
-  {
-    path: '/one',
-    redirect: '/four',
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: 'four',
-        name: '首页管理',
-        component: () => import('@/views/scenery/four'),
-        meta: { title: '首页管理' }
 
-      }
-    ]
-  },
 
   /**
    *   系统管理
@@ -144,6 +130,20 @@ export const constantRoutes = [
         component: () => import('@/views/admin/info'),
         meta: { title: '个人中心' }
 
+      }
+    ]
+  },
+
+
+  {
+    path: '/one',
+    component: Layout,
+    children: [
+      {
+        path: 'four',
+        name: '首页管理',
+        component: () => import('@/views/scenery/four'),
+        meta: { title: '首页管理', icon: 'el-icon-s-claim' }
       }
     ]
   },
@@ -170,36 +170,7 @@ export const constantRoutes = [
     ]
   },
 
-  /**
-   * 首页管理
-   */
-  // {
-  //   path: '/index',
-  //   component: Layout,
-  //   redirect: '/index/rotation',
-  //   name: '首页管理',
-  //   meta: { title: '首页管理', icon: 'el-icon-s-claim' },
-  //   children: [
-  //     {
-  //       path: 'rotation',
-  //       name: '首页轮播',
-  //       component: () => import('@/views/index/rotation'),
-  //       meta: { title: '首页轮播', icon: 'table' }
-  //     },
-  //     {
-  //       path: 'heat',
-  //       name: '热门景点',
-  //       component: () => import('@/views/index/heat'),
-  //       meta: { title: '热门景点', icon: 'table' }
-  //     },
-  //     {
-  //       path: 'city',
-  //       name: '城市攻略',
-  //       component: () => import('@/views/index/city'),
-  //       meta: { title: '城市攻略', icon: 'table' }
-  //     }
-  //   ]
-  // },
+
   /**
    *  评论
    */
@@ -218,39 +189,40 @@ export const constantRoutes = [
   /**
    *  评论
    */
-  {
-    path: '/order',
-    component: Layout,
-    children: [
-      {
-        path: 'orderList',
-        name: '订单列表',
-        component: () => import('@/views/comment/orders'),
-        meta: { title: '订单列表', icon: 'el-icon-s-comment' }
-      }
-    ]
-  },
+  // {
+  //   path: '/order',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'orderList',
+  //       name: '订单列表',
+  //       component: () => import('@/views/comment/orders'),
+  //       meta: { title: '订单列表', icon: 'el-icon-s-comment' }
+  //     }
+  //   ]
+  // },
   /**
    *  统计
    */
   {
     path: '/chart',
     component: Layout,
-    redirect: '/chart/user',
-    name: '数据分析',
-    meta: { title: '数据分析', icon: 'el-icon-s-marketing' },
+    redirect: '/chart/cate',
+    name: '数据展示',
+    meta: { title: '数据展示', icon: 'el-icon-s-marketing' },
     children: [
       {
         path: 'cate',
-        name: '类别统计',
+        name: '品牌统计',
         component: () => import('@/views/chart/user'),
-        meta: { title: '类别统计', icon: 'table' }
-      }, {
-        path: 'order',
-        name: '交易统计',
-        component: () => import('@/views/chart/chart'),
-        meta: { title: '交易统计', icon: 'table' }
+        meta: { title: '品牌统计', icon: 'table' }
       }
+      // , {
+      //   path: 'order',
+      //   name: '交易统计',
+      //   component: () => import('@/views/chart/chart'),
+      //   meta: { title: '交易统计', icon: 'table' }
+      // }
     ]
   },
   /**

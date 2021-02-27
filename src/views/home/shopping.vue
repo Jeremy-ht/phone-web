@@ -30,8 +30,8 @@
 
             <div v-if="showList" class="shopping-item" v-for="item in cartList" :index="item.id">
 
-              <div style="width: 800px">
-                <el-checkbox style="margin: auto 0" @change="checkboxBox(item.price, item.amount, item.id)"
+              <div style="width: 640px;display: flex">
+                <el-checkbox style="margin: auto" @change="checkboxBox(item.price, item.amount, item.id)"
                              :key="item.id"/>
 
                 <img :src="item.image">
@@ -43,7 +43,7 @@
 
 
               <div class="price">
-                {{item.price}}
+                ￥ {{item.price}}
               </div>
 
               <div class="count">
@@ -52,7 +52,7 @@
               </div>
 
               <div class="price-count">
-                {{item.price * item.amount}}
+                ￥ {{item.price * item.amount}}
               </div>
 
               <div class="delete">
@@ -75,7 +75,7 @@
 
             <div style="margin-left: 40px">
               <el-button class="aaaaa"
-                         @click="showOrder = true">现在结算
+                         @click="showOrderGo">现在结算
               </el-button>
             </div>
 
@@ -85,90 +85,43 @@
 
       </div>
     </div>
-    <!--        <div class="shopping">-->
-    <!--          <div style="margin: 10px auto">-->
-    <!--            <h2>购 物 车</h2>-->
-    <!--          </div>-->
 
-    <!--          <div class="shopping-items">-->
-
-    <!--            <div v-if="showList" class="shopping-item" v-for="item in cartList" :index="item.id">-->
-
-    <!--              <el-checkbox style="margin: auto 0" @change="checkboxBox(item.price, item.amount, item.id)" :key="item.id"/>-->
-
-    <!--              <img :src="item.image">-->
-
-    <!--              <div class="name">-->
-    <!--                {{item.name}}-->
-    <!--              </div>-->
-
-    <!--              <div class="price">-->
-    <!--                {{item.price}}-->
-    <!--              </div>-->
-
-    <!--              <div class="count">-->
-    <!--                <el-input-number v-model="item.amount" size="small"-->
-    <!--                                 @change="handleChange(item.amount,item.id)" :min="1"/>-->
-    <!--              </div>-->
-
-    <!--              <div class="price-count">-->
-    <!--                {{item.price * item.amount}}-->
-    <!--              </div>-->
-
-    <!--              <div class="delete">-->
-    <!--                <i class="el-icon-delete" @click="delCart(item.id)"/>-->
-    <!--              </div>-->
-    <!--            </div>-->
-
-    <!--          </div>-->
-
-    <!--          <div v-if="!showList" style="color: black;text-align: center;margin-top: 100px">-->
-    <!--            购物车空空，去挑选鲜花吧.-->
-    <!--          </div>-->
-
-    <!--          <div class="pay">-->
-    <!--            <div>-->
-    <!--              <span class="total-price"> 合计：-->
-    <!--                <em id="J_cartTotalPrice">{{totalPrice + ' '}}</em>元-->
-    <!--              </span>-->
-    <!--            </div>-->
-
-    <!--            <div style="margin-left: 40px">-->
-    <!--              <el-button type="warning" round-->
-    <!--                         @click="showOrder = true">提交订单-->
-    <!--              </el-button>-->
-    <!--            </div>-->
-
-    <!--          </div>-->
-
-    <!--        </div>-->
 
     <!-- ========================= -->
     <!-- 订单 start -->
     <!-- ========================= -->
-    <el-dialog title="提交订单" center :visible.sync="showOrder" width="60%">
+    <el-dialog title="提交订单" center :visible.sync="showOrder" width="40%">
       <span>
 
-        <span style="margin-left: 10px;font-size: 18px;font-weight: 600">选择地址:</span>
+
       <div class="addressss">
-        <div @click="addressShow(item.id)" class="my-address-item" v-for="item in addressList" :index="item.id">
-                  <div class="uname">{{item.name}}</div>
-                  <div class="phone">{{item.phone}}</div>
-                  <div class="addresss">{{item.address}}</div>
-                </div>
+<!--        <div @click="addressShow(item.id)" class="my-address-item" v-for="item in addressList" :index="item.id">-->
+        <!--                  <div class="uname">{{item.name}}</div>-->
+        <!--                  <div class="phone">{{item.phone}}</div>-->
+        <!--                  <div class="addresss">{{item.address}}</div>-->
+        <!--                </div>-->
+
+<!--         <span style="margin-left: 10px;font-size: 18px;font-weight: 600">选择地址:</span>-->
+       <el-select v-model="addressid" placeholder="选择地址" clearable style="width: 500px;text-align: center">
+          <el-option v-for="item in addressList"
+                     :label="item.name + ' - ' + item.phone + ' - ' + item.address"
+                     :value="item.id"
+                     :key="item.id"/>
+        </el-select>
+
+
       </div>
 
         <!--        <span style="margin-left: 20px;font-size: 18px;font-weight: 600"></span>-->
-      <div style="margin-left: 20px;margin-top: 20px">
-        应付总金额:
-          <span style="font-size: 26px;color: #5a98de;">{{ totalPrice }} </span> 元
+      <div style="text-align:right;margin-top: 40px">
+        应付总额: <span style="font-size: 26px;color: #5a98de;">{{ totalPrice }} </span> 元
       </div>
 
         <!--表单-->
         <div style="display: flex">
-          <el-form style="margin: 60px auto 20px auto;">
+          <el-form style="margin: 40px auto 20px auto;">
             <el-form-item style="display: flex;justify-content: center">
-              <el-button style="" type="warning" @click="submitOrder" size="small">确 认</el-button>
+              <el-button class="btn2ww2333" type="success" @click="submitOrder" size="small">提交订单</el-button>
               <el-button style="margin-left: 80px" @click="showOrder = false" size="small">取 消</el-button>
             </el-form-item>
         </el-form>
@@ -183,10 +136,7 @@
 
 <script>
   import {
-    addCart, getCartList, updAmount, getAddressList, getShoppingNum,
-    getCategoryList, getUserList, getSceneryIndex,
-    getSceneryList, getrotationList, updUserInfo,
-    getSearchContent, adminLogin, userLogin, addUser, addOrder
+    delCart, getCartList, updAmount, getAddressList, getSceneryList, addOrder
   } from '../../api/common'
   import '../../assets/iconfont/iconfont'
 
@@ -302,7 +252,7 @@
         showOrder: false,
         // 地址
         addressList: [],
-        addressid: 0,
+        addressid: '',
         shoppingNum: 0
 
       }
@@ -315,44 +265,33 @@
       // 初始化
       async init() {
 
-        // // 是否登录
-        // if (!this.loginIs()) {
-        //   this.$message({ message: '请先登录', type: 'error', duration: 1700 })
-        //   adminInfo
-        //   return false
-        // } else {
-        //   getShoppingNum(this.UserInfo.id).then(res => {
-        //     if (res.success) {
-        //       this.shoppingNum = res.data.data
-        //
-        //     } else {
-        //       this.$message({
-        //         message: '数据获取失败，请刷新重试',
-        //         type: 'error', duration: 2000
-        //       })
-        //     }
-        //   })
-        //
-        // }
-        //
-        // await getCartList(this.UserInfo.id).then(res => {
-        //   if (res.success) {
-        //     this.cartList = res.data.data
-        //     if (res.data.data.length == 0) {
-        //       this.showList = false
-        //     }
-        //     console.log(this.cateList)
-        //   }
-        // })
-        //
-        // getAddressList(this.UserInfo.id).then(res => {
-        //   if (res.success) {
-        //     this.addressList = res.data.data
-        //   } else {
-        //     this.$message({ message: res.message, type: 'error', duration: 1700 })
-        //   }
-        //
-        // })
+        // 是否登录
+        if (!this.loginIs()) {
+          this.$message({message: '请先登录', type: 'error', duration: 1700})
+          adminInfo
+          return false
+        } else {
+
+        }
+
+        await getCartList(this.UserInfo.id).then(res => {
+          if (res.success) {
+            this.cartList = res.data.data
+            if (res.data.data.length == 0) {
+              this.showList = false
+            }
+            console.log(this.cateList)
+          }
+        })
+
+        getAddressList(this.UserInfo.id).then(res => {
+          if (res.success) {
+            this.addressList = res.data.data
+          } else {
+            this.$message({message: res.message, type: 'error', duration: 1700})
+          }
+
+        })
 
       },
 
@@ -400,81 +339,6 @@
         this.$router.push({path: `/phone/home`})
       },
 
-      // 登录
-      goLogin() {
-        this.loginDialog = true
-      },
-      goLoginTo() {
-
-        if (this.loginForm.uname.trim() == '') {
-          this.$message({message: '用户名不能为空', type: 'error', duration: 1700})
-          return
-        }
-
-        if (this.loginForm.pwd.trim() == '') {
-          this.$message({message: '密码不能为空', type: 'error', duration: 1700})
-          return
-        }
-        userLogin(this.loginForm).then(res => {
-          if (res.success) {
-            res.data.data.pwd = ''
-            res.data.data.salt = ''
-            window.localStorage.setItem('UserInfoPhone', JSON.stringify(res.data.data))
-            this.loginDialog = false
-            this.init()
-          } else {
-            this.$message({message: res.message, type: 'error', duration: 1700})
-
-          }
-
-        })
-
-      },
-
-      // 注册
-      goRegister() {
-        this.regDialog = true
-      },
-      async registerGo() {
-        if (this.registerForm.uname.trim() == '') {
-          this.$message({message: '用户名不能为空', type: 'error', duration: 1700})
-          return
-        }
-
-        if (this.registerForm.pwd.trim() == '') {
-          this.$message({message: '密码不能为空', type: 'error', duration: 1700})
-          return
-        }
-
-        if (this.registerForm.phone.trim() == '') {
-          this.$message({message: '手机号不能为空', type: 'error', duration: 1700})
-          return
-        }
-
-        await addUser(this.registerForm).then(res => {
-          if (res.success) {
-            this.$message({message: res.message, type: 'success', duration: 2000})
-            // this.loginForm2.uname = res.data.data
-            this.regDialog = false
-            // this.loginDialog = true
-          } else {
-            this.$message({message: res.message, type: 'error', duration: 2000})
-
-          }
-        })
-
-      },
-
-      // 个人中心
-      person() {
-        // 是否登录
-        if (!this.loginIs()) {
-          this.$message({message: '请先登录', type: 'error', duration: 1700})
-          return false
-        }
-        const {href} = this.$router.resolve({path: `/flower/person`})
-        window.open(href, '_blank')
-      },
 
       // 购物车
       goShopping() {
@@ -506,9 +370,20 @@
 
       },
 
+
       // 提交订单
+      showOrderGo() {
+
+        if (this.totalPrice == 0) {
+          this.$message({message: '请挑选需要结算的商品', type: 'error', duration: 1700})
+          return
+        }
+
+        this.showOrder = true
+
+      },
       submitOrder() {
-        if (this.addressid == 0) {
+        if (this.addressid == 0 || this.addressid == '') {
           this.$message({message: '请选择地址', type: 'error', duration: 1700})
           return false
         }
@@ -527,11 +402,11 @@
 
         addOrder(order).then(res => {
           if (res.success) {
-            this.$message({message: '提交成功', type: 'success', duration: 2000})
+            this.$message({message: '购买成功', type: 'success', duration: 2000})
             this.init()
             this.showOrder = false
           } else {
-            this.$message({message: '提交失败，刷新再试', type: 'error', duration: 2000})
+            this.$message({message: '购买失败，刷新再试', type: 'error', duration: 2000})
 
           }
         })
@@ -543,6 +418,22 @@
       },
       // 刪除商品
       delCart(id) {
+
+        this.$confirm('是否确定删除?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          delCart(id).then(res => {
+
+            if (res.success) {
+              this.init()
+            } else {
+              this.$message({message: '删除失败，刷新再试', type: 'error', duration: 2000})
+
+            }
+          })
+        })
 
       },
       checkboxBox(price, amount, id) {
@@ -596,7 +487,7 @@
   }
 
   .shopping-items {
-    width: 1000px;
+    width: 1200px;
     height: 100%;
     margin: 0 auto;
     display: flex;
@@ -622,6 +513,10 @@
     margin: auto 20px;
     width: 300px;
     font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline;
   }
 
   .shopping-item .name:hover {
@@ -631,29 +526,33 @@
 
   .shopping-item .price {
     margin: auto 0;
-    width: 100px;
+    width: 130px;
     /*color: #ff6700;*/
+    text-align: center;
     font-size: 16px;
   }
 
   .shopping-item .count {
     margin: auto 0;
-    width: 100px;
+    width: 160px;
+    text-align: center;
   }
 
   .shopping-item .price-count {
-    margin: auto 0 auto 140px;
-    width: 100px;
-    color: #ff6700;
+    margin: auto 0;
+    width: 130px;
+    color: #ca141d;;
     font-size: 16px;
+    text-align: center;
   }
 
   .shopping-item .delete {
     margin: auto 0 auto 70px;
-    color: #ff6700;
-    width: 100px;
+    color: red;
+    width: 118px;
     font-size: 20px;
     cursor: pointer;
+
   }
 
   /deep/ .el-checkbox__inner {
@@ -690,7 +589,7 @@
     justify-content: flex-end;
     width: 1000px;
     height: 100%;
-    margin: 10px auto;
+    margin: 30px auto;
   }
 
   .total-price {
@@ -706,8 +605,9 @@
   }
 
   .addressss {
-    display: flex;
-    flex-wrap: wrap;
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
+    text-align: center;
   }
 
   .my-address-item {
@@ -775,23 +675,27 @@
   }
 
   .cart-table-title .name {
-    width: 800px;
+    width: 600px;
   }
 
   .cart-table-title .operation {
-    width: 100px;
+    width: 130px;
+    text-align: center;
   }
 
   .cart-table-title .subtotal {
-    width: 100px;
+    width: 130px;
+    text-align: center;
   }
 
   .cart-table-title .num {
-    width: 100px;
+    width: 130px;
+    text-align: center;
   }
 
   .cart-table-title .price1 {
-    width: 100px;
+    width: 130px;
+    text-align: center;
   }
 
   .aaaaa {
@@ -823,5 +727,85 @@
     margin: auto 30px;
     color: black;
     line-height: 60px;
+  }
+
+  /deep/ .el-checkbox__inner {
+    display: inline-block;
+    position: relative;
+    border: 1px solid #aeb4c4;
+    border-radius: 50%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 18px;
+    height: 18px;
+  }
+
+  /*       */
+  /* 计算  */
+  /deep/ .el-input-number__decrease {
+    left: 1px;
+    border-radius: 4px 0 0 4px;
+    border-right: 1px solid white;
+  }
+
+  /deep/ .el-input-number__decrease, .el-input-number__increase {
+    position: absolute;
+    z-index: 1;
+    top: 1px;
+    width: 40px;
+    height: auto;
+    text-align: center;
+    background: white;
+    color: #606266;
+    cursor: pointer;
+  }
+
+  /deep/ input__inner:not(.is-disabled) {
+    border-color: #5c81e3;
+  }
+
+  /deep/ .el-input-number__decrease:hover:not(.is-disabled) ~ .el-input .el-input__inner:not(.is-disabled), .el-input-number__increase:hover:not(.is-disabled) ~ .el-input .el-input__inner:not(.is-disabled) {
+    border-color: #5c81e3;
+  }
+
+  /deep/ .el-input-number__increase {
+    right: 1px;
+    border-radius: 0 4px 4px 0;
+    border-left: 1px solid white;
+  }
+
+
+  /deep/ .el-input-number__increase {
+    position: absolute;
+    z-index: 1;
+    top: 1px;
+    width: 40px;
+    height: auto;
+    text-align: center;
+    background: white;
+    color: #606266;
+    cursor: pointer;
+    font-size: 13px;
+  }
+
+  /deep/ .el-input__inner {
+    border: 1px solid #5a98de;
+  }
+
+  .btn2ww2333 {
+    background-color: #5a98de;
+    text-align: right;
+  }
+
+  /deep/ .el-button--success:focus, .el-button--success:hover {
+    background: #5a98de;
+    border-color: #5a98de;
+    color: #FFF;
+  }
+
+  /deep/ .el-button--success {
+    color: #FFF;
+    background-color: #5a98de;
+    border-color: #5a98de;
   }
 </style>

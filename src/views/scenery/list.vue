@@ -6,47 +6,54 @@
       <el-table :data="allDetailList" stripe style="width: 100%; margin-top: 10px" border size="small">
 
         <el-table-column label="#" type="index" align="center"/>
-        <el-table-column label="鲜花名称" prop="name" align="center"/>
-        <el-table-column label="分类" prop="categoryname" align="center"/>
+        <el-table-column label="手机名称" prop="name" align="center"/>
 
-        <el-table-column label="鲜花价格" prop="price" align="center">
-          <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ '￥ '+scope.row.price + '.00'}}</span>
-          </template>
-        </el-table-column>
 
-        <el-table-column label="创建时间" align="center" width="170px">
-          <template slot-scope="scope">
-            <i class="el-icon-time"/>
-            <span style="margin-left: 10px">{{ scope.row.creatime}}</span>
-          </template>
-        </el-table-column>
-
-        <el-table-column label="上下架状态" align="center" width="200px">
-          <template slot-scope="scope">
-            <el-switch
-              @change="changeState(scope.row.id, scope.row.state)"
-              v-model="scope.row.state == 1"
-              inactive-text="已下架"
-              inactive-color="#f3f3f3"
-              active-color="#5a98de"
-              active-text="上架">
-            </el-switch>
-          </template>
-        </el-table-column>
-
-        <el-table-column label="鲜花图片" prop="image" align="center">
+        <el-table-column label="图片" prop="image" align="center">
           <template slot-scope="scope">
             <img style="width: 70px;height: 80px" :src="scope.row.image" alt="">
           </template>
         </el-table-column>
 
 
+
+        <el-table-column label="品牌分类" prop="categoryname" align="center" width="120px"/>
+
+        <el-table-column label="手机价格" prop="price" align="center" width="120px">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px;color: #ca141d;">{{ '￥ '+scope.row.price + '.00'}}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="上架时间" align="center" width="170px">>
+          <template slot-scope="scope">
+            <span style="margin-left: 10px">{{ scope.row.creatime}}</span>
+          </template>
+        </el-table-column>
+
+
+
+
+
+<!--        <el-table-column label="上下架状态" align="center" width="200px">-->
+<!--          <template slot-scope="scope">-->
+<!--            <el-switch-->
+<!--              @change="changeState(scope.row.id, scope.row.state)"-->
+<!--              v-model="scope.row.state == 1"-->
+<!--              inactive-text="已下架"-->
+<!--              inactive-color="#f3f3f3"-->
+<!--              active-color="#5a98de"-->
+<!--              active-text="上架">-->
+<!--            </el-switch>-->
+<!--          </template>-->
+<!--        </el-table-column>-->
+
+
         <el-table-column label="操作" align="center" width="100px">
           <template slot-scope="scope">
-            <el-button type="danger" size="mini" @click="delDetailBtn(scope.row.id)">
+            <div style="color: red;cursor: pointer" @click="delDetailBtn(scope.row.id)">
               删除
-            </el-button>
+            </div>
           </template>
         </el-table-column>
       </el-table>

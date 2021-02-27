@@ -27,7 +27,7 @@
 
           <!--密码-->
           <el-form-item prop="password">
-            <el-input class="form-input" type="pwd"
+            <el-input class="form-input" type="password"
                       placeholder="密码" v-model="loginForm2.pwd"/>
           </el-form-item>
 

@@ -157,7 +157,6 @@
     chicun: '',
     nfc: true,
     pool: '',
-    isshow: 0
   }
 
   export default {

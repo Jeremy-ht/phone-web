@@ -119,7 +119,7 @@
           name: '',
           phone: '',
           creator: 1,
-          icon: 'https://upyun.dinghuale.com/uploads/20200630/202006301514481588.jpg'
+          icon: 'http://service.szhtkj.com.cn/SzhtShop/uploads/default/avatar/userimg.png'
         },
 
         // 添加用户表单验证

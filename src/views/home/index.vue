@@ -20,17 +20,16 @@
         <!-- 搜索 -->
         <!-- ========================= -->
         <div class="header-item-search">
-          <el-autocomplete class="header-item-search-ic"
-                           popper-class="my-autocomplete"
-                           v-model="searchText"
-                           :fetch-suggestions="querySearch"
-                           placeholder="请输入内容"
-                           @select="handleSelect">
-            <i class="el-icon-search el-input__icon"
+          <el-input class="header-item-search-ic"
+                    popper-class="my-autocomplete"
+                    v-model="searchText"
+                    placeholder="请输入内容"
+                    @keyup.13="handleIconClick">
+            <i class="el-icon-search el-input__icon a"
                slot="suffix"
                @click="handleIconClick">
             </i>
-          </el-autocomplete>
+          </el-input>
         </div>
 
         <div class="header-item-person">
@@ -73,8 +72,8 @@
             </svg>
           </div>
 
-          <div class="header-item-person-shop-number">
-            10
+          <div class="header-item-person-shop-number" v-if="showLogin">
+            {{shoppingNum}}
           </div>
 
         </div>
@@ -91,27 +90,8 @@
       <div class="pull-4">
         <div class="pull-4-item">
 
-          <div class="four-item">
-            <img class="img"
-                 src="https://res.vmallres.com/pimages//pages/picImages/77388699931619688377.png">
-
-          </div>
-
-          <div class="four-item">
-            <img class="img"
-                 src="https://res.vmallres.com/pimages//pages/picImages/77388699931619688377.png">
-
-          </div>
-
-          <div class="four-item">
-            <img class="img"
-                 src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/8a43378b96501d7e227a9018fe2668c5.jpg?w=632&h=340">
-
-          </div>
-          <div class="four-item">
-            <img class="img" @click="goDetailInfo(1)"
-                 src="https://res.vmallres.com/pimages//pages/picImages/77388699931619688377.png">
-
+          <div class="four-item" v-for="item in fourList" :index="item.id">
+            <img class="img" :src="item.icon" @click="goDetailInfo(item.id)">
           </div>
 
         </div>
@@ -124,119 +104,23 @@
 
       <div class="content-show">
 
-        <div class="new bor">
-          <h1 class="title-1">华为</h1>
+        <div class="new bor" v-for="(item, index) in cate" :index="index">
+          <h1 class="title-1">{{item}}</h1>
 
           <div class="title-1-i">
 
-            <div class="title-item">
+            <div class="title-item" v-for="(items, index) in showLists[index]" :index="items.id">
 
               <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
+                   @click="goDetailInfo(items.id)" :src="items.image"
                    alt="">
 
-              <div class="phone-title">Nava 9 4G</div>
+              <div class="phone-title">{{items.title}}</div>
 
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
+              <div class="phone-feature">{{items.name}}</div>
 
               <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
+                ¥ {{items.price}}
               </div>
 
             </div>
@@ -246,250 +130,6 @@
 
         </div>
 
-
-        <div class="new bor">
-          <h1 class="title-1">华为</h1>
-
-          <div class="title-1-i">
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-          </div>
-
-
-        </div>
-
-        <div class="new bor">
-          <h1 class="title-1">华为</h1>
-
-          <div class="title-1-i">
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-            <div class="title-item">
-
-              <img class="phone-img"
-                   src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"
-                   alt="">
-
-              <div class="phone-title">Nava 9 4G</div>
-
-              <div class="phone-feature">6000mAh长续航</div>
-
-              <div class="phone-price">
-                ¥7988
-              </div>
-
-            </div>
-
-          </div>
-
-
-        </div>
       </div>
 
     </div>
@@ -498,7 +138,6 @@
     <!-- ========================= -->
     <!-- 所有分类 -->
     <!-- ========================= -->
-
     <div class="content-phone" style="display: flex" v-show="showIndex == 2">
 
       <div class="content-phone-div">
@@ -522,8 +161,10 @@
               <!--              <h1 class="title-1">华为</h1>-->
 
               <div class="title-1-i">
+                <div  v-if="otherList.length == 0" class="se">没有商品可以浏览...</div>
 
-                <div class="title-item" v-for="item in otherList" :index="item.id">
+                <div class="title-item" v-else v-for="item in otherList" :index="item.id">
+
 
                   <img class="phone-img"
                        @click="goDetailInfo(item.id)" :src="item.image"
@@ -539,101 +180,8 @@
 
                 </div>
 
-                <!--                <div class="title-item">-->
 
-                <!--                  <img class="phone-img"-->
-                <!--                       src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"-->
-                <!--                       alt="">-->
 
-                <!--                  <div class="phone-title">Nava 9 4G</div>-->
-
-                <!--                  <div class="phone-feature">6000mAh长续航</div>-->
-
-                <!--                  <div class="phone-price">-->
-                <!--                    ¥7988-->
-                <!--                  </div>-->
-
-                <!--                </div>-->
-
-                <!--                <div class="title-item">-->
-
-                <!--                  <img class="phone-img"-->
-                <!--                       src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"-->
-                <!--                       alt="">-->
-
-                <!--                  <div class="phone-title">Nava 9 4G</div>-->
-
-                <!--                  <div class="phone-feature">6000mAh长续航</div>-->
-
-                <!--                  <div class="phone-price">-->
-                <!--                    ¥7988-->
-                <!--                  </div>-->
-
-                <!--                </div>-->
-
-                <!--                <div class="title-item">-->
-
-                <!--                  <img class="phone-img"-->
-                <!--                       src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"-->
-                <!--                       alt="">-->
-
-                <!--                  <div class="phone-title">Nava 9 4G</div>-->
-
-                <!--                  <div class="phone-feature">6000mAh长续航</div>-->
-
-                <!--                  <div class="phone-price">-->
-                <!--                    ¥7988-->
-                <!--                  </div>-->
-
-                <!--                </div>-->
-
-                <!--                <div class="title-item">-->
-
-                <!--                  <img class="phone-img"-->
-                <!--                       src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"-->
-                <!--                       alt="">-->
-
-                <!--                  <div class="phone-title">Nava 9 4G</div>-->
-
-                <!--                  <div class="phone-feature">6000mAh长续航</div>-->
-
-                <!--                  <div class="phone-price">-->
-                <!--                    ¥7988-->
-                <!--                  </div>-->
-
-                <!--                </div>-->
-
-                <!--                <div class="title-item">-->
-
-                <!--                  <img class="phone-img"-->
-                <!--                       src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"-->
-                <!--                       alt="">-->
-
-                <!--                  <div class="phone-title">Nava 9 4G</div>-->
-
-                <!--                  <div class="phone-feature">6000mAh长续航</div>-->
-
-                <!--                  <div class="phone-price">-->
-                <!--                    ¥7988-->
-                <!--                  </div>-->
-
-                <!--                </div>-->
-
-                <!--                <div class="title-item">-->
-
-                <!--                  <img class="phone-img"-->
-                <!--                       src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/13f10e47913f9dc82e6c6a6199f413cd.jpg?thumb=1&w=200&h=200&f=webp&q=90"-->
-                <!--                       alt="">-->
-
-                <!--                  <div class="phone-title">Nava 9 4G</div>-->
-
-                <!--                  <div class="phone-feature">6000mAh长续航</div>-->
-
-                <!--                  <div class="phone-price">-->
-                <!--                    ¥7988-->
-                <!--                  </div>-->
-
-                <!--                </div>-->
 
               </div>
 
@@ -647,51 +195,58 @@
 
     </div>
 
-    <!--    <div class="bar">-->
-    <!--      <div class="home-content">-->
-    <!--        <div class="bai-item">-->
-    <!--          <el-menu-->
-    <!--            :default-active="activeIndex"-->
-    <!--            class="el-menu-demo"-->
-    <!--            mode="horizontal"-->
-    <!--            @select="handleSelect"-->
-    <!--            background-color="#FFFFFF"-->
-    <!--            text-color="#000"-->
-    <!--            active-text-color="#5a98de">-->
-    <!--            <el-menu-item index="0">鲜花</el-menu-item>-->
-    <!--            <el-menu-item index="1">玫瑰</el-menu-item>-->
-    <!--            <el-menu-item index="2">康乃馨</el-menu-item>-->
-    <!--            <el-menu-item index="3">百合</el-menu-item>-->
-    <!--            <el-menu-item index="4">向日葵</el-menu-item>-->
-    <!--            <el-menu-item index="5">扶郎</el-menu-item>-->
-    <!--            <el-menu-item index="6">郁金香</el-menu-item>-->
-    <!--            <el-menu-item index="7">马蹄莲</el-menu-item>-->
-    <!--            &lt;!&ndash;            <el-submenu index="1000">&ndash;&gt;-->
-    <!--            &lt;!&ndash;              <template slot="title" class="more">更多</template>&ndash;&gt;-->
-    <!--            &lt;!&ndash;              <el-menu-item v-for="item in cateList" :index="item.categoryid">&ndash;&gt;-->
-    <!--            &lt;!&ndash;                {{item.categoryname}}&ndash;&gt;-->
-    <!--            &lt;!&ndash;              </el-menu-item>&ndash;&gt;-->
-    <!--            &lt;!&ndash;            </el-submenu>&ndash;&gt;-->
 
-    <!--          </el-menu>-->
-    <!--        </div>-->
+    <!-- ========================= -->
+    <!-- 搜索 -->
+    <!-- ========================= -->
+    <div class="content-phone" style="display: flex" v-show="showIndex == 3">
 
-    <!--        &lt;!&ndash;        <div class="home-search" v-on:keyup.enter="searchGo">&ndash;&gt;-->
-    <!--        &lt;!&ndash;          <el-input class="home-search-input"&ndash;&gt;-->
-    <!--        &lt;!&ndash;                    placeholder="请输入搜索内容"&ndash;&gt;-->
-    <!--        &lt;!&ndash;                    prefix-icon="el-icon-search"&ndash;&gt;-->
-    <!--        &lt;!&ndash;                    v-model="search"&ndash;&gt;-->
-    <!--        &lt;!&ndash;                    size="small" v-on:keyup.enter="searchGo">&ndash;&gt;-->
-    <!--        &lt;!&ndash;          </el-input>&ndash;&gt;-->
-    <!--        &lt;!&ndash;        </div>&ndash;&gt;-->
-    <!--      </div>-->
-    <!--    </div>-->
+      <div class="content-phone-div">
+
+        <div class="content-phone-show">
+          <div v-if="searchList.length != 0" class="content-show1">
+
+            <div class="new bor2">
+
+              <div class="title-1-i">
+
+                <div class="title-item" v-for="item in searchList" :index="item.id">
+
+                  <img class="phone-img"
+                       @click="goDetailInfo(item.id)" :src="item.image"
+                       alt="">
+
+                  <div class="phone-title">{{item.title}}</div>
+
+                  <div class="phone-feature">{{item.name}}</div>
+
+                  <div class="phone-price">
+                    ¥ {{item.price}}
+                  </div>
+
+                </div>
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+          <div v-else class="se">没有搜到您想要的内容...</div>
+        </div>
+
+      </div>
+
+    </div>
+
 
   </div>
 </template>
 
 <script>
   import {
+    fourList,
     getCategoryList, getUserList, getSceneryIndex, getShoppingNum,
     getSceneryList, getrotationList, updUserInfo, getSearchContent, adminLogin, userLogin, addUser, getSceneryListByCate
   } from '../../api/common'
@@ -803,7 +358,11 @@
 
         // phone
         searchText: '',
-        showLists: []
+        showLists: [],
+        cate: [],
+        fourList: [],
+        searchList: [],
+
       }
     },
     created() {
@@ -814,30 +373,50 @@
       // 初始化
       async init() {
 
-        // // 是否登录
-        // if (!this.loginIs()) {
-        //   this.showLogin = false
-        // } else {
-        // 购物车商品数量
-        //   await getShoppingNum(this.UserInfo.id).then(res => {
-        //     if (res.success) {
-        //       this.shoppingNum = res.data.data
-        //
-        //     } else {
-        //       this.$message({
-        //         message: '数据获取失败，请刷新重试',
-        //         type: 'error', duration: 2000
-        //       })
-        //     }
-        //   })
-        //   this.showLogin = true
-        // }
+        // 是否登录
+        if (!this.loginIs()) {
+          this.showLogin = false
+        } else {
+          // 购物车商品数量
+          await getShoppingNum(this.UserInfo.id).then(res => {
+            if (res.success) {
+              this.shoppingNum = res.data.data
+
+            } else {
+              this.$message({
+                message: '数据获取失败，请刷新重试',
+                type: 'error', duration: 2000
+              })
+            }
+          })
+          this.showLogin = true
+        }
 
         // 3分类
         await getSceneryIndex().then(res => {
           if (res.success) {
-            console.log(res.data.data)
+
+            let data = res.data.data
+            for (let key in data) {
+              this.showLists.push(data[key])
+              this.cate.push(key)
+            }
+            console.log(this.showLists)
+          } else {
+            this.$message({message: '数据获取失败,请刷新!', type: 'error', duration: 2000})
           }
+
+        })
+
+        // 4
+        await fourList().then(res => {
+          if (res.success) {
+            this.fourList = res.data.data
+
+          } else {
+            this.$message({message: '数据获取失败,请刷新!', type: 'error', duration: 2000})
+          }
+
         })
 
         // 获取导航菜单  放入更多里面
@@ -913,71 +492,33 @@
 
       },
 
+      async handleIconClick() {
 
-      async handleSelect(key) {
-        if (key == 0) {
+        if (this.searchText == '') {
+          this.init()
           this.showIndex = 1
-        } else {
-          this.showIndex = 2
+
+          return
         }
 
-        this.otherList = []
+        console.log(this.searchText)
+
+
         let params = {
           pagenum: 1,
-          pagesize: 100
+          pagesize: 100,
+          a: this.searchText.trim()
         }
-        await getSceneryList(params, key).then(res => {
-
+        console.log(params)
+        await getSearchContent(params).then(res => {
           if (res.success) {
-            this.otherList = res.data.data
-          } else {
-            this.$message({
-              message: '数据获取失败,请刷新!',
-              type: 'error', duration: 2000
-            })
-          }
-        })
-
-        await getSceneryListByCate(key).then(res => {
-          this.isActive = true
-          if (res.success) {
-            this.categoryname = res.data.data
-          } else {
-            this.$message({
-              message: '数据获取失败,请刷新!',
-              type: 'error', duration: 2000
-            })
-          }
-        })
-
-        // if (key != 0) {
-        //   window.localStorage.setItem('activeIndex', key)
-        //   this.showIndex = 2
-        // } else {
-        //   this.showIndex = 1
-        // }
-
-      },
-
-      // 搜索
-      querySearch(queryString, cb) {
-        var restaurants = this.restaurants
-        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants
-        // 调用 callback 返回建议列表的数据
-        cb(results)
-      },
-
-      async handleIconClick() {
-        await getSearchContent(this.search.trim()).then(res => {
-          if (res.success) {
-            this.otherList = []
-            this.activeIndex = '-10'
-            this.showIndex = 2
-            this.otherList = res.data.data
+            this.showIndex = 3
+            this.searchList = []
+            this.searchList = res.data.data
 
           } else {
             this.$message({
-              message: '没有您想获取的内容，换点别的试试',
+              message: '换个搜索方式吧！',
               type: 'error', duration: 2300
             })
           }
@@ -999,10 +540,11 @@
       // 个人中心
       goLoginTo() {
         // 是否登录
-        // if (!this.loginIs()) {
-        //   this.$message({ message: '请先登录', type: 'error', duration: 1700 })
-        //   return false
-        // }
+        if (!this.loginIs()) {
+          // this.$message({ message: '请先登录', type: 'error', duration: 1700 })
+          this.goLogin()
+          return false
+        }
         const {href} = this.$router.resolve({path: `/phone/my`})
         window.open(href, '_blank')
       },
@@ -1071,12 +613,6 @@
 
       },
 
-      // 重置添加用户表单
-      closeAddAdminForm() {
-        this.$refs.loginFormRules2.resetFields()
-        this.$refs.loginFormRules.resetFields()
-
-      },
 
     }
   }
@@ -1446,6 +982,7 @@
   }
 
   .pull-4-item {
+    padding-left: 8px;
     width: 1200px;
     height: 100%;
     margin: auto;
@@ -1454,7 +991,7 @@
 
   .four-item {
     margin-top: 30px;
-    width: 24%;
+    width: 298px;
     height: 200px;
     border: solid 1px #dadada;
     float: right;
@@ -1603,12 +1140,23 @@
     color: #5a98de;
   }
 
+  .a{
+    cursor: pointer;
+  }
   .activecc {
     color: #5a98de;
   }
 
   .content-phone-show {
     border-radius: 6px;
+  }
+
+  .se {
+    width: 100%;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    color: black;
   }
 
 </style>
