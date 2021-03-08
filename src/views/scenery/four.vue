@@ -17,7 +17,7 @@
 
         <el-table-column label="封面图" prop="image" align="center">
           <template slot-scope="scope">
-            <img style="width: 120px;height: 90px" v-if="scope.row.icon != null" :src="scope.row.icon" alt="">
+            <img style="width: 120px;height: 90px" v-if="scope.row.icon != null && scope.row.icon != ''" :src="scope.row.icon" alt="">
           </template>
         </el-table-column>
 
@@ -251,7 +251,6 @@
       },
 
       changeState(id, state) {
-        console.log(state)
         if (state == 1) {
           state = 3
         } else {
@@ -273,12 +272,17 @@
       },
 
       addIndexShow(id) {
-        // if (this.imageShow == '') {
-        //   this.$message({message: '封面图不能为空', type: 'error', duration: 1700})
-        //   return
-        // }
+        if (this.imageShow == '') {
+          this.$message({message: '封面图不能为空', type: 'error', duration: 1700})
+          return
+        }
 
-        addIndexShow(id, this.imageShow).then(res => {
+        let imageVo = {
+          'id': id,
+          'image': this.imageShow
+        }
+
+        addIndexShow(imageVo).then(res => {
           if (res.success) {
             this.getInit()
             this.addDialogVisible = false

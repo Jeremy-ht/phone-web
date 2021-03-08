@@ -37,10 +37,10 @@
 
           {
             title: {
-              text: '手机上架数量图',
-              left: 'center',top: 20,
+              text: '手机上架数量统计',
+              left: 'center',
               textStyle: {
-                color: '#5a98de'
+                color: '#d81e06'
               }
             },
             tooltip: {

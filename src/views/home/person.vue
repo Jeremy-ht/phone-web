@@ -40,7 +40,7 @@
             <div>
               <el-button @click="goUpd" class="btn22" type="primary">修改密码</el-button>
               <el-button @click="goShopping" class="btn22" type="primary">我的购物车</el-button>
-              <el-button @click="showIsOR(2)" class="btn22" type="primary">我的订单</el-button>
+<!--              <el-button @click="showIsOR(2)" class="btn22" type="primary">我的订单</el-button>-->
               <el-button @click="showIsOR(3)" class="btn22" type="primary">收货地址</el-button>
               <el-button @click="layoutGo" class="btn22" type="primary">退出登录</el-button>
             </div>

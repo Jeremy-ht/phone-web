@@ -164,10 +164,11 @@ export function getInfoList6(id) {
   })
 }
 
-export function addIndexShow(id, image) {
+export function addIndexShow(image) {
   return request({
-    url: baseURL + `/phones/addIndexShow/${id}/${image}`,
-    method: 'get'
+    url: baseURL + `/phones/addIndexShow`,
+    method: 'post',
+    data: image
   })
 }
 

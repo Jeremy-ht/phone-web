@@ -24,7 +24,7 @@
                     popper-class="my-autocomplete"
                     v-model="searchText"
                     placeholder="请输入内容"
-                    @keyup.13="handleIconClick">
+                    v-on:keyup.native.13="handleIconClick">
             <i class="el-icon-search el-input__icon a"
                slot="suffix"
                @click="handleIconClick">
@@ -161,7 +161,7 @@
               <!--              <h1 class="title-1">华为</h1>-->
 
               <div class="title-1-i">
-                <div  v-if="otherList.length == 0" class="se">没有商品可以浏览...</div>
+                <div v-if="otherList.length == 0" class="se">没有商品可以浏览...</div>
 
                 <div class="title-item" v-else v-for="item in otherList" :index="item.id">
 
@@ -179,8 +179,6 @@
                   </div>
 
                 </div>
-
-
 
 
               </div>
@@ -500,9 +498,6 @@
 
           return
         }
-
-        console.log(this.searchText)
-
 
         let params = {
           pagenum: 1,
@@ -1140,9 +1135,10 @@
     color: #5a98de;
   }
 
-  .a{
+  .a {
     cursor: pointer;
   }
+
   .activecc {
     color: #5a98de;
   }

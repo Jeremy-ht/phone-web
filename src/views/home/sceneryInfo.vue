@@ -351,8 +351,9 @@
         // 是否登录
         if (!this.loginIs()) {
           this.$message({message: '请先登录', type: 'error', duration: 1700})
-          this.$router.push('/flower/home')
-          return false
+          const {href} = this.$router.resolve({path: '/phone/login'})
+          window.open(href, '_blank')
+          return
         }
 
         let cart = {
@@ -453,8 +454,10 @@
   }
 
   .imgs {
-    width: 400px;
-    height: 400px;
+    width: 280px;
+    height: 280px;
+    margin-left: 80px;
+    margin-top: 80px;
   }
 
   .info-show-info {

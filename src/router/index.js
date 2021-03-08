@@ -6,7 +6,6 @@ Vue.use(Router)
 //  #5a98de;
 //  #c62b26;
 
-/* Layout */
 import Layout from '@/layout'
 
 export const constantRoutes = [
@@ -229,18 +228,18 @@ export const constantRoutes = [
    * 日志管理
    */
 
-  {
-    path: '/log',
-    component: Layout,
-    children: [
-      {
-        path: 'sysLog',
-        name: '日志列表',
-        component: () => import('@/views/log/sysLog'),
-        meta: { title: '日志列表', icon: 'el-icon-s-claim' }
-      }
-    ]
-  },
+  // {
+  //   path: '/log',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'sysLog',
+  //       name: '日志列表',
+  //       component: () => import('@/views/log/sysLog'),
+  //       meta: { title: '日志列表', icon: 'el-icon-s-claim' }
+  //     }
+  //   ]
+  // },
   // {
   //   path: '/log',
   //   component: Layout,
