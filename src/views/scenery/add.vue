@@ -30,11 +30,11 @@
 
     </el-form>
 
-    <div
-      style="color:white;border-radius:6px;width: 100%;height: 26px;background-color: #5a98de;
-      line-height: 26px;margin-bottom: 20px;text-align: center;font-size: 14px">
-      基本参数填写
-    </div>
+<!--    <div-->
+<!--      style="color:white;width: 100%;height: 4px;background-color: #d81e06;-->
+<!--      line-height: 26px;margin-bottom: 20px;text-align: center;font-size: 14px;border-radius: 4px">-->
+
+<!--    </div>-->
 
 
     <el-form :model="addDetail" ref="ruleForm" label-width="140px" class="detail-form">
@@ -101,11 +101,10 @@
     </el-form>
 
 
-    <div
-      style="color:white;border-radius:6px;width: 100%;height: 26px;background-color: #5a98de;
-      line-height: 26px;margin-bottom: 20px;text-align: center;font-size: 14px">
-      添加图片详情
-    </div>
+<!--    <div-->
+<!--      style="color:white;width: 100%;height: 4px;background-color: #d81e06;-->
+<!--      line-height: 26px;margin-bottom: 20px;text-align: center;font-size: 14px;border-radius: 4px">-->
+<!--    </div>-->
 
 
     <el-form :model="addDetail" ref="ruleForm" label-width="140px" class="detail-form">
@@ -314,10 +313,10 @@
           this.$message({message: '电池容量不能为空', type: 'error', duration: 1700})
           return false
         }
-        // if (this.addDetail.image == '') {
-        //   this.$message({message: '添加产品缩略图', type: 'error', duration: 1700})
-        //   return false
-        // }
+        if (this.addDetail.image == '') {
+          this.$message({message: '添加产品缩略图', type: 'error', duration: 1700})
+          return false
+        }
 
         if (this.addDetail.categoryid == '') {
           this.addDetail.categoryid = 1

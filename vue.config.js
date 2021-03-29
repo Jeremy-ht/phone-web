@@ -8,7 +8,7 @@ function resolve(dir) {
 
 const name = defaultSettings.title || '云购手机商城' // page title
 
-const port = process.env.port || process.env.npm_config_port || 8000 // dev port
+const port = process.env.port || process.env.npm_config_port || 8080 // dev port
 
 module.exports = {
   publicPath: '/',

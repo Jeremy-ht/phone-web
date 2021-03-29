@@ -198,7 +198,7 @@
             res.data.data.pwd = ''
             res.data.data.salt = ''
             window.localStorage.setItem('UserInfoPhone', JSON.stringify(res.data.data))
-            this.$router.push({ path: '/phone/home' })
+            this.$router.push({ path: '/phone' })
           } else {
             this.$message({ message: res.message, type: 'error', duration: 1700 })
 
@@ -210,7 +210,7 @@
 
       // 去首页
       goHome() {
-        this.$router.push({path: `/phone/home`})
+        this.$router.push({path: `/phone`})
       },
 
       async registerGo() {

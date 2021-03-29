@@ -524,7 +524,7 @@
       // 去首页
       goHome() {
         this.showIndex = '1'
-        // this.$router.push({path: `/phone/home`})
+        // this.$router.push({path: `/phone`})
       },
 
       // 登录

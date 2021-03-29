@@ -29,7 +29,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: '首页',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页', icon: 'el-icon-s-home' }
+      meta: {title: '首页', icon: 'el-icon-s-home'}
     }]
   },
   /**
@@ -37,19 +37,19 @@ export const constantRoutes = [
    */
   // 用户首页
   {
-    path: '/phone/home',
+    path: '/phone',
     hidden: true,
     name: '云购手机',
     component: () => import('@/views/home/index'),
-    meta: { title: '云购手机' }
+    meta: {title: '云购手机'}
   },
 
   {
-    path:  '/phone/shopping',
+    path: '/phone/shopping',
     hidden: true,
     name: '云购手机购物车',
     component: () => import('@/views/home/shopping'),
-    meta: { title: '云购手机购物车' }
+    meta: {title: '云购手机购物车'}
   },
 
   // 注册
@@ -58,7 +58,7 @@ export const constantRoutes = [
     hidden: true,
     name: '云购手机个人中心',
     component: () => import('@/views/home/person'),
-    meta: { title: '云购手机个人中心' }
+    meta: {title: '云购手机个人中心'}
   },
 
   // login
@@ -67,7 +67,7 @@ export const constantRoutes = [
     hidden: true,
     name: '云购手机登录',
     component: () => import('@/views/home/userLogin'),
-    meta: { title: '云购手机登录' }
+    meta: {title: '云购手机登录'}
   },
 
 
@@ -77,7 +77,7 @@ export const constantRoutes = [
     hidden: true,
     name: '手机详情',
     component: () => import('@/views/home/sceneryInfo'),
-    meta: { title: '手机详情' }
+    meta: {title: '手机详情'}
   },
 
   /**
@@ -88,29 +88,29 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/phone/list',
     name: '手机管理',
-    meta: { title: '手机管理', icon: 'el-icon-s-cooperation' },
+    meta: {title: '手机管理', icon: 'el-icon-s-cooperation'},
     children: [
       {
-        path: 'show',
-        name: '手机列表',
-        component: () => import('@/views/scenery/list'),
-        meta: { title: '商品列表', icon: 'table' }
+        path: 'category',
+        name: '品牌分类',
+        component: () => import('@/views/scenery/category'),
+        meta: {title: '品牌分类', icon: 'table'}
       },
       {
         path: 'add',
         name: '手机添加',
         component: () => import('@/views/scenery/add'),
-        meta: { title: '商品添加', icon: 'table' }
+        meta: {title: '商品添加', icon: 'table'}
       },
+
       {
-        path: 'category',
-        name: '品牌分类',
-        component: () => import('@/views/scenery/category'),
-        meta: { title: '品牌分类', icon: 'table' }
+        path: 'show',
+        name: '手机列表',
+        component: () => import('@/views/scenery/list'),
+        meta: {title: '商品列表', icon: 'table'}
       }
     ]
   },
-
 
 
   /**
@@ -127,7 +127,7 @@ export const constantRoutes = [
         path: 'info',
         name: '个人中心',
         component: () => import('@/views/admin/info'),
-        meta: { title: '个人中心' }
+        meta: {title: '个人中心'}
 
       }
     ]
@@ -142,33 +142,59 @@ export const constantRoutes = [
         path: 'four',
         name: '首页管理',
         component: () => import('@/views/scenery/four'),
-        meta: { title: '首页管理', icon: 'el-icon-s-claim' }
+        meta: {title: '首页管理', icon: 'el-icon-s-claim'}
       }
     ]
   },
 
   {
-    path: '/system',
+    path: '/admin',
     component: Layout,
-    redirect: '/admin',
-    name: '系统管理',
-    meta: { title: '系统管理', icon: 'el-icon-s-tools' },
     children: [
       {
         path: 'admin',
-        name: 'admin',
+        name: '系统管理',
         component: () => import('@/views/admin/index'),
-        meta: { title: '员工列表', icon: 'table' }
-      },
-      {
-        path: 'user',
-        name: 'user',
-        component: () => import('@/views/user/index'),
-        meta: { title: '用户列表', icon: 'table' }
+        meta: {title: '系统管理', icon: 'el-icon-s-tools'}
       }
     ]
   },
 
+  {
+    path: '/user',
+    component: Layout,
+    children: [
+      {
+        path: 'user',
+        name: '用户管理',
+        component: () => import('@/views/user/index'),
+        meta: {title: '用户管理', icon: 'el-icon-s-claim'}
+      }
+    ]
+  },
+
+  // {
+  //   path: '/system',
+  //   component: Layout,
+  //   redirect: '/admin',
+  //   name: '系统管理',
+  //   meta: { title: '系统管理', icon: 'el-icon-s-tools' },
+  //   children: [
+  //     {
+  //       path: 'admin',
+  //       name: 'admin',
+  //       component: () => import('@/views/admin/index'),
+  //       meta: { title: '员工列表', icon: 'table' }
+  //     },
+  //     {
+  //       path: 'user',
+  //       name: 'user',
+  //       component: () => import('@/views/user/index'),
+  //       meta: { title: '用户列表', icon: 'table' }
+  //     }
+  //   ]
+  // },
+  //
 
   /**
    *  评论
@@ -208,13 +234,13 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/chart/cate',
     name: '数据展示',
-    meta: { title: '数据展示', icon: 'el-icon-s-marketing' },
+    meta: {title: '数据展示', icon: 'el-icon-s-marketing'},
     children: [
       {
         path: 'cate',
         name: '品牌统计',
         component: () => import('@/views/chart/user'),
-        meta: { title: '品牌统计', icon: 'table' }
+        meta: {title: '品牌统计', icon: 'table'}
       }
       // , {
       //   path: 'order',
@@ -262,12 +288,12 @@ export const constantRoutes = [
   //   ]
   // },
 
-  { path: '*', redirect: '/404', hidden: true }
+  {path: '*', redirect: '/404', hidden: true}
 ]
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({y: 0}),
   mode: 'history',
   routes: constantRoutes
 })

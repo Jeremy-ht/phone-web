@@ -272,7 +272,7 @@
 
       // 去首页
       goHome() {
-        this.$router.push({path: `/phone/home`})
+        this.$router.push({path: `/phone`})
       },
 
       // 购物车
@@ -295,7 +295,7 @@
       // 退出登录
       layoutGo() {
         window.localStorage.removeItem('UserInfoPhone')
-        this.$router.push({path: '/phone/home'})
+        this.$router.push({path: '/phone'})
 
       },
 
