@@ -214,18 +214,18 @@ export const constantRoutes = [
   /**
    *  评论
    */
-  // {
-  //   path: '/order',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'orderList',
-  //       name: '订单列表',
-  //       component: () => import('@/views/comment/orders'),
-  //       meta: { title: '订单列表', icon: 'el-icon-s-comment' }
-  //     }
-  //   ]
-  // },
+  {
+    path: '/order',
+    component: Layout,
+    children: [
+      {
+        path: 'orderList',
+        name: '订单列表',
+        component: () => import('@/views/comment/orders'),
+        meta: { title: '订单列表', icon: 'el-icon-s-comment' }
+      }
+    ]
+  },
   /**
    *  统计
    */

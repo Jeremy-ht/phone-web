@@ -433,9 +433,9 @@ export function addOrder2(order) {
   })
 }
 
-export function getOrderList(params) {
+export function getOrderList(id,params) {
   return request({
-    url: baseURL + `/orders/getOrderList`,
+    url: baseURL + `/orders/getOrderList/${id}`,
     method: 'get',
     params
   })

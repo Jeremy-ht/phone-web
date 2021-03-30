@@ -24,7 +24,7 @@
           </div>
 
           <div class="base" @click="showIsOR(1)">我的账号</div>
-<!--          <div class="base" @click="showIsOR(2)">我的订单</div>-->
+                    <div class="base" @click="showIsOR(2)">我的订单</div>
           <div class="base" style="border-bottom: solid 1px #dbdbdb;" @click="showIsOR(3)">收货地址</div>
         </div>
 
@@ -40,7 +40,7 @@
             <div>
               <el-button @click="goUpd" class="btn22" type="primary">修改密码</el-button>
               <el-button @click="goShopping" class="btn22" type="primary">我的购物车</el-button>
-<!--              <el-button @click="showIsOR(2)" class="btn22" type="primary">我的订单</el-button>-->
+              <el-button @click="showIsOR(2)" class="btn22" type="primary">我的订单</el-button>
               <el-button @click="showIsOR(3)" class="btn22" type="primary">收货地址</el-button>
               <el-button @click="layoutGo" class="btn22" type="primary">退出登录</el-button>
             </div>
@@ -64,6 +64,41 @@
 
 
           <div class="person-show-right-div-item" v-if="showIs == '2'">
+
+
+            <div v-show="allDetailList2.length !=0">
+
+              <!--表格-->
+              <el-table :data="allDetailList2" stripe style="width: 100%; margin-top: 10px" border size="small">
+                <el-table-column label="#" type="index" align="center"/>
+                <el-table-column label="购买用户" prop="uname" align="center"/>
+                <el-table-column label="联系方式" prop="uphone" align="center"/>
+                <el-table-column label="收件人" prop="name" align="center"/>
+                <el-table-column label="收件人联系方式" prop="phone" align="center"/>
+                <el-table-column label="地址" prop="address" align="center"/>
+                <el-table-column label="价格" prop="price" align="center"/>
+                <el-table-column label="数量" prop="amount" align="center" width="60px"/>
+                <el-table-column label="下单时间" width="170px">
+                  <template slot-scope="scope">
+                    <i class="el-icon-time"/>
+                    <span style="margin-left: 10px">{{ scope.row.creatime }}</span>
+                  </template>
+                </el-table-column>
+              </el-table>
+
+              <!--分页-->
+              <page-bar :pageTotal="pageTotal" :pageNum="pagenum" :pageSize="pagesize"
+                        @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange"/>
+
+            </div>
+
+
+            <div style="width: 100%;height: 100%;display: flex" v-show="allDetailList2.length ==0">
+
+              <div style="margin: 50px auto;font-size: 16px;font-weight: 600"> 还没有购买手机，赶快去挑选吧!</div>
+
+            </div>
+
 
           </div>
 
@@ -138,7 +173,7 @@
 
 <script>
   import {
-    getAddressList, addAddress, getUserList, getSceneryIndex,
+    getAddressList, addAddress, getOrderList, getSceneryIndex,
     getSceneryList, getrotationList, updUserInfo, getSearchContent, updPasswordById
   } from '../../api/common'
   import '../../assets/iconfont/iconfont'
@@ -227,6 +262,14 @@
 
         titleName: '我的账号',
 
+        allDetailList2: [],
+
+        // 分页查询
+        pagenum: 1,
+        pagesize: 6,
+        pageTotal: 0,
+
+
       }
     },
     created() {
@@ -242,10 +285,23 @@
           this.$message({message: '请先登录', type: 'error', duration: 1700})
           this.$router.push('/phone/login')
           return false
+        } else {
+
+          let params = {
+            pagenum: this.pagenum, pagesize: this.pagesize
+          }
+          await getOrderList(this.UserInfo.id, params).then(res => {
+            if (res.success) {
+              this.pageTotal = res.data.total
+              this.orderList = res.data.data
+            }
+
+          })
+
         }
 
 
-        getAddressList(this.UserInfo.id).then(res => {
+        await getAddressList(this.UserInfo.id).then(res => {
           if (res.success) {
             this.addressList = res.data.data
             console.log(this.addressList)
@@ -254,6 +310,7 @@
           }
 
         })
+
 
       },
 
@@ -280,6 +337,16 @@
         // 后台请求购物车数据
         const {href} = this.$router.resolve({path: '/phone/shopping'})
         window.open(href, '_blank')
+      },
+
+      // 分页
+      handleSizeChange(pagesize) {
+        this.pagesize = pagesize
+        this.getInit()
+      },
+      handleCurrentChange(pagenum) {
+        this.pagenum = pagenum
+        this.getInit()
       },
 
       // 修改密码
@@ -354,7 +421,7 @@
 
         if (this.addressInfo.name == ''
           || this.addressInfo.phone == ''
-          || this.addressInfo.address == ''  ) {
+          || this.addressInfo.address == '') {
           this.$message({message: '地址填写不完整', type: 'error', duration: 1700})
           return
         }
