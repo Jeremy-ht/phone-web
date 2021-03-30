@@ -6,43 +6,29 @@
       <el-table :data="orderList" stripe style="width: 100%; margin-top: 10px" border size="small">
         <el-table-column label="#" type="index" align="center"/>
         <el-table-column label="下单人" prop="uname" align="center"/>
-        <el-table-column label="头像" prop="image" align="center">
-          <template slot-scope="scope">
-            <img :src="scope.row.image" :alt="scope.row.uname" style="width: 30px;height: 30px">
-          </template>
-        </el-table-column>
-        <el-table-column label="下单联系方式" prop="uphone" align="center"/>
+<!--        <el-table-column label="头像" prop="image" align="center">-->
+<!--          <template slot-scope="scope">-->
+<!--            <img :src="scope.row.image" :alt="scope.row.uname" style="width: 30px;height: 30px">-->
+<!--          </template>-->
+<!--        </el-table-column>-->
+        <el-table-column label="下单人联系方式" prop="uphone" align="center"/>
         <el-table-column label="收件人" prop="name" align="center"/>
         <el-table-column label="联系方式" prop="phone" align="center"/>
         <el-table-column label="地址" prop="address" align="center"/>
-        <el-table-column label="价格" prop="price" align="center"/>
+        <el-table-column label="总价格" align="center">
+          <template slot-scope="scope">
+
+            <span style="margin-left: 2px;color: red">{{'￥ ' + scope.row.price }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="数量" prop="amount" align="center" width="60px"/>
-        <el-table-column label="下单时间" width="170px">
+        <el-table-column label="下单时间" width="170px" align="center">
           <template slot-scope="scope">
             <i class="el-icon-time"/>
             <span style="margin-left: 10px">{{ scope.row.creatime }}</span>
           </template>
         </el-table-column>
 
-        <!--        <el-table-column label="评论状态" prop="sex" align="center" width="100px">-->
-        <!--          <template slot-scope="scope">-->
-        <!--            <span v-if="scope.row.state == 1"><el-tag type="success">已显示</el-tag></span>-->
-        <!--            <span v-else-if="scope.row.state == 2"><el-tag type="info">已隐藏</el-tag></span>-->
-        <!--          </template>-->
-        <!--        </el-table-column>-->
-
-        <!--        <el-table-column label="操作" width="120px" align="center">-->
-        <!--          <template slot-scope="scope">-->
-        <!--            &lt;!&ndash;显示&ndash;&gt;-->
-        <!--            <el-button v-if="scope.row.state == 2" type="success" icon="el-icon-delete" size="mini"-->
-        <!--                       @click="ableCommonBtn(scope.row.id)">显示-->
-        <!--            </el-button>-->
-        <!--            <el-button v-else-if="scope.row.state == 1" type="danger" icon="el-icon-delete" size="mini"-->
-        <!--                       @click="disableCommonBtn(scope.row.id)">隐藏-->
-        <!--            </el-button>-->
-
-        <!--          </template>-->
-        <!--        </el-table-column>-->
 
       </el-table>
 
@@ -87,7 +73,8 @@
       getCommonList() {
 
         let params = {
-          pagenum: this.pagenum, pagesize: this.pagesize
+          pagenum: this.pagenum,
+          pagesize: this.pagesize
         }
         getOrderList(0, params).then(res => {
           if (res.success) {

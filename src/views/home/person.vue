@@ -24,7 +24,7 @@
           </div>
 
           <div class="base" @click="showIsOR(1)">我的账号</div>
-                    <div class="base" @click="showIsOR(2)">我的订单</div>
+          <div class="base" @click="showIsOR(2)">我的订单</div>
           <div class="base" style="border-bottom: solid 1px #dbdbdb;" @click="showIsOR(3)">收货地址</div>
         </div>
 
@@ -71,17 +71,14 @@
               <!--表格-->
               <el-table :data="allDetailList2" stripe style="width: 100%; margin-top: 10px" border size="small">
                 <el-table-column label="#" type="index" align="center"/>
-                <el-table-column label="购买用户" prop="uname" align="center"/>
-                <el-table-column label="联系方式" prop="uphone" align="center"/>
                 <el-table-column label="收件人" prop="name" align="center"/>
                 <el-table-column label="收件人联系方式" prop="phone" align="center"/>
                 <el-table-column label="地址" prop="address" align="center"/>
-                <el-table-column label="价格" prop="price" align="center"/>
+                <el-table-column label="总价格" prop="price" align="center"/>
                 <el-table-column label="数量" prop="amount" align="center" width="60px"/>
-                <el-table-column label="下单时间" width="170px">
+                <el-table-column label="时间" width="170px" align="center">
                   <template slot-scope="scope">
-                    <i class="el-icon-time"/>
-                    <span style="margin-left: 10px">{{ scope.row.creatime }}</span>
+                    <span>{{ scope.row.creatime }}</span>
                   </template>
                 </el-table-column>
               </el-table>
@@ -95,7 +92,7 @@
 
             <div style="width: 100%;height: 100%;display: flex" v-show="allDetailList2.length ==0">
 
-              <div style="margin: 50px auto;font-size: 16px;font-weight: 600"> 还没有购买手机，赶快去挑选吧!</div>
+              <div style="margin: 100px auto;font-size: 16px;font-weight: 500;color: #a8a8a8"> 还没有购买商品，赶快去挑选吧!</div>
 
             </div>
 
@@ -177,6 +174,7 @@
     getSceneryList, getrotationList, updUserInfo, getSearchContent, updPasswordById
   } from '../../api/common'
   import '../../assets/iconfont/iconfont'
+  import PageBar from '@/components/PageBar'
 
   export default {
     name: 'person',
@@ -266,11 +264,15 @@
 
         // 分页查询
         pagenum: 1,
-        pagesize: 6,
+        pagesize: 8,
         pageTotal: 0,
 
 
       }
+    },
+    components: {
+      PageBar
+
     },
     created() {
       this.init()
@@ -288,18 +290,19 @@
         } else {
 
           let params = {
-            pagenum: this.pagenum, pagesize: this.pagesize
+            pagenum: this.pagenum,
+            pagesize: this.pagesize
           }
           await getOrderList(this.UserInfo.id, params).then(res => {
             if (res.success) {
+              console.log(res)
               this.pageTotal = res.data.total
-              this.orderList = res.data.data
+              this.allDetailList2 = res.data.data
             }
 
           })
 
         }
-
 
         await getAddressList(this.UserInfo.id).then(res => {
           if (res.success) {
@@ -342,11 +345,11 @@
       // 分页
       handleSizeChange(pagesize) {
         this.pagesize = pagesize
-        this.getInit()
+        this.init()
       },
       handleCurrentChange(pagenum) {
         this.pagenum = pagenum
-        this.getInit()
+        this.init()
       },
 
       // 修改密码
