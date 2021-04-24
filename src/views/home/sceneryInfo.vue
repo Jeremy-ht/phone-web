@@ -123,8 +123,6 @@
     <!-- ========================= -->
     <el-dialog title="提交订单" center :visible.sync="showOrder" width="40%">
       <span>
-
-
       <div class="addressss">
          <el-select v-model="addressid" placeholder="选择地址" clearable style="width: 500px;text-align: center">
           <el-option v-for="item in addressList"
@@ -154,10 +152,14 @@
       </span>
     </el-dialog>
 
-    <el-dialog title="比价" center :visible.sync="showBJ" width="80%">
+    <!-- ========================= -->
+    <!-- 比价 start -->
+    <!-- ========================= -->
+    <el-dialog title="比价" center :visible.sync="showBJ" width="740px">
       <span>
       <div class="addressss">
-         <el-select v-model="BJid" placeholder="选择比价产品" clearable style="width: 500px;text-align: center;margin-bottom: 30px">
+         <el-select @change="changeBJ" v-model="BJid" placeholder="选择比价产品" clearable
+                    style="width: 700px;text-align: center;margin-bottom: 30px">
           <el-option v-for="item in bjList"
                      :label="item.categoryname + ' - ' + item.title"
                      :value="item.id"
@@ -165,7 +167,130 @@
         </el-select>
       </div>
 
-      <div v-show="showBJ2">
+      <div v-if="showBJ2" style="width: 700px;text-align: center;margin-bottom: 30px">
+<svg style="margin-bottom: 10px" t="1619252669377" class="icon" viewBox="0 0 1706 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5142"
+     width="48" height="48"><path
+  d="M0 26.282667L350.321778 997.831111h145.521778L847.985778 26.168889h-158.151111L423.936 809.756444 158.151111 26.282667H0zM1297.066667 0c229.944889 0 355.669333 99.555556 380.814222 302.535111h-140.060445c-12.515556-60.188444-35.953778-105.244444-71.907555-131.527111-39.480889-30.037333-96.938667-45.169778-170.666667-45.169778-56.547556 0-102.172444 8.647111-136.760889 28.444445l-14.108444 9.102222c-39.480889 24.462222-59.278222 58.368-59.278222 101.489778 0 41.415111 25.031111 77.141333 79.075555 105.244444 34.133333 16.952889 98.759111 37.546667 192.284445 63.943111 111.274667 28.103111 190.350222 58.254222 238.933333 90.112 73.500444 48.924444 111.274667 114.688 111.274667 199.111111C1706.666667 922.624 1575.480889 1024 1313.223111 1024c-244.280889 0-377.287111-112.64-398.791111-336.327111h140.060444c10.808889 77.027556 37.774222 131.527111 77.368889 165.319111 39.480889 30.037333 98.759111 45.169778 177.834667 45.169778 165.205333 0 249.628444-56.433778 249.628444-165.432889 0-54.499556-30.492444-95.800889-87.950222-125.838222-27.761778-13.653333-85.333333-31.971556-171.121778-54.954667l-26.510222-7.054222c-109.568-28.216889-186.823111-56.32-229.944889-86.471111-71.907556-45.056-106.040889-106.951111-106.040889-189.781334 0-82.602667 34.133333-146.545778 104.220445-195.356444C1106.602667 24.348444 1192.846222 0 1297.066667 0z"
+  fill="#5c81e3" p-id="5143"></path></svg>
+
+        <div style="border-top: solid 1px #5c81e3; display: flex;height: 32px;width: 100%">
+          <div style="width: 80px;height: 100%;margin: auto;line-height: 32px">
+
+          </div>
+          <div style="width: 310px;height: 100%;margin: auto;line-height: 32px;font-size: 14px;font-weight: 600">
+            {{detailInfo.title}}
+          </div>
+          <div style="width: 310px;height: 100%;margin: auto;line-height: 32px;font-size: 14px;font-weight: 600">
+            {{detailInfo2.title}}
+          </div>
+        </div>
+
+
+         <div style="border-top: solid 1px #5c81e3; display: flex;height: 100px;width: 100%">
+          <div style="width: 80px;height: 100%;margin: auto;line-height: 100px;color:#5c81e3;">
+             图片
+            </div>
+            <div style="width: 310px;height:100%;margin: 10px auto;">
+              <img :src="detailInfo.image" style="width: 70px; height: 80px;">
+            </div>
+            <div style="width: 310px;height:100%;margin: 10px auto;">
+              <img :src="detailInfo2.image" style="width: 70px; height: 80px;">
+            </div>
+        </div>
+
+
+
+
+
+      <div style="border-top: solid 1px #5c81e3; display: flex;height: 32px;width: 100%">
+          <div style="width: 80px;height: 100%;margin: auto;line-height: 32px;color:#5c81e3;">
+              价格
+            </div>
+            <div style="width: 310px;height: 100%;margin: auto;line-height: 32px;">
+              ￥{{detailInfo.price}}
+            </div>
+            <div style="width: 310px;height: 100%;margin: auto;line-height: 32px;">
+              ￥{{detailInfo2.price}}
+            </div>
+      </div>
+        <div style="border-top: solid 1px #5c81e3; display: flex;height: 32px;width: 100%">
+            <div style="width: 80px;height: 100%;margin: auto;line-height: 32px;color:#5c81e3; ">
+              重量
+            </div>
+            <div style="width: 310px;height: 100%;margin: auto;line-height: 32px;">
+              {{detailInfo.weight}}kg
+            </div>
+            <div style="width: 310px;height: 100%;margin: auto;line-height: 32px;">
+              {{detailInfo2.weight}}kg
+            </div>
+        </div>
+
+         <div style="border-top: solid 1px #5c81e3; display: flex;height: 32px;width: 100%">
+            <div style="width: 80px;height: 100%;margin: auto;line-height: 32px;color:#5c81e3; ">
+              版本
+            </div>
+            <div style="width: 310px;height: 100%;margin: auto;line-height: 32px;">
+              {{detailInfo.version}}
+            </div>
+            <div style="width: 310px;height: 100%;margin: auto;line-height: 32px;">
+              {{detailInfo2.version}}
+            </div>
+        </div>
+
+
+
+         <div style="border-top: solid 1px #5c81e3; display: flex;height: 32px;width: 100%">
+            <div style="width: 80px;height: 100%;margin: auto;line-height: 32px;color:#5c81e3; ">
+             颜色
+            </div>
+            <div style="width: 310px;height: 100%;margin: auto;line-height: 32px;">
+              {{detailInfo.color}}
+            </div>
+            <div style="width: 310px;height: 100%;margin: auto;line-height: 32px;">
+              {{detailInfo2.color}}
+            </div>
+        </div>
+
+
+           <div style="border-top: solid 1px #5c81e3; display: flex;height: 32px;width: 100%">
+            <div style="width: 80px;height: 100%;margin: auto;line-height: 32px;color:#5c81e3; ">
+              电池容量
+            </div>
+            <div style="width: 310px;height: 100%;margin: auto;line-height: 32px;">
+              {{detailInfo.pool}}
+            </div>
+            <div style="width: 310px;height: 100%;margin: auto;line-height: 32px;">
+              {{detailInfo2.pool}}
+            </div>
+        </div>
+
+           <div style="border-top: solid 1px #5c81e3; display: flex;height: 32px;width: 100%">
+            <div style="width: 80px;height: 100%;margin: auto;line-height: 32px;color:#5c81e3; ">
+              尺寸
+            </div>
+            <div style="width: 310px;height: 100%;margin: auto;line-height: 32px;">
+              {{detailInfo.chicun}}
+            </div>
+            <div style="width: 310px;height: 100%;margin: auto;line-height: 32px;">
+              {{detailInfo2.chicun}}
+            </div>
+        </div>
+
+           <div style="border-top: solid 1px #5c81e3; display: flex;height: 32px;width: 100%">
+            <div style="width: 80px;height: 100%;margin: auto;line-height: 32px;color:#5c81e3; ">
+              上市年份
+            </div>
+            <div style="width: 310px;height: 100%;margin: auto;line-height: 32px;">
+              {{detailInfo.year}}
+            </div>
+            <div style="width: 310px;height: 100%;margin: auto;line-height: 32px;">
+              {{detailInfo2.year}}
+            </div>
+        </div>
+
+
+
+
 
       </div>
 
@@ -173,11 +298,11 @@
     </el-dialog>
 
 
-    <el-dialog title="比价VS" center :visible.sync="showBJ2" width="80%">
-      <span>
+    <!--    <el-dialog title="比价VS" center :visible.sync="showBJ2" width="80%">-->
+    <!--      <span>-->
 
-      </span>
-    </el-dialog>
+    <!--      </span>-->
+    <!--    </el-dialog>-->
 
   </div>
 </template>
@@ -210,6 +335,21 @@
         detailId: 0,
         categoryid: 0,
         detailInfo: {},
+        detailInfo2: {
+          name: '',
+          content: '',
+          origin: '',
+          image: '',
+          price: 0,
+          categoryid: '',
+          color: '',
+          version: '',
+          title: '',
+          year: '',
+          weight: '',
+          chicun: '',
+          pool: '',
+        },
 
         addComment: '',
 
@@ -280,14 +420,6 @@
           }
         })
 
-        // // 评论
-        // await getCommentList(1, 100, this.detailId).then(res => {
-        //   if (res.success) {
-        //     this.commentList = res.data.data
-        //     this.countList = res.data.data.length
-        //   }
-        //
-        // })
 
       },
 
@@ -408,39 +540,23 @@
 
       },
 
-      addCommentBtn() {
-        if (this.addComment == '') {
-          this.$message({message: '请输入评论内容', type: 'error', duration: 1700})
-          return
-        }
-
-        let addCommentInfo = {
-          commentary: this.addComment,
-          userid: this.user.id,
-          detailid: this.detailId,
-          categoryid: this.categoryid
-        }
-
-        addComment(addCommentInfo).then(res => {
-          if (res.success) {
-            this.init()
-            this.dilog = false
-            this.addComment = ''
-            this.$message({message: '评论成功', type: 'success', duration: 1700})
-          } else {
-            this.$message({message: '评论失败', type: 'error', duration: 1700})
-          }
-        })
-
-      },
-
-      //
       goBJ() {
         this.showBJ = true
 
         getBJlist().then(res => {
           if (res.success) {
             this.bjList = res.data.data
+          }
+        })
+      },
+
+      changeBJ() {
+
+        getSceneryInfo(this.BJid).then(res => {
+          if (res.success) {
+            this.detailInfo2 = res.data.data
+
+            this.showBJ2 = true
           }
         })
 
