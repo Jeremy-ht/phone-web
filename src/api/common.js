@@ -440,3 +440,9 @@ export function getOrderList(id,params) {
     params
   })
 }
+export function getBJlist() {
+  return request({
+    url: baseURL + `/phones/getBJlist`,
+    method: 'get'
+  })
+}

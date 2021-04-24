@@ -55,8 +55,9 @@
 
           <div class="info-btns">
             <div style="float: right">
-              <div class="buySub hvr-shutter-out-horizontal" @click="addCart(detailInfo.id)">加购物车</div>
+              <div class="buySub hvr-shutter-out-horizontal1" @click="addCart(detailInfo.id)">加购物车</div>
               <div class="buySub hvr-shutter-out-horizontal1" @click="go(detailInfo.id)">立即购买</div>
+              <div class="buySub hvr-shutter-out-horizontal1" @click="goBJ()">比价</div>
             </div>
 
           </div>
@@ -153,12 +154,38 @@
       </span>
     </el-dialog>
 
+    <el-dialog title="比价" center :visible.sync="showBJ" width="80%">
+      <span>
+      <div class="addressss">
+         <el-select v-model="BJid" placeholder="选择比价产品" clearable style="width: 500px;text-align: center;margin-bottom: 30px">
+          <el-option v-for="item in bjList"
+                     :label="item.categoryname + ' - ' + item.title"
+                     :value="item.id"
+                     :key="item.id"/>
+        </el-select>
+      </div>
+
+      <div v-show="showBJ2">
+
+      </div>
+
+      </span>
+    </el-dialog>
+
+
+    <el-dialog title="比价VS" center :visible.sync="showBJ2" width="80%">
+      <span>
+
+      </span>
+    </el-dialog>
+
   </div>
 </template>
 
 <script>
   import {
     getInfoList6,
+    getBJlist,
     addOrder2,
     getSceneryInfo,
     addCart,
@@ -177,6 +204,8 @@
 
       return {
         dilog: false,
+        showBJ: false,
+        showBJ2: false,
         user: {},
         detailId: 0,
         categoryid: 0,
@@ -211,7 +240,9 @@
         showOrder: false,
         // 地址
         addressList: [],
+        bjList: [],
         addressid: '',
+        BJid: '',
         ids: [],
       }
     },
@@ -400,6 +431,19 @@
             this.$message({message: '评论失败', type: 'error', duration: 1700})
           }
         })
+
+      },
+
+      //
+      goBJ() {
+        this.showBJ = true
+
+        getBJlist().then(res => {
+          if (res.success) {
+            this.bjList = res.data.data
+          }
+        })
+
 
       },
 
