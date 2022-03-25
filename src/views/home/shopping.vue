@@ -335,7 +335,7 @@ export default {
     handleChange(value, id, price) {
       updAmount(this.UserInfo.id, id, value).then(res => {
         if (this.ids.includes(id)) {
-          if (res.data.amount > value) {
+          if (res.data.data.amount > value) {
             this.totalPrice -= parseInt(price)
           } else {
             this.totalPrice += parseInt(price)
