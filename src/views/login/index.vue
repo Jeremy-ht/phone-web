@@ -48,208 +48,209 @@
 </template>
 
 <script>
-  import { adminLogin } from '../../api/common'
+import { adminLogin } from '../../api/common'
 
-  export default {
-    name: 'index',
-    data() {
-      return {
-        //表单数据绑定
-        loginForm: {
-          username: '',
-          password: ''
-        },
-        //表单验证
-        loginFormRules: {
-          username:
-            [
-              { required: true, message: '请输入用户名', trigger: 'blur' },
-              { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
-            ],
-          password:
-            [
-              { required: true, message: '请输入密码', trigger: 'blur' },
-              { min: 3, max: 16, message: '长度在 3 到 16 个字符', trigger: 'blur' }
-            ]
-        }
-
+export default {
+  name: 'index',
+  data() {
+    return {
+      //表单数据绑定
+      loginForm: {
+        username: '',
+        password: ''
+      },
+      //表单验证
+      loginFormRules: {
+        username:
+          [
+            { required: true, message: '请输入用户名', trigger: 'blur' },
+            { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
+          ],
+        password:
+          [
+            { required: true, message: '请输入密码', trigger: 'blur' },
+            { min: 3, max: 16, message: '长度在 3 到 16 个字符', trigger: 'blur' }
+          ]
       }
-    },
-    methods: {
-      login() {
-        if (this.loginForm.username.trim() == '') {
-          this.$message({ message: '用户名不能为空', type: 'error', duration: 1700 })
-          return
-        }
-
-        if (this.loginForm.password.trim() == '') {
-          this.$message({ message: '密码不能为空', type: 'error', duration: 1700 })
-          return
-        }
-        adminLogin(this.loginForm).then(res => {
-          if (res.success) {
-            window.localStorage.setItem('AdminInfoFlower', JSON.stringify(res.data.data))
-            this.$router.push({ path: '/' })
-          } else {
-            this.$message({ message: res.message, type: 'error', duration: 1700 })
-
-          }
-
-        })
-
-      },
-
-      //重置
-      resetLoginForm() {
-        this.$refs.loginFormRef.resetFields()
-      },
-      // 去首页
-      goHome() {
-        this.$router.push({ path: `/phone` })
-      },
 
     }
+  },
+  methods: {
+    login() {
+      if (this.loginForm.username.trim() == '') {
+        this.$message({ message: '用户名不能为空', type: 'error', duration: 1700 })
+        return
+      }
+
+      if (this.loginForm.password.trim() == '') {
+        this.$message({ message: '密码不能为空', type: 'error', duration: 1700 })
+        return
+      }
+      adminLogin(this.loginForm).then(res => {
+        if (res.success) {
+          window.localStorage.setItem('AdminInfoFlower', JSON.stringify(res.data.data))
+          this.$router.push({ path: '/' })
+        } else {
+          this.$message({ message: res.message, type: 'error', duration: 1700 })
+
+        }
+
+      })
+
+    },
+
+    //重置
+    resetLoginForm() {
+      this.$refs.loginFormRef.resetFields()
+    },
+    // 去首页
+    goHome() {
+      this.$router.push({ path: `/phone` })
+    },
+
   }
+}
 </script>
 
 <style scoped>
 
-  .login-container {
-    background-image: url("../../assets/login2.jpg");
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-  }
+.login-container {
+  background-image: url("../../assets/login2.jpg");
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
 
-  .login-div {
-    width: 400px;
-    height: 400px;
-    background-color: white;
-    margin: 40px auto;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-  }
+.login-div {
+  width: 400px;
+  height: 400px;
+  background-color: white;
+  margin: 40px auto;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+}
 
-  .login-div22 {
-    width: 400px;
-    height: 420px;
-    background-color: white;
-    margin: 40px auto;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-  }
+.login-div22 {
+  width: 400px;
+  height: 420px;
+  background-color: white;
+  margin: 40px auto;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+}
 
-  .left-image {
-    width: 300px;
-    height: 100%;
+.left-image {
+  width: 300px;
+  height: 100%;
 
-  }
+}
 
-  .login-form {
-    margin: 0 auto;
-  }
+.login-form {
+  margin: 0 auto;
+}
 
-  .icon111 {
-    width: 50px;
-    height: 40px;
-    margin: 20px auto 0 auto;
-    cursor: pointer;
-  }
+.icon111 {
+  width: 50px;
+  height: 40px;
+  margin: 20px auto 0 auto;
+  cursor: pointer;
+}
 
-  .form-input {
-    width: 330px;
-    /*margin-top: 2px;*/
-    /*background-color: #ffb01e;*/
-    /*cursor: pointer;*/
-    display: flex;
-    border-radius: 3px;
-  }
+.form-input {
+  width: 330px;
+  /*margin-top: 2px;*/
+  /*background-color: #ffb01e;*/
+  /*cursor: pointer;*/
+  display: flex;
+  border-radius: 3px;
+}
 
-  .form-btn {
-    margin-top: 20px;
-    width: 330px;
-    background-color: #d81e06;
-    cursor: pointer;
-    display: flex;
-    border-radius: 5px;
-    line-height: 40px;
-    height: 40px;
-    text-align: center;
-  }
+.form-btn {
+  margin-top: 20px;
+  width: 330px;
+  background-color: #d81e06;
+  cursor: pointer;
+  display: flex;
+  border-radius: 5px;
+  line-height: 40px;
+  height: 40px;
+  text-align: center;
+}
 
-  .form-btn22 {
-    /*margin-top: 10px;*/
-    width: 330px;
-    background-color: #d81e06;
-    cursor: pointer;
-    display: flex;
-    border-radius: 5px;
-    line-height: 40px;
-    height: 40px;
-    text-align: center;
-  }
+.form-btn22 {
+  /*margin-top: 10px;*/
+  width: 330px;
+  background-color: #d81e06;
+  cursor: pointer;
+  display: flex;
+  border-radius: 5px;
+  line-height: 40px;
+  height: 40px;
+  text-align: center;
+}
 
-  .form-btn2 {
-    /*margin-top: 30px;*/
-    width: 330px;
-    background-color: #ffb01e;
-    cursor: pointer;
-    display: flex;
-    border-radius: 3px;
-    line-height: 40px;
-    height: 40px;
-    text-align: center;
-  }
-
-
-  .login-span {
-    color: white;
-    margin: auto;
-    font-size: 18px;
-    font-weight: 500;
-  }
-
-  .register-go {
-    /*margin-top: 10px;*/
-
-  }
-
-  .register-go-a {
-    float: right;
-    /*margin-left: 32px;*/
-    font-size: 14px;
-    font-weight: 600;
-    color: #5a98de;
-  }
+.form-btn2 {
+  /*margin-top: 30px;*/
+  width: 330px;
+  background-color: #ffb01e;
+  cursor: pointer;
+  display: flex;
+  border-radius: 3px;
+  line-height: 40px;
+  height: 40px;
+  text-align: center;
+}
 
 
-  .register-form {
-    margin: 0 auto;
-  }
+.login-span {
+  color: white;
+  margin: auto;
+  font-size: 18px;
+  font-weight: 500;
+}
 
-  .el-radio__input.is-checked + .el-radio__label {
-    color: #ffb01e;
-  }
+.register-go {
+  /*margin-top: 10px;*/
 
-  .el-radio__input.is-checked .el-radio__inner {
-    border-color: #ffb01e;
-    background: #ffb01e;
-  }
+}
 
-  .right-div {
-    background: linear-gradient(#fff, #f5f5f5);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
-  }
+.register-go-a {
+  float: right;
+  /*margin-left: 32px;*/
+  font-size: 14px;
+  font-weight: 600;
+  color: #5a98de;
+}
 
-  /deep/ .el-link.el-link--default:hover {
-    color: #e47a0f;
-  }
-  /deep/  .el-link.el-link--default:hover {
-    color: #e47a0f;
-  }
+
+.register-form {
+  margin: 0 auto;
+}
+
+.el-radio__input.is-checked + .el-radio__label {
+  color: #ffb01e;
+}
+
+.el-radio__input.is-checked .el-radio__inner {
+  border-color: #ffb01e;
+  background: #ffb01e;
+}
+
+.right-div {
+  background: linear-gradient(#fff, #f5f5f5);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
+}
+
+/deep/ .el-link.el-link--default:hover {
+  color: #e47a0f;
+}
+
+/deep/ .el-link.el-link--default:hover {
+  color: #e47a0f;
+}
 
 </style>
