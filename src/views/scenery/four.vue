@@ -129,7 +129,12 @@
         imageShow: '',
         addDialogVisible: false,
         pid: 0,
-
+        addCateRules: {
+          categoryname: [
+            {required: true, message: '请输入分类名', trigger: 'blur'},
+            {min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur'}
+          ]
+        }
       }
     },
     components: {

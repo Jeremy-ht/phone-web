@@ -111,7 +111,7 @@
 
       <el-form-item label="缩略图">
         <el-upload class="avatar-uploader"
-                   action="http://127.0.0.1:9000/upload/updataFile"
+                   :action="url"
                    :show-file-list="false"
                    :on-success="handleAvatarSuccess">
           <img v-if="addDetail.image !== ''" :src="addDetail.image" class="avatar">
@@ -162,6 +162,7 @@
     name: 'add',
     data() {
       return {
+        url:'http://127.0.0.1:9000/upload/updataFile',
         addDetail: addDetailInfo,
         cateList: [],    // 分类列表
 
@@ -378,7 +379,7 @@
       // 封面上传成功
       handleAvatarSuccess(res, file) {
         if (res.success) {
-          this.addDetail.cover = res.data.location
+          this.addDetail.image = res.data.location
         } else {
           this.$message({message: '封面上传失败，请重新上传', type: 'error', duration: 1700})
         }
