@@ -143,7 +143,6 @@
     },
     created() {
       this.getInit()
-
     },
     methods: {
       // 初始化
@@ -156,23 +155,6 @@
         } else {
           this.adminInfo = admin
         }
-
-        // let params = {
-        //   pagenum: this.pagenum,
-        //   pagesize: this.pagesize
-        // }
-        // await getSceneryList(params, 0).then(res => {
-        //   this.myDetailList = []
-        //   if (res.success && res.data.data.length != 0) {
-        //     this.pageMyTotal = res.data.total
-        //     this.myDetailList = res.data.data
-        //   } else {
-        //     this.$message({
-        //       message: '获取列表失败，请刷新再试!',
-        //       type: 'error', duration: 1700
-        //     })
-        //   }
-        // })
 
         // 全部列表
         let paramsAll = {
